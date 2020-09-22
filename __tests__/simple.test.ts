@@ -1,7 +1,7 @@
 import * as fastify from "fastify";
 import { Server, IncomingMessage, ServerResponse } from "http";
 
-import statusRoutes from "../src/modules/routes/status";
+import statusRoutes from "../src/routes/status";
 
 describe("/status", () => {
   let server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse>;

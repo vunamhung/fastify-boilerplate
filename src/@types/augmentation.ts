@@ -1,7 +1,7 @@
 import * as fastify from "fastify";
 import * as http from "http";
 
-import { Db } from "modules/db";
+import { Db } from "db";
 declare module "fastify" {
   export interface FastifyInstance<
     HttpServer = http.Server,

@@ -5,19 +5,19 @@ import * as fastify from "fastify";
 import * as fastifyBlipp from "fastify-blipp";
 import { Server, IncomingMessage, ServerResponse } from "http";
 import * as config from "config";
-import statusRoutes from "./modules/routes/status";
-import vehiclesRoutes from "./modules/routes/vehicles";
-import errorThrowerRoutes from "./modules/routes/error-thrower";
-import db from "./modules/db";
+import statusRoutes from "routes/status";
+import vehiclesRoutes from "routes/vehicles";
+import errorThrowerRoutes from "routes/error-thrower";
+import db from "db";
 
 const server: fastify.FastifyInstance<
   Server,
   IncomingMessage,
   ServerResponse
-> = fastify({logger:true});
+> = fastify({ logger: true });
 
 server.register(fastifyBlipp);
-server.register(db, config.get('db'));
+server.register(db, config.get("db"));
 server.register(vehiclesRoutes);
 server.register(statusRoutes);
 server.register(errorThrowerRoutes);
@@ -33,10 +33,10 @@ const start = async () => {
   }
 };
 
-process.on("uncaughtException", error => {
+process.on("uncaughtException", (error) => {
   console.error(error);
 });
-process.on("unhandledRejection", error => {
+process.on("unhandledRejection", (error) => {
   console.error(error);
 });
 

@@ -26,5 +26,8 @@
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.4"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
   }
 }

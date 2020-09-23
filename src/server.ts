@@ -1,8 +1,10 @@
+import { join, resolve } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import * as http from 'http';
 
 import fastifyBlipp from 'fastify-blipp';
 import fastifyCors from 'fastify-cors';
+import fastifyStatic from 'fastify-static';
 
 import db from './models';
 
@@ -33,6 +35,11 @@ export default class Server {
   private registerPlugins() {
     this.server.register(fastifyCors);
     this.server.register(fastifyBlipp);
+    this.server.register(fastifyStatic, {
+      root: join(__dirname, '..', '..', 'public'),
+      prefix: '/',
+      wildcard: false,
+    });
     this.server.register(db, { uri: process.env.DB_URI });
   }
 

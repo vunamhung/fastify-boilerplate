@@ -11,7 +11,7 @@ export interface Db {
   models: Models;
 }
 
-export default fp(async (server, opts: { uri: string }, next) => {
+export default fp(async (server, options: { uri: string }, next) => {
   connection.on('connected', () => {
     server.log.info({ actor: 'MongoDB' }, 'connected');
   });
@@ -20,7 +20,7 @@ export default fp(async (server, opts: { uri: string }, next) => {
     server.log.error({ actor: 'MongoDB' }, 'disconnected');
   });
 
-  await connect(opts.uri, {
+  await connect(options.uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,

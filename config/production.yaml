@@ -1,2 +1,0 @@
-db:
-  uri: "mongodb://mongodb:27017/vehicles"

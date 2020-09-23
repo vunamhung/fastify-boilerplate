@@ -6,6 +6,7 @@ dotenv.config();
 
 import fastify from 'fastify';
 import fastifyBlipp from 'fastify-blipp';
+import fastifyCors from 'fastify-cors';
 import statusRoutes from './routes/status';
 import vehiclesRoutes from './routes/vehicles';
 import errorThrowerRoutes from './routes/error-thrower';
@@ -13,6 +14,7 @@ import db from './db';
 
 const server = fastify({ logger: true });
 
+server.register(fastifyCors);
 server.register(fastifyBlipp);
 server.register(db, { uri: process.env.DB_URI });
 server.register(vehiclesRoutes);

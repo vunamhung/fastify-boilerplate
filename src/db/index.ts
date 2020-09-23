@@ -23,6 +23,7 @@ export default fp(async (fastify, opts: { uri: string }, next) => {
 
   await Mongoose.connect(opts.uri, {
     useNewUrlParser: true,
+    useUnifiedTopology: true,
     keepAlive: true,
   });
 

@@ -1,7 +1,8 @@
+import * as dotenv from "dotenv";
 import * as sourceMapSupport from "source-map-support";
-sourceMapSupport.install();
 
-require("dotenv").config();
+sourceMapSupport.install();
+dotenv.config();
 
 import * as fastify from "fastify";
 import * as fastifyBlipp from "fastify-blipp";

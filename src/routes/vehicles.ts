@@ -1,37 +1,10 @@
-import { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
+import Vehicles from '../controllers/Vehicles';
 
-export default fp(async (server: FastifyInstance, opts, next) => {
-  server.get('/vehicles/:id', {}, async (request, reply) => {
-    try {
-      // @ts-ignore
-      const _id = request.params.id;
+export default fp(async (server, opts, done) => {
+  server.get('/vehicles/:id', {}, async (request, reply) => new Vehicles(server, request, reply).findOneEntry());
+  server.get('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).findAllEntries());
+  server.post('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).addNewEntry());
 
-      const vehicle = await server.db.models.Vehicle.findOne({ _id });
-
-      if (!vehicle) {
-        return reply.send(404);
-      }
-
-      return reply.code(200).send(vehicle);
-    } catch (error) {
-      request.log.error(error);
-      return reply.send(400);
-    }
-  });
-
-  server.post('/vehicles', {}, async (request, reply) => {
-    try {
-      const { Vehicle } = server.db.models;
-
-      // @ts-ignore
-      const vehicle = await Vehicle.create(request.body);
-
-      return reply.code(201).send(vehicle);
-    } catch (error) {
-      request.log.error(error);
-      return reply.send(500);
-    }
-  });
-  next();
+  done();
 });

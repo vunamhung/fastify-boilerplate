@@ -11,7 +11,7 @@ export interface Db {
   models: Models;
 }
 
-export default fp(async (server, options: { uri: string }, next) => {
+export default fp(async (server, options: { uri: string }, done) => {
   connection.on('connected', () => {
     server.log.info({ actor: 'MongoDB' }, 'connected');
   });
@@ -32,5 +32,5 @@ export default fp(async (server, options: { uri: string }, next) => {
 
   server.decorate('db', { models });
 
-  next();
+  done();
 });

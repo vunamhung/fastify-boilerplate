@@ -1,6 +1,6 @@
 import fp from 'fastify-plugin';
 
-export default fp(async (server, opts, next) => {
+export default fp(async (server, opts, done) => {
   server.route({
     url: '/status',
     logLevel: 'warn',
@@ -9,5 +9,6 @@ export default fp(async (server, opts, next) => {
       return reply.send({ date: new Date(), works: true });
     },
   });
-  next();
+
+  done();
 });

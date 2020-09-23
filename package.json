@@ -10,7 +10,7 @@
     "dev": "ts-node --files ./src/index.ts"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
+    "dotenv-flow": "^3.2.0",
     "fastify": "^1.13.4",
     "fastify-blipp": "^1.2.1",
     "fastify-plugin": "^1.4.0",

@@ -1,13 +1,13 @@
+import { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
 
-export default fp(async (server, opts, next) => {
+export default fp(async (server: FastifyInstance, opts, next) => {
   server.get('/vehicles/:id', {}, async (request, reply) => {
     try {
+      // @ts-ignore
       const _id = request.params.id;
 
-      const vehicle = await server.db.models.Vehicle.findOne({
-        _id,
-      });
+      const vehicle = await server.db.models.Vehicle.findOne({ _id });
 
       if (!vehicle) {
         return reply.send(404);
@@ -24,6 +24,7 @@ export default fp(async (server, opts, next) => {
     try {
       const { Vehicle } = server.db.models;
 
+      // @ts-ignore
       const vehicle = await Vehicle.create(request.body);
 
       return reply.code(201).send(vehicle);

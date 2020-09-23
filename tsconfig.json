@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["es2016"],
+    "lib": ["es2018", "es2015", "es2017", "esnext"],
     "paths": {
       "*": ["src/*"]
     },
     "allowJs": true,
-    "target": "es2016",
+    "target": "es2018",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,

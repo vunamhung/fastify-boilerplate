@@ -1,20 +1,20 @@
-import * as dotenv from 'dotenv-flow';
-import * as sourceMapSupport from 'source-map-support';
+import { config } from 'dotenv-flow';
+import { install } from 'source-map-support';
 
-sourceMapSupport.install();
-dotenv.config();
+install();
+config();
 
-import fastify, { FastifyInstance } from 'fastify';
+import { fastify, FastifyInstance } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 
 import fastifyBlipp from 'fastify-blipp';
 import fastifyCors from 'fastify-cors';
 
-import db from './db';
+import db from './models';
 
 import statusRoutes from './routes/status';
 import vehiclesRoutes from './routes/vehicles';
-import errorThrowerRoutes from './routes/error-thrower';
+import errorThrowerRoutes from './routes/error';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true });
 

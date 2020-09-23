@@ -1,15 +1,11 @@
+import fp from 'fastify-plugin';
 import { Model } from 'mongoose';
 import * as Mongoose from 'mongoose';
-import { VehicleModel, Vehicle } from './models/vehicle';
 
-import * as fp from 'fastify-plugin';
+import { VehicleModel, Vehicle } from './models/vehicle';
 
 export interface Models {
   Vehicle: Model<VehicleModel>;
-}
-
-export interface Db {
-  models: Models;
 }
 
 export default fp(async (fastify, opts: { uri: string }, next) => {

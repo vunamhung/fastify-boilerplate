@@ -4,15 +4,19 @@ import * as sourceMapSupport from 'source-map-support';
 sourceMapSupport.install();
 dotenv.config();
 
-import fastify from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
+import { IncomingMessage, Server, ServerResponse } from 'http';
+
 import fastifyBlipp from 'fastify-blipp';
 import fastifyCors from 'fastify-cors';
+
+import db from './db';
+
 import statusRoutes from './routes/status';
 import vehiclesRoutes from './routes/vehicles';
 import errorThrowerRoutes from './routes/error-thrower';
-import db from './db';
 
-const server = fastify({ logger: true });
+const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true });
 
 server.register(fastifyCors);
 server.register(fastifyBlipp);

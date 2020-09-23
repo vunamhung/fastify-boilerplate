@@ -1,12 +1,12 @@
-import * as fp from "fastify-plugin";
+import * as fp from 'fastify-plugin';
 
 export default fp(async (server, opts, next) => {
-  server.get("/vehicles/:id", {}, async (request, reply) => {
+  server.get('/vehicles/:id', {}, async (request, reply) => {
     try {
       const _id = request.params.id;
 
       const vehicle = await server.db.models.Vehicle.findOne({
-        _id
+        _id,
       });
 
       if (!vehicle) {
@@ -20,7 +20,7 @@ export default fp(async (server, opts, next) => {
     }
   });
 
-  server.post("/vehicles", {}, async (request, reply) => {
+  server.post('/vehicles', {}, async (request, reply) => {
     try {
       const { Vehicle } = server.db.models;
 

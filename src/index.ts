@@ -1,16 +1,16 @@
-import * as dotenv from "dotenv-flow";
-import * as sourceMapSupport from "source-map-support";
+import * as dotenv from 'dotenv-flow';
+import * as sourceMapSupport from 'source-map-support';
 
 sourceMapSupport.install();
 dotenv.config();
 
-import * as fastify from "fastify";
-import * as fastifyBlipp from "fastify-blipp";
-import { Server, IncomingMessage, ServerResponse } from "http";
-import statusRoutes from "./routes/status";
-import vehiclesRoutes from "./routes/vehicles";
-import errorThrowerRoutes from "./routes/error-thrower";
-import db from "./db";
+import * as fastify from 'fastify';
+import * as fastifyBlipp from 'fastify-blipp';
+import { Server, IncomingMessage, ServerResponse } from 'http';
+import statusRoutes from './routes/status';
+import vehiclesRoutes from './routes/vehicles';
+import errorThrowerRoutes from './routes/error-thrower';
+import db from './db';
 
 const server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse> = fastify({ logger: true });
 
@@ -22,7 +22,7 @@ server.register(errorThrowerRoutes);
 
 const start = async () => {
   try {
-    await server.listen(3000, "localhost");
+    await server.listen(3000, 'localhost');
     server.blipp();
   } catch (err) {
     console.log(err);
@@ -31,10 +31,10 @@ const start = async () => {
   }
 };
 
-process.on("uncaughtException", (error) => {
+process.on('uncaughtException', (error) => {
   console.error(error);
 });
-process.on("unhandledRejection", (error) => {
+process.on('unhandledRejection', (error) => {
   console.error(error);
 });
 

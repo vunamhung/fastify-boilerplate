@@ -1,8 +1,8 @@
-import { Model } from "mongoose";
-import * as Mongoose from "mongoose";
-import { VehicleModel, Vehicle } from "./models/vehicle";
+import { Model } from 'mongoose';
+import * as Mongoose from 'mongoose';
+import { VehicleModel, Vehicle } from './models/vehicle';
 
-import * as fp from "fastify-plugin";
+import * as fp from 'fastify-plugin';
 
 export interface Models {
   Vehicle: Model<VehicleModel>;
@@ -13,12 +13,12 @@ export interface Db {
 }
 
 export default fp(async (fastify, opts: { uri: string }, next) => {
-  Mongoose.connection.on("connected", () => {
-    fastify.log.info({ actor: "MongoDB" }, "connected");
+  Mongoose.connection.on('connected', () => {
+    fastify.log.info({ actor: 'MongoDB' }, 'connected');
   });
 
-  Mongoose.connection.on("disconnected", () => {
-    fastify.log.error({ actor: "MongoDB" }, "disconnected");
+  Mongoose.connection.on('disconnected', () => {
+    fastify.log.error({ actor: 'MongoDB' }, 'disconnected');
   });
 
   await Mongoose.connect(opts.uri, {
@@ -31,7 +31,7 @@ export default fp(async (fastify, opts: { uri: string }, next) => {
     Vehicle: Vehicle,
   };
 
-  fastify.decorate("db", { models });
+  fastify.decorate('db', { models });
 
   next();
 });

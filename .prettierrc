@@ -1,6 +1,5 @@
 {
   "printWidth": 145,
-  "useTabs": false,
-  "braceStyle": "1tbs",
+  "singleQuote": true,
   "trailingComma": "all"
 }

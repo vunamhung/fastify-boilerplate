@@ -1,14 +1,14 @@
 import fp from 'fastify-plugin';
 import { Model, connection, connect } from 'mongoose';
 
-import { VehicleModel, Vehicle } from './Vehicle';
+import { IVehicleModel, Vehicle } from './Vehicle';
 
-export interface Models {
-  Vehicle: Model<VehicleModel>;
+export interface IModels {
+  Vehicle: Model<IVehicleModel>;
 }
 
-export interface Db {
-  models: Models;
+export interface IDatabase {
+  models: IModels;
 }
 
 export default fp(async (server, options: { uri: string }, done) => {
@@ -26,7 +26,7 @@ export default fp(async (server, options: { uri: string }, done) => {
     keepAlive: true,
   });
 
-  const models: Models = {
+  const models: IModels = {
     Vehicle: Vehicle,
   };
 

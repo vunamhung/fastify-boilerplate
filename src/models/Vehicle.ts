@@ -1,12 +1,12 @@
 import { Document, Schema, Model, model } from 'mongoose';
 
-export interface VehicleDocument extends Document {
+export interface IVehicleDocument extends Document {
   year: number;
   name: string;
   createdDate: Date;
 }
 
-export interface VehicleModel extends VehicleDocument {}
+export interface IVehicleModel extends IVehicleDocument {}
 
 export const VehicleSchema: Schema = new Schema(
   {
@@ -17,8 +17,8 @@ export const VehicleSchema: Schema = new Schema(
   { collection: 'vehicles' },
 );
 
-VehicleSchema.pre<VehicleDocument>('save', async function () {
+VehicleSchema.pre<IVehicleDocument>('save', async function () {
   this.createdDate = new Date();
 });
 
-export const Vehicle: Model<VehicleModel> = model<VehicleModel>('Vehicle', VehicleSchema);
+export const Vehicle: Model<IVehicleModel> = model<IVehicleModel>('Vehicle', VehicleSchema);

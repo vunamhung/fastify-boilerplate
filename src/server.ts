@@ -9,6 +9,7 @@ import fastifyCors from 'fastify-cors';
 import fastifyStatic from 'fastify-static';
 
 import db from './models';
+import utilities from './utilities';
 import routes from './routes';
 
 export default class Server {
@@ -35,6 +36,8 @@ export default class Server {
   }
 
   private registerPlugins() {
+    this.server.register(db, { uri: process.env.DB_URI });
+    this.server.register(utilities);
     this.server.register(fastifySwagger, {
       routePrefix: '/documentation',
       swagger: {
@@ -73,7 +76,6 @@ export default class Server {
       prefix: '/',
       wildcard: false,
     });
-    this.server.register(db, { uri: process.env.DB_URI });
   }
 
   private registerRoutes() {

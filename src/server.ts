@@ -20,7 +20,7 @@ export default class Server {
   private port: number | string;
 
   constructor() {
-    this.port = process.env.PORT || 5000;
+    this.port = 3000;
     this.server = fastify({ ignoreTrailingSlash: true, logger: { level: 'fatal' } });
 
     this.registerPlugins();

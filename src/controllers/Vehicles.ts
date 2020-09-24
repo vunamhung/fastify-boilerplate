@@ -13,7 +13,7 @@ export default class Vehicles extends Controller {
       return this.reply.code(200).send(vehicles);
     } catch (error) {
       this.request.log.error(error);
-      return this.reply.send(400);
+      throw boomify(error);
     }
   }
 

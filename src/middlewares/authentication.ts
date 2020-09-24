@@ -1,4 +1,5 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { unauthorized, forbidden } from '@hapi/boom';
 
 /**
  * Determine account, and user type from the incoming request.
@@ -29,13 +30,13 @@ export function protectUserRoute(request, reply, done) {
   const auth = request.headers['authorization'] as string;
 
   if (!auth) {
-    return reply.status(401).send({ error: 'unauthorized', message: 'Missing authentication token' });
+    throw unauthorized('Missing authentication token');
   }
 
   const { account, email, id } = determineAccountAndUser(this, request);
 
   if (account !== 'account1') {
-    return reply.status(403).send({ error: 'forbidden', message: 'Invalid credentials in authentication token' });
+    throw forbidden('Invalid credentials in authentication token');
   }
 
   return done();
@@ -60,7 +61,7 @@ export function protectAuthorizedUser(request, reply, done) {
   const { account, email, id } = determineAccountAndUser(this, request);
 
   if (!account) {
-    return reply.status(403).send({ error: 'forbidden', message: 'Invalid credentials in authentication token' });
+    throw forbidden('Invalid credentials in authentication token');
   }
 
   return done();

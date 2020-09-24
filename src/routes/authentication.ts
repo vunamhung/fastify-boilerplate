@@ -1,8 +1,9 @@
+import { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
 import { protectUserRoute } from '../middlewares/authentication';
 import Users from '../controllers/Users';
 
-export default fp(async (server, options, done) => {
+export default fp(async (server: FastifyInstance, options, done) => {
   server.post(
     '/sign-in',
     {

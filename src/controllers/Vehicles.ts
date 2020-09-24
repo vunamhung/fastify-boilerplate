@@ -6,7 +6,7 @@ export default class Vehicles extends Controller {
     try {
       const { Vehicle } = this.models;
 
-      const vehicles = await Vehicle.aggregate([{ $match: {} }]);
+      const vehicles = await Vehicle.find();
 
       if (!vehicles) return notFound('Not found any vehicles');
 
@@ -21,7 +21,7 @@ export default class Vehicles extends Controller {
     try {
       const { Vehicle } = this.models;
 
-      const vehicle = await Vehicle.findOne({ _id: this.id });
+      const vehicle = await Vehicle.findById(this.id);
 
       if (!vehicle) return notFound('Vehicle not found');
 

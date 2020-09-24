@@ -19,6 +19,7 @@
     "fastify-boom": "^1.0.0",
     "fastify-cors": "^4.1.0",
     "fastify-plugin": "2.3.4",
+    "fastify-prettier": "^1.1.6",
     "fastify-static": "^3.2.0",
     "fastify-swagger": "^3.3.0",
     "jsonwebtoken": "^8.5.1",

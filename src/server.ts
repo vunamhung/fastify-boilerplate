@@ -3,6 +3,7 @@ import { fastify, FastifyInstance } from 'fastify';
 import * as fastifyBoom from 'fastify-boom';
 import * as http from 'http';
 
+import fastifyPrettier from 'fastify-prettier';
 import fastifySwagger from 'fastify-swagger';
 import fastifyBlipp from 'fastify-blipp';
 import fastifyCors from 'fastify-cors';
@@ -38,6 +39,7 @@ export default class Server {
   private registerPlugins() {
     this.server.register(db, { uri: process.env.DB_URI });
     this.server.register(utilities);
+    this.server.register(fastifyPrettier, { fallbackOnError: false });
     this.server.register(fastifySwagger, {
       routePrefix: '/documentation',
       swagger: {

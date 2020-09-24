@@ -1677,7 +1677,7 @@ fastify-error@^0.2.0:
   resolved "https://registry.yarnpkg.com/fastify-error/-/fastify-error-0.2.0.tgz#9a1c28d4f42b6259e7a549671c8e5e2d85660634"
   integrity sha512-zabxsBatj59ROG0fhP36zNdc5Q1/eYeH9oSF9uvfrurZf8/JKfrJbMcIGrLpLWcf89rS6L91RHWm20A/X85hcA==
 
-fastify-plugin@2.3.4, fastify-plugin@^2.0.0, fastify-plugin@^2.0.1, fastify-plugin@^2.3.0:
+fastify-plugin@2.3.4, fastify-plugin@^2.0.0, fastify-plugin@^2.0.1, fastify-plugin@^2.3.0, fastify-plugin@^2.3.2:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-2.3.4.tgz#b17abdc36a97877d88101fb86ad8a07f2c07de87"
   integrity sha512-I+Oaj6p9oiRozbam30sh39BiuiqBda7yK2nmSPVwDCfIBlKnT8YB3MY+pRQc2Fcd07bf6KPGklHJaQ2Qu81TYQ==
@@ -1690,6 +1690,15 @@ fastify-plugin@^0.2.2:
   integrity sha512-oRJdjdudgCkQQUARNeh2rkbxFAmj2OhCJSVBNBLUbhS0orF+IMQ4u/bc661N1jh/wDI2J+YKmXmmHSVFQI4e7A==
   dependencies:
     semver "^5.4.1"
+
+fastify-prettier@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/fastify-prettier/-/fastify-prettier-1.1.6.tgz#cf23307ff529b203c98baf3696922e09e82ee9ce"
+  integrity sha512-oAGdY+MiG2OQhDFr2CNnqlX9A2nGE7XjNUlxJ7DT0wId4sgGO0sXB1yrWlqy0tyWOVu3D0+hTLQVhnMflloSbA==
+  dependencies:
+    fastify-plugin "^2.3.2"
+    is-stream "^2.0.0"
+    prettier "^2.1.1"
 
 fastify-static@^3.0.0, fastify-static@^3.2.0:
   version "3.2.0"
@@ -3489,7 +3498,7 @@ prelude-ls@~1.1.2:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.1.2.tgz#21932a549f5e52ffd9a827f570e04be62a97da54"
   integrity sha1-IZMqVJ9eUv/ZqCf1cOBL5iqX2lQ=
 
-prettier@^2.1.2:
+prettier@^2.1.1, prettier@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.2.tgz#3050700dae2e4c8b67c4c3f666cdb8af405e1ce5"
   integrity sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==

@@ -1,5 +1,6 @@
 import { join, resolve } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
+import * as fastifyBoom from 'fastify-boom';
 import * as http from 'http';
 
 import fastifySwagger from 'fastify-swagger';
@@ -66,6 +67,7 @@ export default class Server {
       },
       exposeRoute: true,
     });
+    this.server.register(fastifyBoom);
     this.server.register(fastifyCors);
     this.server.register(fastifyBlipp);
     this.server.register(fastifyStatic, {

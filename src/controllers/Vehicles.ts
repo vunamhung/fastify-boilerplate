@@ -1,3 +1,4 @@
+import { boomify } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Vehicles extends Controller {
@@ -27,7 +28,7 @@ export default class Vehicles extends Controller {
       return this.reply.code(200).send(vehicle);
     } catch (error) {
       this.request.log.error(error);
-      return this.reply.send(400);
+      throw boomify(error);
     }
   }
 
@@ -40,7 +41,7 @@ export default class Vehicles extends Controller {
       return this.reply.code(201).send(vehicle);
     } catch (error) {
       this.request.log.error(error);
-      return this.reply.send(500);
+      throw boomify(error);
     }
   }
 }

@@ -1,24 +1,18 @@
 import { Document, Schema, Model, model } from 'mongoose';
 
-export interface IVehicleDocument extends Document {
+export interface IVehicleModel extends Document {
   year: number;
   name: string;
   createdDate: Date;
 }
 
-export interface IVehicleModel extends IVehicleDocument {}
-
 export const VehicleSchema: Schema = new Schema(
   {
     year: Number,
     name: String,
-    createdDate: Date,
+    createdDate: { type: Date, default: Date.now },
   },
   { collection: 'vehicles' },
 );
-
-VehicleSchema.pre<IVehicleDocument>('save', async function () {
-  this.createdDate = new Date();
-});
 
 export const Vehicle: Model<IVehicleModel> = model<IVehicleModel>('Vehicle', VehicleSchema);

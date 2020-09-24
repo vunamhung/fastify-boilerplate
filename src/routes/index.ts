@@ -1,5 +1,3 @@
-import status from './status';
-import vehicles from './vehicles';
-import authentication from './authentication';
+import * as requireDir from 'require-dir';
 
-export default [status, vehicles, authentication];
+export default requireDir('.');

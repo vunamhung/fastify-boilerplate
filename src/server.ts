@@ -1,4 +1,5 @@
 import { fastify, FastifyInstance } from 'fastify';
+import { map } from 'ramda';
 import * as fastifyBoom from 'fastify-boom';
 import * as http from 'http';
 
@@ -50,7 +51,7 @@ export default class Server {
     this.server.register(fastifyStatic, staticOpts);
   }
 
-  private registerRoutes() {
-    routes.map((route) => this.server.register(route));
+  private async registerRoutes() {
+    map((route) => this.server.register(route), routes);
   }
 }

@@ -25,6 +25,8 @@
     "fastify-swagger": "^3.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.4.4",
+    "ramda": "^0.27.1",
+    "require-dir": "^1.2.0",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
@@ -32,6 +34,7 @@
     "@types/mongodb": "^3.1.19",
     "@types/mongoose": "^5.3.8",
     "@types/node": "^14.11.2",
+    "@types/ramda": "^0.27.19",
     "jest": "26.4.2",
     "prettier": "^2.1.2",
     "ts-jest": "26.4.0",

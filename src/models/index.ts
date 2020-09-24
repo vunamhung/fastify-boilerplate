@@ -26,9 +26,7 @@ export default fp(async (server, options: { uri: string }, done) => {
     keepAlive: true,
   });
 
-  const models: IModels = {
-    Vehicle: Vehicle,
-  };
+  const models: IModels = { Vehicle };
 
   server.decorate('db', { models });
 

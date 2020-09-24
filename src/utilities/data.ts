@@ -13,7 +13,7 @@ export const swaggerOpts: SwaggerOptions = {
   routePrefix: '/documentation',
   swagger: {
     info: {
-      title: 'Test swagger',
+      title: 'VNH API Documentation',
       description: 'testing the fastify swagger api',
       version: '0.1.0',
     },
@@ -21,7 +21,7 @@ export const swaggerOpts: SwaggerOptions = {
       url: 'https://swagger.io',
       description: 'Find more info here',
     },
-    host: 'localhost',
+    host: 'api.hungvu.work',
     schemes: ['http'],
     consumes: ['application/json'],
     produces: ['application/json'],

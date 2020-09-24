@@ -1,4 +1,3 @@
-import { join } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import * as fastifyBoom from 'fastify-boom';
 import * as http from 'http';
@@ -11,8 +10,9 @@ import fastifyCors from 'fastify-cors';
 import fastifyStatic from 'fastify-static';
 
 import db from './models';
-import utilities from './utilities';
 import routes from './routes';
+import utilities from './utilities';
+import { swaggerOpts, rateLimitOpts, staticOpts } from './utilities/data';
 
 export default class Server {
   private server: FastifyInstance<http.Server, http.IncomingMessage, http.ServerResponse>;
@@ -40,50 +40,14 @@ export default class Server {
   private registerPlugins() {
     this.server.register(db, { uri: process.env.DB_URI });
     this.server.register(utilities);
-    this.server.register(fastifyRateLimit, {
-      max: 100,
-      timeWindow: 6000,
-      cache: 10000,
-    });
+
+    this.server.register(fastifyRateLimit, rateLimitOpts);
     this.server.register(fastifyPrettier, { fallbackOnError: false });
-    this.server.register(fastifySwagger, {
-      routePrefix: '/documentation',
-      swagger: {
-        info: {
-          title: 'Test swagger',
-          description: 'testing the fastify swagger api',
-          version: '0.1.0',
-        },
-        externalDocs: {
-          url: 'https://swagger.io',
-          description: 'Find more info here',
-        },
-        host: 'localhost',
-        schemes: ['http'],
-        consumes: ['application/json'],
-        produces: ['application/json'],
-        tags: [
-          { name: 'user', description: 'User related end-points' },
-          { name: 'code', description: 'Code related end-points' },
-        ],
-        securityDefinitions: {
-          apiKey: {
-            type: 'apiKey',
-            name: 'apiKey',
-            in: 'header',
-          },
-        },
-      },
-      exposeRoute: true,
-    });
+    this.server.register(fastifySwagger, swaggerOpts);
     this.server.register(fastifyBoom);
     this.server.register(fastifyCors);
     this.server.register(fastifyBlipp);
-    this.server.register(fastifyStatic, {
-      root: join(__dirname, '..', '..', 'public'),
-      prefix: '/',
-      wildcard: false,
-    });
+    this.server.register(fastifyStatic, staticOpts);
   }
 
   private registerRoutes() {

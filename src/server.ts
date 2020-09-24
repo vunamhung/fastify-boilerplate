@@ -39,11 +39,11 @@ export default class Server {
   }
 
   private registerPlugins() {
-    this.server.register(db, { uri: process.env.DB_URI });
+    this.server.register(db, { uri: process.env.MONGO_URI });
     this.server.register(utilities);
 
     this.server.register(fastifyRateLimit, rateLimitOpts);
-    this.server.register(fastifyPrettier, { fallbackOnError: false });
+    this.server.register(fastifyPrettier);
     this.server.register(fastifySwagger, swaggerOpts);
     this.server.register(fastifyBoom);
     this.server.register(fastifyCors);

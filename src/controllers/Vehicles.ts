@@ -1,4 +1,4 @@
-import { boomify } from '@hapi/boom';
+import { boomify, notFound } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Vehicles extends Controller {
@@ -8,7 +8,7 @@ export default class Vehicles extends Controller {
 
       const vehicles = await Vehicle.aggregate([{ $match: {} }]);
 
-      if (!vehicles) return this.reply.send(404);
+      if (!vehicles) return notFound('Not found any vehicles');
 
       return this.reply.code(200).send(vehicles);
     } catch (error) {
@@ -23,7 +23,7 @@ export default class Vehicles extends Controller {
 
       const vehicle = await Vehicle.findOne({ _id: this.id });
 
-      if (!vehicle) return this.reply.send(404);
+      if (!vehicle) return notFound('Vehicle not found');
 
       return this.reply.code(200).send(vehicle);
     } catch (error) {

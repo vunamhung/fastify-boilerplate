@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { unauthorized, forbidden } from '@hapi/boom';
 
 /**
@@ -6,7 +6,7 @@ import { unauthorized, forbidden } from '@hapi/boom';
  *
  * @export
  */
-export function determineAccountAndUser(server, request) {
+export function determineAccountAndUser(server: FastifyInstance, request: FastifyRequest) {
   const auth = request.headers['authorization'] as string;
   try {
     const token = auth.split(' ')[1];
@@ -26,18 +26,14 @@ export function determineAccountAndUser(server, request) {
  * @param {FastifyReply} reply
  * @param {(err?: Error) => void} done
  */
-export function protectUserRoute(request, reply, done) {
+export function protectUserRoute(request: FastifyRequest, reply: FastifyReply, done) {
   const auth = request.headers['authorization'] as string;
 
-  if (!auth) {
-    throw unauthorized('Missing authentication token');
-  }
+  if (!auth) throw unauthorized('Missing authentication token');
 
   const { account, email, id } = determineAccountAndUser(this, request);
 
-  if (account !== 'account1') {
-    throw forbidden('Invalid credentials in authentication token');
-  }
+  if (account !== 'account1') throw forbidden('Invalid credentials in authentication token');
 
   return done();
 }
@@ -51,18 +47,14 @@ export function protectUserRoute(request, reply, done) {
  * @param {(err?: Error) => void} done
  * @returns
  */
-export function protectAuthorizedUser(request, reply, done) {
+export function protectAuthorizedUser(request: FastifyRequest, reply: FastifyReply, done) {
   const auth = request.headers['authorization'] as string;
 
-  if (!auth) {
-    throw unauthorized('Missing authentication token');
-  }
+  if (!auth) throw unauthorized('Missing authentication token');
 
   const { account, email, id } = determineAccountAndUser(this, request);
 
-  if (!account) {
-    throw forbidden('Invalid credentials in authentication token');
-  }
+  if (!account) throw forbidden('Invalid credentials in authentication token');
 
   return done();
 }

@@ -9,9 +9,7 @@ import fastifyCors from 'fastify-cors';
 import fastifyStatic from 'fastify-static';
 
 import db from './models';
-
-import statusRoutes from './routes/status';
-import vehiclesRoutes from './routes/vehicles';
+import routes from './routes';
 
 export default class Server {
   private server: FastifyInstance<http.Server, http.IncomingMessage, http.ServerResponse>;
@@ -79,7 +77,6 @@ export default class Server {
   }
 
   private registerRoutes() {
-    this.server.register(vehiclesRoutes);
-    this.server.register(statusRoutes);
+    routes.map((route) => this.server.register(route));
   }
 }

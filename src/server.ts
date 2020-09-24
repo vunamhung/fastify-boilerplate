@@ -1,8 +1,9 @@
-import { join, resolve } from 'path';
+import { join } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import * as fastifyBoom from 'fastify-boom';
 import * as http from 'http';
 
+import fastifyRateLimit from 'fastify-rate-limit';
 import fastifyPrettier from 'fastify-prettier';
 import fastifySwagger from 'fastify-swagger';
 import fastifyBlipp from 'fastify-blipp';
@@ -39,6 +40,11 @@ export default class Server {
   private registerPlugins() {
     this.server.register(db, { uri: process.env.DB_URI });
     this.server.register(utilities);
+    this.server.register(fastifyRateLimit, {
+      max: 100,
+      timeWindow: 6000,
+      cache: 10000,
+    });
     this.server.register(fastifyPrettier, { fallbackOnError: false });
     this.server.register(fastifySwagger, {
       routePrefix: '/documentation',

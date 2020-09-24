@@ -9,7 +9,9 @@
     "build": "rm -rf dist && tsc --sourceMap -p ./",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
     "docker-start": "docker-compose up",
-    "docker-stop": "docker-compose down"
+    "docker-stop": "docker-compose down",
+    "predeploy": "yarn run build",
+    "deploy": "rsync -avzhe ssh -L ./dist/ ocean:/var/www/html/"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.0",

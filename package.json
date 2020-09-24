@@ -18,6 +18,7 @@
     "fastify-cors": "^4.1.0",
     "fastify-plugin": "2.3.4",
     "fastify-static": "^3.2.0",
+    "fastify-swagger": "^3.3.0",
     "mongoose": "^5.4.4",
     "source-map-support": "^0.5.10"
   },

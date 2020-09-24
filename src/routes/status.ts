@@ -1,6 +1,6 @@
 import fp from 'fastify-plugin';
 
-export default fp(async (server, opts, done) => {
+export default fp(async (server, options, done) => {
   server.route({
     url: '/status',
     logLevel: 'warn',

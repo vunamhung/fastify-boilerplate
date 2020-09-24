@@ -55,7 +55,7 @@ export function protectAuthorizedUser(request, reply, done) {
   const auth = request.headers['authorization'] as string;
 
   if (!auth) {
-    return reply.status(401).send({ error: 'unauthorized', message: 'Missing authentication token' });
+    throw unauthorized('Missing authentication token');
   }
 
   const { account, email, id } = determineAccountAndUser(this, request);

@@ -1,7 +1,7 @@
-import fp from 'fastify-plugin';
+import { FastifyInstance } from 'fastify';
 import Vehicles from '../controllers/Vehicles';
 
-export default fp(async (server, options, done) => {
+export default async function (server: FastifyInstance, options, done) {
   server.get(
     '/vehicles/:id',
     {
@@ -39,4 +39,4 @@ export default fp(async (server, options, done) => {
   server.post('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).addNewEntry());
 
   done();
-});
+}

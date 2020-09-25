@@ -1,12 +1,12 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from 'http';
-import { IModels } from 'models';
+import { Connection } from 'mysql2/promise';
 
 export default abstract class Controller {
   protected server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
   protected request: FastifyRequest;
   protected reply: FastifyReply;
-  protected models: IModels;
+  protected db: Connection;
   protected params;
   protected query;
   protected requestBody;
@@ -16,7 +16,7 @@ export default abstract class Controller {
     this.request = request;
     this.reply = reply;
 
-    this.models = this.server.db.models;
+    this.db = this.server.db;
     this.params = this.request.params;
     this.query = this.request.query;
     this.requestBody = this.request.body;

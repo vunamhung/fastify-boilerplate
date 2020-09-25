@@ -1,9 +1,9 @@
-import { IDatabase } from 'models';
 import { IUtilities } from 'utilities';
+import { Connection } from 'mysql2/promise';
 
 declare module 'fastify' {
   export interface FastifyInstance {
-    db: IDatabase;
+    db: Connection;
     utils: IUtilities;
     authenticate: () => void;
   }

@@ -7,4 +7,4 @@ Object {
 }
 `;
 
-exports[`/status POST returns 404 1`] = `"{\\"statusCode\\":404,\\"error\\":\\"Not Found\\",\\"message\\":\\"Not Found\\"}"`;
+exports[`/status POST returns 404 1`] = `"{\\"message\\":\\"Route POST:/status not found\\",\\"error\\":\\"Not Found\\",\\"statusCode\\":404}"`;

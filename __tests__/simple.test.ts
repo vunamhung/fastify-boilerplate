@@ -1,16 +1,15 @@
-import * as fastify from 'fastify';
+import fastify, { FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
-import statusRoutes from 'status.ts';
+import statusRoutes from 'routes/status';
 
 describe('/status', () => {
-  let server: fastify.FastifyInstance<Server, IncomingMessage, ServerResponse>;
+  let server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
 
   beforeAll(() => {});
 
   beforeEach(async () => {
     server = fastify({});
-    // eslint-disable-next-line global-require
     server.register(statusRoutes);
     await server.ready();
 

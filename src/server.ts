@@ -1,7 +1,7 @@
 import { fastify, FastifyInstance } from 'fastify';
 import { map } from 'ramda';
 import * as fastifyBoom from 'fastify-boom';
-import * as http from 'http';
+import http from 'http';
 
 import underPressure from 'under-pressure';
 import fastifyRateLimit from 'fastify-rate-limit';
@@ -14,6 +14,7 @@ import fastifyStatic from 'fastify-static';
 import db from './models';
 import routes from './routes';
 import utilities from './utilities';
+import authenticate from './middlewares/authenticate';
 import { swaggerOpts, rateLimitOpts, staticOpts } from './utilities/pluginConfigs';
 
 export default class Server {
@@ -42,6 +43,7 @@ export default class Server {
   private registerPlugins() {
     this.server.register(db, { uri: process.env.MONGO_URI });
     this.server.register(utilities);
+    this.server.register(authenticate);
 
     this.server.register(underPressure, {
       maxEventLoopDelay: 1000,

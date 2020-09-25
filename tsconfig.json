@@ -10,7 +10,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "allowSyntheticDefaultImports": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "./src/**/__tests__/*.ts"]

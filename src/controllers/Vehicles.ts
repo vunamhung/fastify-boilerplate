@@ -36,7 +36,7 @@ export default class Vehicles extends Controller {
     try {
       const { Vehicle } = this.models;
 
-      const vehicle = await Vehicle.create(this.body);
+      const vehicle = await Vehicle.create(this.requestBody);
 
       return this.reply.code(201).send(vehicle);
     } catch (error) {

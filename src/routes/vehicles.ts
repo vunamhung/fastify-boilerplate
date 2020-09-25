@@ -34,6 +34,7 @@ export default fp(async (server, options, done) => {
     },
     async (request, reply) => new Vehicles(server, request, reply).findOneEntry(),
   );
+  server.delete('/vehicles/:id', {}, async (request, reply) => new Vehicles(server, request, reply).findOneAndDelete());
   server.get('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).findAllEntries());
   server.post('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).addNewEntry());
 

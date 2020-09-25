@@ -10,7 +10,7 @@ export default class Vehicles extends Controller {
 
       if (!vehicles) return notFound('Not found any vehicles');
 
-      return this.reply.code(200).send(vehicles);
+      return this.reply.send(vehicles);
     } catch (error) {
       this.request.log.error(error);
       throw boomify(error);
@@ -25,7 +25,7 @@ export default class Vehicles extends Controller {
 
       if (!vehicle) return notFound('Vehicle not found');
 
-      return this.reply.code(200).send(vehicle);
+      return this.reply.send(vehicle);
     } catch (error) {
       this.request.log.error(error);
       throw boomify(error);
@@ -39,6 +39,20 @@ export default class Vehicles extends Controller {
       const vehicle = await Vehicle.create(this.requestBody);
 
       return this.reply.code(201).send(vehicle);
+    } catch (error) {
+      this.request.log.error(error);
+      throw boomify(error);
+    }
+  }
+
+  public async findOneAndDelete(): Promise<any> {
+    try {
+      const { Vehicle } = this.models;
+
+      const vehicle = await Vehicle.findById(this.id);
+      vehicle.remove();
+
+      return this.reply.send('Vehicle deleted');
     } catch (error) {
       this.request.log.error(error);
       throw boomify(error);

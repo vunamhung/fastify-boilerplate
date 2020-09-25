@@ -32,6 +32,10 @@ export default abstract class Controller {
     throw new Error('Method not implemented.');
   }
 
+  public async findOneAndDelete(): Promise<any> {
+    throw new Error('Method not implemented.');
+  }
+
   public async findOneEntry(): Promise<any> {
     throw new Error('Method not implemented.');
   }

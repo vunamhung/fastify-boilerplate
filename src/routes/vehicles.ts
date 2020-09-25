@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import Vehicles from '../controllers/Vehicles';
 
-export default async function (server: FastifyInstance, options, done) {
+export default function (server: FastifyInstance, options, done) {
   server.get(
     '/vehicles/:id',
     {

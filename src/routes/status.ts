@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 
-export default async function (server: FastifyInstance, options, done) {
+export default function (server: FastifyInstance, options, done) {
   server.route({
     url: '/status',
     logLevel: 'warn',

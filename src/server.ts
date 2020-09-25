@@ -21,7 +21,7 @@ export default class Server {
   private port: number | string;
 
   constructor() {
-    this.port = 3000;
+    this.port = process.env.PORT || 3000;
     this.server = fastify({ ignoreTrailingSlash: true, logger: { level: 'fatal' } });
 
     this.registerPlugins();

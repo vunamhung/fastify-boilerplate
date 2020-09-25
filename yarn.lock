@@ -699,6 +699,11 @@ abstract-logging@^2.0.0:
   resolved "https://registry.yarnpkg.com/abstract-logging/-/abstract-logging-2.0.0.tgz#08a85814946c98ef06f4256ad470aba1886d4490"
   integrity sha512-/oA9z7JszpIioo6J6dB79LVUgJ3eD3cxkAmdCkvWWS+Y9tPtALs1rLqOekLUXUbYqM2fB9TTK0ibAyZJJOP/CA==
 
+accept-language-parser@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/accept-language-parser/-/accept-language-parser-1.5.0.tgz#8877c54040a8dcb59e0a07d9c1fde42298334791"
+  integrity sha1-iHfFQECo3LWeCgfZwf3kIpgzR5E=
+
 acorn-globals@^6.0.0:
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/acorn-globals/-/acorn-globals-6.0.0.tgz#46cdd39f0f8ff08a876619b55f5ac8a6dc770b45"
@@ -1821,6 +1826,14 @@ fastify-jwt@^2.1.3:
     http-errors "^1.7.1"
     jsonwebtoken "^8.3.0"
     steed "^1.1.3"
+
+fastify-language-parser@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fastify-language-parser/-/fastify-language-parser-3.0.0.tgz#23ef58766c1fdc0267047f326f13e9377cd753e1"
+  integrity sha512-3ZhKQwrIHyc0Canyfotbnmi1pqFKeWIivAd+fRAGeqwjyRFgtmCJ76lotWQpnG60L556NZA1d6fX6onqGcUtCw==
+  dependencies:
+    accept-language-parser "^1.5.0"
+    fastify-plugin "^2.0.1"
 
 fastify-no-icon@^4.0.0:
   version "4.0.0"

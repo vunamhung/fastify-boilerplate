@@ -2,11 +2,11 @@ import { boomify, notFound } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Vehicles extends Controller {
+  protected Vehicle = this.models.Vehicle;
+
   public async findAllEntries(): Promise<any> {
     try {
-      const { Vehicle } = this.models;
-
-      const vehicles = await Vehicle.find();
+      const vehicles = await this.Vehicle.find();
 
       if (!vehicles) return notFound('Not found any vehicles');
 
@@ -19,9 +19,7 @@ export default class Vehicles extends Controller {
 
   public async findOneEntry() {
     try {
-      const { Vehicle } = this.models;
-
-      const vehicle = await Vehicle.findById(this.id);
+      const vehicle = await this.Vehicle.findById(this.id);
 
       if (!vehicle) return notFound('Vehicle not found');
 
@@ -34,9 +32,7 @@ export default class Vehicles extends Controller {
 
   public async addNewEntry(): Promise<any> {
     try {
-      const { Vehicle } = this.models;
-
-      const vehicle = await Vehicle.create(this.requestBody);
+      const vehicle = await this.Vehicle.create(this.requestBody);
 
       return this.reply.code(201).send(vehicle);
     } catch (error) {
@@ -47,9 +43,7 @@ export default class Vehicles extends Controller {
 
   public async findOneAndDelete(): Promise<any> {
     try {
-      const { Vehicle } = this.models;
-
-      const vehicle = await Vehicle.findById(this.id);
+      const vehicle = await this.Vehicle.findById(this.id);
       vehicle.remove();
 
       return this.reply.send('Vehicle deleted');

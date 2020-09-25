@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["es2018", "es2015", "es2017", "esnext"],
+    "lib": ["ES2019", "ESNext"],
     "paths": {
       "*": ["src/*"]
     },
     "allowJs": true,
-    "target": "es2018",
+    "target": "ES2019",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,

@@ -36,7 +36,7 @@ export default class Server {
     this.server.register(authenticate);
 
     this.server.register(import('under-pressure'), {
-      maxEventLoopDelay: 1000,
+      maxEventLoopDelay: 1000, // maximum detected delay between event loop ticks.
       message: 'Under pressure!',
       retryAfter: 50,
     });

@@ -5,5 +5,6 @@ declare module 'fastify' {
   export interface FastifyInstance {
     db: IDatabase;
     utils: IUtilities;
+    authenticate: () => void;
   }
 }

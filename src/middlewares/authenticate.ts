@@ -8,7 +8,7 @@ export default fp((server, options, done) => {
     secret: process.env.JWT_SECRET_KEY,
   });
 
-  server.decorate('authenticate', async function (request: FastifyRequest) {
+  server.decorate('authenticate', async (request: FastifyRequest) => {
     try {
       await request.jwtVerify();
     } catch (error) {

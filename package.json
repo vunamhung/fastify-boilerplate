@@ -28,8 +28,10 @@
     "fastify-rate-limit": "^4.0.2",
     "fastify-static": "^3.2.0",
     "fastify-swagger": "^3.3.0",
+    "fastify-url-data": "^3.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "5.10.7",
+    "query-string": "^6.13.2",
     "ramda": "^0.27.1",
     "source-map-support": "^0.5.10",
     "under-pressure": "^5.2.0"

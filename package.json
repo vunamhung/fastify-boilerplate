@@ -11,7 +11,7 @@
     "docker-start": "docker-compose up",
     "docker-stop": "docker-compose down",
     "predeploy": "yarn run build",
-    "deploy": "rsync -avzhe ssh --delete -L --exclude=./exclude ./ ocean:/var/www/html/"
+    "deploy": "rsync -avzhe ssh --delete --delete-excluded -L --exclude-from=exclude ./ ocean:/var/www/html/"
   },
   "dependencies": {
     "@hapi/boom": "^9.1.0",

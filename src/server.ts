@@ -45,7 +45,7 @@ export default class Server {
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-swagger'), swaggerOpts);
     this.server.register(import('fastify-boom'));
-    this.server.register(import('fastify-cors'));
+    this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
     this.server.register(import('fastify-static'), staticOpts);

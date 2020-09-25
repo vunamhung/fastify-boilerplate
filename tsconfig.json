@@ -2,16 +2,16 @@
   "compilerOptions": {
     "baseUrl": ".",
     "lib": ["ES2019", "ESNext"],
-    "paths": {
-      "*": ["src/*"]
-    },
+    "paths": {"*": ["src/*"]},
     "allowJs": true,
     "target": "ES2019",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
     "outDir": "./dist",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "./src/**/__tests__/*.ts"]

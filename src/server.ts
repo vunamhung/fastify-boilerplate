@@ -40,7 +40,6 @@ export default class Server {
       message: 'Under pressure!',
       retryAfter: 50,
     });
-    this.server.register(import('fastify-url-data'));
     this.server.register(import('fastify-rate-limit'), rateLimitOpts);
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-swagger'), swaggerOpts);
@@ -48,6 +47,7 @@ export default class Server {
     this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
+    this.server.register(import('fastify-qs'), { disabled: false });
     this.server.register(import('fastify-static'), staticOpts);
   }
 

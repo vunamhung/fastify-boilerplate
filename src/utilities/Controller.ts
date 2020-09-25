@@ -7,7 +7,7 @@ export default abstract class Controller {
   protected request: FastifyRequest;
   protected reply: FastifyReply;
   protected models: IModels;
-  protected id;
+  protected params;
   protected requestBody;
 
   constructor(server, request, reply) {
@@ -15,9 +15,9 @@ export default abstract class Controller {
     this.request = request;
     this.reply = reply;
 
-    this.models = server.db.models;
-    this.id = request.params.id;
-    this.requestBody = request.body;
+    this.models = this.server.db.models;
+    this.params = this.request.params;
+    this.requestBody = this.request.body;
   }
 
   public async findAllEntries(): Promise<any> {

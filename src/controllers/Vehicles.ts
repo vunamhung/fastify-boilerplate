@@ -19,7 +19,7 @@ export default class Vehicles extends Controller {
 
   public async findOneEntry() {
     try {
-      const vehicle = await this.Vehicle.findById(this.id);
+      const vehicle = await this.Vehicle.findById(this.params.id);
 
       if (!vehicle) return notFound('Vehicle not found');
 
@@ -43,7 +43,7 @@ export default class Vehicles extends Controller {
 
   public async findOneAndDelete(): Promise<any> {
     try {
-      const vehicle = await this.Vehicle.findById(this.id);
+      const vehicle = await this.Vehicle.findById(this.params.id);
       vehicle.remove();
 
       return this.reply.send('Vehicle deleted');

@@ -8,6 +8,7 @@ export default abstract class Controller {
   protected reply: FastifyReply;
   protected models: IModels;
   protected params;
+  protected query;
   protected requestBody;
 
   constructor(server, request, reply) {
@@ -17,6 +18,7 @@ export default abstract class Controller {
 
     this.models = this.server.db.models;
     this.params = this.request.params;
+    this.query = this.request.query;
     this.requestBody = this.request.body;
   }
 

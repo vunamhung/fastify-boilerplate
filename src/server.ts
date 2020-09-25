@@ -47,7 +47,6 @@ export default class Server {
     this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
-    this.server.register(import('fastify-qs'), { disabled: false });
     this.server.register(import('fastify-static'), staticOpts);
   }
 

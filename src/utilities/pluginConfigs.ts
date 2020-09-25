@@ -41,7 +41,7 @@ export const swaggerOpts: SwaggerOptions = {
 };
 
 export const staticOpts: FastifyStaticOptions = {
-  root: join(__dirname, '..', '..', 'public'),
+  root: join(__dirname, 'public'),
   prefix: '/',
   wildcard: false,
 };

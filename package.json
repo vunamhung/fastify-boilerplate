@@ -29,7 +29,8 @@
     "mongoose": "^5.4.4",
     "ramda": "^0.27.1",
     "require-dir": "^1.2.0",
-    "source-map-support": "^0.5.10"
+    "source-map-support": "^0.5.10",
+    "under-pressure": "^5.2.0"
   },
   "devDependencies": {
     "@types/jest": "26.0.14",

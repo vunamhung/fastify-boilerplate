@@ -1,15 +1,6 @@
 import { join } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
-import * as fastifyBoom from 'fastify-boom';
 import http from 'http';
-
-import underPressure from 'under-pressure';
-import fastifyRateLimit from 'fastify-rate-limit';
-import fastifyPrettier from 'fastify-prettier';
-import fastifySwagger from 'fastify-swagger';
-import fastifyBlipp from 'fastify-blipp';
-import fastifyCors from 'fastify-cors';
-import fastifyStatic from 'fastify-static';
 
 import db from './models';
 import utilities from './utilities';
@@ -44,18 +35,18 @@ export default class Server {
     this.server.register(utilities);
     this.server.register(authenticate);
 
-    this.server.register(underPressure, {
+    this.server.register(import('under-pressure'), {
       maxEventLoopDelay: 1000,
       message: 'Under pressure!',
       retryAfter: 50,
     });
-    this.server.register(fastifyRateLimit, rateLimitOpts);
-    this.server.register(fastifyPrettier);
-    this.server.register(fastifySwagger, swaggerOpts);
-    this.server.register(fastifyBoom);
-    this.server.register(fastifyCors);
-    this.server.register(fastifyBlipp);
-    this.server.register(fastifyStatic, staticOpts);
+    this.server.register(import('fastify-rate-limit'), rateLimitOpts);
+    this.server.register(import('fastify-prettier'));
+    this.server.register(import('fastify-swagger'), swaggerOpts);
+    this.server.register(import('fastify-boom'));
+    this.server.register(import('fastify-cors'));
+    this.server.register(import('fastify-blipp'));
+    this.server.register(import('fastify-static'), staticOpts);
   }
 
   private async registerRoutes() {

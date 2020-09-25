@@ -1,5 +1,5 @@
+import { join } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
-import { map } from 'ramda';
 import * as fastifyBoom from 'fastify-boom';
 import http from 'http';
 
@@ -12,7 +12,6 @@ import fastifyCors from 'fastify-cors';
 import fastifyStatic from 'fastify-static';
 
 import db from './models';
-import routes from './routes';
 import utilities from './utilities';
 import authenticate from './middlewares/authenticate';
 import { swaggerOpts, rateLimitOpts, staticOpts } from './utilities/pluginConfigs';
@@ -60,6 +59,8 @@ export default class Server {
   }
 
   private async registerRoutes() {
-    map((route) => this.server.register(route), routes);
+    this.server.register(require('fastify-autoload'), {
+      dir: join(__dirname, 'routes'),
+    });
   }
 }

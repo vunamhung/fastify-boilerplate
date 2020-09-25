@@ -17,6 +17,7 @@
     "@hapi/boom": "^9.1.0",
     "dotenv-flow": "^3.2.0",
     "fastify": "3.4.1",
+    "fastify-autoload": "^3.1.0",
     "fastify-blipp": "3.0.0",
     "fastify-boom": "^1.0.0",
     "fastify-cors": "^4.1.0",
@@ -29,7 +30,6 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "5.10.7",
     "ramda": "^0.27.1",
-    "require-dir": "^1.2.0",
     "source-map-support": "^0.5.10",
     "under-pressure": "^5.2.0"
   },

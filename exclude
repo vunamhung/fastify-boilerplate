@@ -1,0 +1,8 @@
+__tests__
+.idea
+.git
+.*
+docker*
+Dockerfile
+jest.config.js
+LICENSE

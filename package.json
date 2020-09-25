@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node ./dist/index.js",
+    "compile-schemas": "json2ts -i ./src/schemas -o ./src/@types",
     "test": "NODE_ENV=test npx jest --verbose --runInBand",
     "build": "rm -rf dist && tsc --sourceMap -p ./",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
@@ -40,6 +41,7 @@
     "@types/node": "^14.11.2",
     "@types/ramda": "^0.27.19",
     "jest": "26.4.2",
+    "json-schema-to-typescript": "^9.1.1",
     "prettier": "^2.1.2",
     "ts-jest": "26.4.0",
     "ts-node-dev": "^1.0.0-pre.63",

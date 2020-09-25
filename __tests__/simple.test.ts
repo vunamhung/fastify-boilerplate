@@ -1,7 +1,7 @@
 import fastify, { FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
-import statusRoutes from 'routes/status';
+import statusRoutes from 'abc.ts';
 
 describe('/status', () => {
   let server: FastifyInstance<Server, IncomingMessage, ServerResponse>;

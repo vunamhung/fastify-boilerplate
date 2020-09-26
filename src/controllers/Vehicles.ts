@@ -51,4 +51,15 @@ export default class Vehicles extends Controller {
       throw boomify(error);
     }
   }
+
+  public async findOneAndUpdate(): Promise<any> {
+    try {
+      await this.Vehicle.findOneAndUpdate({ _id: this.params.id }, this.requestBody);
+
+      return this.reply.send(`${this.params.id} is updated`);
+    } catch (error) {
+      this.request.log.error(error);
+      throw boomify(error);
+    }
+  }
 }

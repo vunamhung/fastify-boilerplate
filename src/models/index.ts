@@ -24,6 +24,7 @@ export default fp(async (server, options: { uri: string }, done) => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
+    useFindAndModify: false,
   });
 
   const models: IModels = { Vehicle };

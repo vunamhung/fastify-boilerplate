@@ -43,8 +43,7 @@ export default class Vehicles extends Controller {
 
   public async findOneAndDelete(): Promise<any> {
     try {
-      const vehicle = await this.Vehicle.findById(this.params.id);
-      vehicle.remove();
+      await this.Vehicle.deleteOne({ _id: this.params.id });
 
       return this.reply.send('Vehicle deleted');
     } catch (error) {

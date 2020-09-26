@@ -22,7 +22,6 @@
     "fastify-blipp": "3.0.0",
     "fastify-boom": "^1.0.0",
     "fastify-cors": "^4.1.0",
-    "fastify-elasticsearch": "^2.0.0",
     "fastify-jwt": "^2.1.3",
     "fastify-language-parser": "^3.0.0",
     "fastify-no-icon": "^4.0.0",

@@ -1,14 +1,14 @@
 import { join } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
-import http from 'http';
+import { Server, IncomingMessage, ServerResponse } from 'http';
 
 import db from './models';
 import utilities from './utilities';
 import authenticate from './middlewares/authenticate';
-import { swaggerOpts, rateLimitOpts, staticOpts } from './utilities/pluginConfigs';
+import { swaggerOpts, rateLimitOpts } from './utilities/pluginConfigs';
 
-export default class Server {
-  private server: FastifyInstance<http.Server, http.IncomingMessage, http.ServerResponse>;
+export default class {
+  private server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
   private port: number | string;
 
   constructor() {
@@ -46,8 +46,7 @@ export default class Server {
     this.server.register(import('fastify-boom'));
     this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
-    this.server.register(import('fastify-no-icon'));
-    this.server.register(import('fastify-static'), staticOpts);
+    this.server.register(import('fastify-qs'), { disabled: false });
   }
 
   private async registerRoutes() {

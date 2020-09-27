@@ -8,8 +8,8 @@ export interface IVehicleModel extends Document {
 
 export const VehicleSchema: Schema = new Schema(
   {
-    year: Number,
-    name: String,
+    year: { type: Number, required: true },
+    name: { type: String, required: true },
     createdDate: { type: Date, default: Date.now },
   },
   { collection: 'vehicles' },

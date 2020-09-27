@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from 'http';
-import { IModels } from 'models';
+import { IModels } from '../models';
 
 export default abstract class Controller {
   protected server: FastifyInstance<Server, IncomingMessage, ServerResponse>;

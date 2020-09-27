@@ -1,5 +1,5 @@
-import { IDatabase } from 'models';
-import { IUtilities } from 'utilities';
+import { IDatabase } from '../models';
+import { IUtilities } from '../utilities';
 
 declare module 'fastify' {
   export interface FastifyInstance {

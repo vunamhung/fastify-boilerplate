@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
     "lib": ["ES2019", "ESNext"],
-    "paths": {"*": ["src/*"]},
     "allowJs": true,
     "target": "ES2019",
     "module": "commonjs",

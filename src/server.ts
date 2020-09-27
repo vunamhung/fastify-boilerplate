@@ -31,7 +31,7 @@ export default class {
   }
 
   private registerPlugins() {
-    this.server.register(db, { uri: process.env.MONGO_URI });
+    this.server.register(db);
     this.server.register(utilities);
     this.server.register(authenticate);
 

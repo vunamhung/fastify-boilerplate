@@ -11,7 +11,7 @@ export interface IDatabase {
   models: IModels;
 }
 
-export default fp(async (server, options: { uri: string }, done) => {
+export default fp(async (server, options, done) => {
   connection.on('connected', () => {
     server.log.info({ actor: 'MongoDB' }, 'connected');
   });
@@ -20,7 +20,7 @@ export default fp(async (server, options: { uri: string }, done) => {
     server.log.error({ actor: 'MongoDB' }, 'disconnected');
   });
 
-  await connect(options.uri, {
+  await connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,

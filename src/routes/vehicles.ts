@@ -7,7 +7,6 @@ export default function (server: FastifyInstance, options, done) {
     {
       schema: {
         description: 'Get one vehicle',
-        tags: ['code'],
         summary: 'vehicle',
         params: {
           type: 'object',
@@ -34,8 +33,42 @@ export default function (server: FastifyInstance, options, done) {
     },
     async (request, reply) => new Vehicles(server, request, reply).findOneEntry(),
   );
-  server.delete('/vehicles/:id', {}, async (request, reply) => new Vehicles(server, request, reply).findOneAndDelete());
-  server.put('/vehicles/:id', {}, async (request, reply) => new Vehicles(server, request, reply).findOneAndUpdate());
+  server.delete(
+    '/vehicles/:id',
+    {
+      schema: {
+        description: 'Delete one vehicle',
+        params: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'vehicle id',
+            },
+          },
+        },
+      },
+    },
+    async (request, reply) => new Vehicles(server, request, reply).findOneAndDelete(),
+  );
+  server.put(
+    '/vehicles/:id',
+    {
+      schema: {
+        description: 'Edit one vehicle',
+        params: {
+          type: 'object',
+          properties: {
+            id: {
+              type: 'string',
+              description: 'vehicle id',
+            },
+          },
+        },
+      },
+    },
+    async (request, reply) => new Vehicles(server, request, reply).findOneAndUpdate(),
+  );
   server.get('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).findAllEntries());
   server.post('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).addNewEntry());
 

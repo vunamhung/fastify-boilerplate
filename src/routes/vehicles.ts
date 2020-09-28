@@ -70,7 +70,13 @@ export default function (server: FastifyInstance, options, done) {
     async (request, reply) => new Vehicles(server, request, reply).findOneAndUpdate(),
   );
   server.get('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).findAllEntries());
-  server.post('/vehicles', {}, async (request, reply) => new Vehicles(server, request, reply).addNewEntry());
+  server.post(
+    '/vehicles',
+    {
+      preValidation: [server.authenticate],
+    },
+    async (request, reply) => new Vehicles(server, request, reply).addNewEntry(),
+  );
 
   done();
 }

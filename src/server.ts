@@ -40,6 +40,7 @@ export default class {
       message: 'Under pressure!',
       retryAfter: 50,
     });
+    this.server.register(import('fastify-cookie'));
     this.server.register(import('fastify-rate-limit'), rateLimitOpts);
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-swagger'), swaggerOpts);

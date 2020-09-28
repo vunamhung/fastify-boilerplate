@@ -6,6 +6,9 @@ import { boomify } from '@hapi/boom';
 export default fp((server, options, done) => {
   server.register(fastifyJwt, {
     secret: process.env.JWT_SECRET_KEY,
+    sign: {
+      expiresIn: '7d',
+    },
     cookie: {
       cookieName: 'token',
     },

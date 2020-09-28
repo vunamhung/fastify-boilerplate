@@ -6,7 +6,7 @@ export default class Vehicles extends Controller {
 
   public async findAllEntries(): Promise<any> {
     try {
-      const vehicles = await this.Vehicle.find({}, { _id: 0, __v: 0 });
+      const vehicles = await this.Vehicle.find({}, { __v: 0 });
 
       if (!vehicles) return notFound('Not found any vehicles');
 

@@ -34,6 +34,7 @@
     "fastify-swagger": "^3.3.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "5.10.7",
+    "mongoose-slug-generator": "^1.0.4",
     "query-string": "^6.13.2",
     "ramda": "^0.27.1",
     "source-map-support": "^0.5.10",

@@ -2,9 +2,11 @@ import fp from 'fastify-plugin';
 import { Model, connection, connect } from 'mongoose';
 
 import { IVehicleModel, Vehicle } from './Vehicle';
+import { IProductModel, Product } from './Product';
 
 export interface IModels {
   Vehicle: Model<IVehicleModel>;
+  Product: Model<IProductModel>;
 }
 
 export interface IDatabase {
@@ -27,7 +29,7 @@ export default fp(async (server, options, done) => {
     useFindAndModify: false,
   });
 
-  const models: IModels = { Vehicle };
+  const models: IModels = { Vehicle, Product };
 
   server.decorate('db', { models });
 

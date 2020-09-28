@@ -46,12 +46,11 @@ export const ProductSchema: Schema = new Schema(
       ref: 'Brand',
     },
     updated: Date,
-    created: {
-      type: Date,
-      default: Date.now,
-    },
   },
-  { collection: 'products' },
+  {
+    timestamps: true,
+    collection: 'products',
+  },
 );
 
 ProductSchema.plugin(require('mongoose-slug-generator'));

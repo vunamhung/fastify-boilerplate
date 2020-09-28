@@ -10,9 +10,11 @@ export const VehicleSchema: Schema = new Schema(
   {
     year: { type: Number, required: true },
     name: { type: String, required: true },
-    createdDate: { type: Date, default: Date.now },
   },
-  { collection: 'vehicles' },
+  {
+    timestamps: true,
+    collection: 'vehicles',
+  },
 );
 
 export const Vehicle: Model<IVehicleModel> = model<IVehicleModel>('Vehicle', VehicleSchema);

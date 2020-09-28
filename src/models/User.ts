@@ -38,7 +38,10 @@ export const UserSchema: Schema = new Schema(
       required: true,
     },
   },
-  { collection: 'users' },
+  {
+    timestamps: true,
+    collection: 'users',
+  },
 );
 
 UserSchema.plugin(() => import('mongoose-slug-generator'));

@@ -44,7 +44,7 @@ export default class {
     this.server.register(import('fastify-rate-limit'), rateLimitOpts);
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-swagger'), swaggerOpts);
-    // this.server.register(import('fastify-boom'));
+    this.server.register(import('fastify-boom'));
     this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-qs'), { disabled: false });

@@ -13,7 +13,6 @@ export const VehicleSchema: Schema = new Schema(
   },
   {
     timestamps: true,
-    collection: 'vehicles',
   },
 );
 

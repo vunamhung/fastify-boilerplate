@@ -49,7 +49,6 @@ export const ProductSchema: Schema = new Schema(
   },
   {
     timestamps: true,
-    collection: 'products',
   },
 );
 

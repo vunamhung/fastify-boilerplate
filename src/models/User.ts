@@ -40,9 +40,7 @@ export const UserSchema: Schema = new Schema(
   },
   {
     timestamps: true,
-    collection: 'users',
   },
 );
 
-UserSchema.plugin(() => import('mongoose-slug-generator'));
 export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);

@@ -54,6 +54,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/vehicles/:id',
     {
+      preValidation: [server.authenticate],
       schema: {
         description: 'Edit one vehicle',
         params: {

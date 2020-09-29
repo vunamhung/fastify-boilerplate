@@ -5,11 +5,14 @@ interface IUserModel extends Document {
   username: string;
   email: string;
   password: string;
+  role: string;
   firstName?: string;
   lastName?: string;
   avatar?: string;
   info?: string;
   token?: string;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: number;
   toAuthJSON?: Function;
 }
 
@@ -34,18 +37,17 @@ const UserSchema: Schema = new Schema(
       minlength: [6, 'Too short, min is 6 characters'],
       required: 'Password is required',
     },
-    firstName: {
+    role: {
       type: String,
+      enum: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_MERCHANT'],
+      default: 'ROLE_MEMBER',
     },
-    lastName: {
-      type: String,
-    },
-    avatar: {
-      type: String,
-    },
-    info: {
-      type: String,
-    },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Number },
+    firstName: { type: String },
+    lastName: { type: String },
+    avatar: { type: String },
+    info: { type: String },
   },
   {
     timestamps: true,
@@ -54,12 +56,15 @@ const UserSchema: Schema = new Schema(
 
 UserSchema.methods.toAuthJSON = function () {
   return {
-    _id: this._id,
-    avatar: this.avatar,
-    username: this.username,
-    info: this.info,
-    email: this.email,
+    success: true,
     token: this.token,
+    user: {
+      _id: this._id,
+      avatar: this.avatar,
+      username: this.username,
+      info: this.info,
+      email: this.email,
+    },
   };
 };
 

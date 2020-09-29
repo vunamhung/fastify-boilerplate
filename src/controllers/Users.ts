@@ -55,6 +55,14 @@ export default class Users extends Controller {
       // Add token to user
       try {
         user.token = await this.reply.jwtSign(payload);
+        this.reply.setCookie('token', user.token, {
+          domain: '*',
+          path: '/',
+          secure: true,
+          httpOnly: true,
+          sameSite: true,
+        });
+
         this.reply.status(201).send(user.toAuthJSON());
       } catch (error) {
         this.reply.send(error);

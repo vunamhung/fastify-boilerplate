@@ -9,10 +9,6 @@ export interface IModels {
   Product: Model<IProductModel>;
 }
 
-export interface IDatabase {
-  models: IModels;
-}
-
 export default fp(async (server, options, done) => {
   connection.on('connected', () => {
     server.log.info({ actor: 'MongoDB' }, 'connected');
@@ -26,12 +22,13 @@ export default fp(async (server, options, done) => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     keepAlive: true,
+    useCreateIndex: true,
     useFindAndModify: false,
   });
 
   const models: IModels = { Vehicle, Product };
 
-  server.decorate('db', { models });
+  server.decorate('models', models);
 
   done();
 });

@@ -2,7 +2,7 @@ import { join } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
-import db from './models';
+import models from './models';
 import utilities from './utilities';
 import authenticate from './middlewares/authenticate';
 import { swaggerOpts, rateLimitOpts } from './utilities/pluginConfigs';
@@ -31,7 +31,7 @@ export default class {
   }
 
   private registerPlugins() {
-    this.server.register(db);
+    this.server.register(models);
     this.server.register(utilities);
     this.server.register(authenticate);
 

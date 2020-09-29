@@ -16,7 +16,7 @@ export default abstract class Controller {
     this.request = request;
     this.reply = reply;
 
-    this.models = this.server.db.models;
+    this.models = this.server.models;
     this.params = this.request.params;
     this.query = this.request.query;
     this.requestBody = this.request.body;

@@ -1,4 +1,4 @@
-import { boomify, badRequest } from '@hapi/boom';
+import { badRequest } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Products extends Controller {
@@ -14,8 +14,7 @@ export default class Products extends Controller {
 
       return this.reply.code(201).send(product);
     } catch (error) {
-      this.request.log.error(error);
-      throw boomify(error);
+      this.reply.send(error);
     }
   }
 }

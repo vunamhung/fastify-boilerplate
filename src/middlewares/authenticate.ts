@@ -1,7 +1,6 @@
 import { FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import fastifyJwt from 'fastify-jwt';
-import { boomify } from '@hapi/boom';
 
 export default fp((server, options, done) => {
   server.register(fastifyJwt, {
@@ -14,11 +13,11 @@ export default fp((server, options, done) => {
     },
   });
 
-  server.decorate('authenticate', async (request: FastifyRequest) => {
+  server.decorate('authenticate', async (request: FastifyRequest, reply) => {
     try {
       await request.jwtVerify();
     } catch (error) {
-      throw boomify(error);
+      reply.send(error);
     }
   });
 

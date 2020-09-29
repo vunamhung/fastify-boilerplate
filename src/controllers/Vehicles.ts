@@ -1,4 +1,4 @@
-import { boomify, notFound } from '@hapi/boom';
+import { notFound } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Vehicles extends Controller {
@@ -12,8 +12,7 @@ export default class Vehicles extends Controller {
 
       return this.reply.send(vehicles);
     } catch (error) {
-      this.request.log.error(error);
-      throw boomify(error);
+      this.reply.send(error);
     }
   }
 
@@ -25,8 +24,7 @@ export default class Vehicles extends Controller {
 
       return this.reply.send(vehicle);
     } catch (error) {
-      this.request.log.error(error);
-      throw boomify(error);
+      this.reply.send(error);
     }
   }
 
@@ -36,8 +34,7 @@ export default class Vehicles extends Controller {
 
       return this.reply.code(201).send(vehicle);
     } catch (error) {
-      this.request.log.error(error);
-      throw boomify(error);
+      this.reply.send(error);
     }
   }
 
@@ -47,8 +44,7 @@ export default class Vehicles extends Controller {
 
       return this.reply.send('Vehicle deleted');
     } catch (error) {
-      this.request.log.error(error);
-      throw boomify(error);
+      this.reply.send(error);
     }
   }
 
@@ -58,8 +54,7 @@ export default class Vehicles extends Controller {
 
       return this.reply.send(`${this.params.id} is updated`);
     } catch (error) {
-      this.request.log.error(error);
-      throw boomify(error);
+      this.reply.send(error);
     }
   }
 }

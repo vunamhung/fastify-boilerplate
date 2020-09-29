@@ -13,7 +13,9 @@ export default class {
 
   constructor() {
     this.port = process.env.PORT || 3000;
-    this.server = fastify({ ignoreTrailingSlash: true, logger: { level: 'error' } });
+    const logger = { level: 'error', prettyPrint: { colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss', ignore: 'pid,hostname' } };
+
+    this.server = fastify({ ignoreTrailingSlash: true, logger });
 
     this.initDb();
     this.registerPlugins();

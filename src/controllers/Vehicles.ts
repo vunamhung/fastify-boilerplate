@@ -1,4 +1,3 @@
-import { notFound } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Vehicles extends Controller {
@@ -8,7 +7,7 @@ export default class Vehicles extends Controller {
     try {
       const vehicles = await this.Vehicle.find({}, { __v: 0 });
 
-      if (!vehicles) return notFound('Not found any vehicles');
+      if (!vehicles) return this.reply.notFound('Not found any vehicles');
 
       return this.reply.send(vehicles);
     } catch (error) {
@@ -20,7 +19,7 @@ export default class Vehicles extends Controller {
     try {
       const vehicle = await this.Vehicle.findById(this.params.id);
 
-      if (!vehicle) return notFound('Vehicle not found');
+      if (!vehicle) return this.reply.notFound('Vehicle not found');
 
       return this.reply.send(vehicle);
     } catch (error) {

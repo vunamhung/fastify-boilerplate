@@ -1,4 +1,3 @@
-import { badRequest } from '@hapi/boom';
 import Controller from '../utilities/Controller';
 
 export default class Products extends Controller {
@@ -8,7 +7,7 @@ export default class Products extends Controller {
     try {
       const checkSku = await this.Product.findOne({ sku: this.requestBody.sku });
 
-      if (checkSku) return badRequest('This sku is already in use.');
+      if (checkSku) return this.reply.badRequest('This sku is already in use.');
 
       const product = await this.Product.create(this.requestBody);
 

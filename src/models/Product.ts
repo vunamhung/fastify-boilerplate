@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
 const { ObjectId } = Schema.Types;
 
@@ -11,7 +11,7 @@ interface IProductModel extends Document {
   price: number;
 }
 
-export const ProductSchema: Schema = new Schema(
+const ProductSchema: Schema = new Schema(
   {
     sku: {
       type: String,
@@ -53,4 +53,5 @@ export const ProductSchema: Schema = new Schema(
 );
 
 ProductSchema.plugin(require('mongoose-slug-generator'));
-export const Product: Model<IProductModel> = model<IProductModel>('Product', ProductSchema);
+
+export default model<IProductModel>('Product', ProductSchema);

@@ -1,4 +1,4 @@
-import { Vehicle } from '../models/Vehicle';
+import Vehicle from '../models/Vehicle';
 import Controller from './Controller';
 
 export default class Vehicles extends Controller {

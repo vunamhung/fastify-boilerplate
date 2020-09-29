@@ -1,4 +1,4 @@
-import { Product } from '../models/Product';
+import Product from '../models/Product';
 import Controller from './Controller';
 
 export default class Products extends Controller {

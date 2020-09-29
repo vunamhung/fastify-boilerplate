@@ -1,4 +1,4 @@
-import { Document, Schema, Model, model } from 'mongoose';
+import { Document, Schema, model } from 'mongoose';
 
 const { ObjectId } = Schema.Types;
 
@@ -9,7 +9,7 @@ interface IUserModel extends Document {
   password: string;
 }
 
-export const UserSchema: Schema = new Schema(
+const UserSchema: Schema = new Schema(
   {
     firstName: {
       type: String,
@@ -43,4 +43,4 @@ export const UserSchema: Schema = new Schema(
   },
 );
 
-export const User: Model<IUserModel> = model<IUserModel>('User', UserSchema);
+export default model<IUserModel>('User', UserSchema);

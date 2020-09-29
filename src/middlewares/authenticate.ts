@@ -1,12 +1,20 @@
+import { readFileSync } from 'fs';
+import { join } from 'path';
 import { FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 import fastifyJwt from 'fastify-jwt';
-import { boomify } from '@hapi/boom';
+import { unauthorized } from '@hapi/boom';
 
 export default fp((server, options, done) => {
+  const certsDir = join(__dirname, '../..', 'certs');
+
   server.register(fastifyJwt, {
-    secret: process.env.JWT_SECRET_KEY,
+    secret: {
+      private: readFileSync(`${certsDir}/private.pem`, 'utf8'),
+      public: readFileSync(`${certsDir}/public.pem`, 'utf8'),
+    },
     sign: {
+      algorithm: 'RS256',
       expiresIn: '7d',
     },
     cookie: {
@@ -18,7 +26,8 @@ export default fp((server, options, done) => {
     try {
       await request.jwtVerify();
     } catch (error) {
-      throw boomify(error);
+      request.log.error(error);
+      throw unauthorized(error);
     }
   });
 

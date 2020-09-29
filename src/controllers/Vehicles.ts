@@ -7,9 +7,9 @@ export default class Vehicles extends Controller {
     try {
       const vehicles = await this.Vehicle.find({}, { __v: 0 });
 
-      if (!vehicles) return this.reply.notFound('Not found any vehicles');
+      if (!vehicles) this.reply.notFound('Not found any vehicles');
 
-      return this.reply.send(vehicles);
+      this.reply.send(vehicles);
     } catch (error) {
       this.reply.send(error);
     }
@@ -19,9 +19,9 @@ export default class Vehicles extends Controller {
     try {
       const vehicle = await this.Vehicle.findById(this.params.id);
 
-      if (!vehicle) return this.reply.notFound('Vehicle not found');
+      if (!vehicle) this.reply.notFound('Vehicle not found');
 
-      return this.reply.send(vehicle);
+      this.reply.send(vehicle);
     } catch (error) {
       this.reply.send(error);
     }
@@ -31,7 +31,7 @@ export default class Vehicles extends Controller {
     try {
       const vehicle = await this.Vehicle.create(this.requestBody);
 
-      return this.reply.code(201).send(vehicle);
+      this.reply.code(201).send(vehicle);
     } catch (error) {
       this.reply.send(error);
     }
@@ -41,7 +41,7 @@ export default class Vehicles extends Controller {
     try {
       await this.Vehicle.deleteOne({ _id: this.params.id });
 
-      return this.reply.send('Vehicle deleted');
+      this.reply.send('Vehicle deleted');
     } catch (error) {
       this.reply.send(error);
     }
@@ -51,7 +51,7 @@ export default class Vehicles extends Controller {
     try {
       await this.Vehicle.findOneAndUpdate({ _id: this.params.id }, this.requestBody);
 
-      return this.reply.send(`${this.params.id} is updated`);
+      this.reply.send(`${this.params.id} is updated`);
     } catch (error) {
       this.reply.send(error);
     }

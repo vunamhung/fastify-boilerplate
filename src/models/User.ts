@@ -2,7 +2,7 @@ import { Document, Schema, Model, model } from 'mongoose';
 
 const { ObjectId } = Schema.Types;
 
-export interface IUserModel extends Document {
+interface IUserModel extends Document {
   firstName: string;
   lastName?: string;
   username: string;

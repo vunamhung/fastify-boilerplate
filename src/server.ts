@@ -1,8 +1,8 @@
 import { join } from 'path';
+import { connection, connect } from 'mongoose';
 import { fastify, FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
 
-import models from './models';
 import utilities from './utilities';
 import authenticate from './middlewares/authenticate';
 import { swaggerOpts, rateLimitOpts } from './utilities/pluginConfigs';
@@ -15,8 +15,27 @@ export default class {
     this.port = process.env.PORT || 3000;
     this.server = fastify({ ignoreTrailingSlash: true, logger: { level: 'error' } });
 
+    this.initDb();
     this.registerPlugins();
     this.registerRoutes();
+  }
+
+  public async initDb() {
+    connection.on('connected', () => {
+      this.server.log.info({ actor: 'MongoDB' }, 'connected');
+    });
+
+    connection.on('disconnected', () => {
+      this.server.log.error({ actor: 'MongoDB' }, 'disconnected');
+    });
+
+    await connect(process.env.MONGO_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      keepAlive: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    });
   }
 
   public async start() {
@@ -31,7 +50,6 @@ export default class {
   }
 
   private registerPlugins() {
-    this.server.register(models);
     this.server.register(utilities);
     this.server.register(authenticate);
 

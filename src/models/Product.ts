@@ -2,7 +2,7 @@ import { Document, Schema, Model, model } from 'mongoose';
 
 const { ObjectId } = Schema.Types;
 
-export interface IProductModel extends Document {
+interface IProductModel extends Document {
   sku: string;
   name: string;
   image: string;

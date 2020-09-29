@@ -1,11 +1,10 @@
-import Controller from '../utilities/Controller';
+import { Vehicle } from '../models/Vehicle';
+import Controller from './Controller';
 
 export default class Vehicles extends Controller {
-  protected Vehicle = this.models.Vehicle;
-
   public async findAllEntries(): Promise<any> {
     try {
-      const vehicles = await this.Vehicle.find({}, { __v: 0 });
+      const vehicles = await Vehicle.find({}, { __v: 0 });
 
       if (!vehicles) this.reply.notFound('Not found any vehicles');
 
@@ -17,7 +16,7 @@ export default class Vehicles extends Controller {
 
   public async findOneEntry() {
     try {
-      const vehicle = await this.Vehicle.findById(this.params.id);
+      const vehicle = await Vehicle.findById(this.params.id);
 
       if (!vehicle) this.reply.notFound('Vehicle not found');
 
@@ -29,7 +28,7 @@ export default class Vehicles extends Controller {
 
   public async addNewEntry(): Promise<any> {
     try {
-      const vehicle = await this.Vehicle.create(this.requestBody);
+      const vehicle = await Vehicle.create(this.requestBody);
 
       this.reply.code(201).send(vehicle);
     } catch (error) {
@@ -39,7 +38,7 @@ export default class Vehicles extends Controller {
 
   public async findOneAndDelete(): Promise<any> {
     try {
-      await this.Vehicle.deleteOne({ _id: this.params.id });
+      await Vehicle.deleteOne({ _id: this.params.id });
 
       this.reply.send('Vehicle deleted');
     } catch (error) {
@@ -49,7 +48,7 @@ export default class Vehicles extends Controller {
 
   public async findOneAndUpdate(): Promise<any> {
     try {
-      await this.Vehicle.findOneAndUpdate({ _id: this.params.id }, this.requestBody);
+      await Vehicle.findOneAndUpdate({ _id: this.params.id }, this.requestBody);
 
       this.reply.send(`${this.params.id} is updated`);
     } catch (error) {

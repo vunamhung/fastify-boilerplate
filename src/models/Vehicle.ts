@@ -1,6 +1,6 @@
 import { Document, Schema, Model, model } from 'mongoose';
 
-export interface IVehicleModel extends Document {
+interface IVehicleModel extends Document {
   year: number;
   name: string;
   createdDate: Date;

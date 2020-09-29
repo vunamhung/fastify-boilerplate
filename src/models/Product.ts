@@ -45,7 +45,6 @@ const ProductSchema: Schema = new Schema(
       type: ObjectId,
       ref: 'Brand',
     },
-    updated: Date,
   },
   {
     timestamps: true,

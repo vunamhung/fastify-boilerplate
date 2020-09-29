@@ -1,46 +1,66 @@
 import { Document, Schema, model } from 'mongoose';
-
-const { ObjectId } = Schema.Types;
+import validator from 'validator';
 
 interface IUserModel extends Document {
-  firstName: string;
-  lastName?: string;
   username: string;
+  email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
+  avatar?: string;
+  info?: string;
+  token?: string;
+  toAuthJSON?: Function;
 }
 
 const UserSchema: Schema = new Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-    },
-    lastName: String,
     username: {
       type: String,
-      unique: true,
       required: true,
       lowercase: true,
+      maxlength: [36, 'Too long, max is 36 characters'],
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/],
+      validate: [validator.isEmail, 'Please provide a valid email'],
     },
     password: {
       type: String,
-      required: true,
+      minlength: [6, 'Too short, min is 6 characters'],
+      required: 'Password is required',
     },
-    company: {
-      type: ObjectId,
-      ref: 'Company',
-      required: true,
+    firstName: {
+      type: String,
     },
-    gender: {
-      type: Number,
-      enum: [0, 1],
-      default: 0,
-      required: true,
+    lastName: {
+      type: String,
+    },
+    avatar: {
+      type: String,
+    },
+    info: {
+      type: String,
     },
   },
   {
     timestamps: true,
   },
 );
+
+UserSchema.methods.toAuthJSON = function () {
+  return {
+    _id: this._id,
+    avatar: this.avatar,
+    username: this.username,
+    info: this.info,
+    email: this.email,
+    token: this.token,
+  };
+};
 
 export default model<IUserModel>('User', UserSchema);

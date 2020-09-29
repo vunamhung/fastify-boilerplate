@@ -15,6 +15,7 @@
     "deploy": "rsync -avzhe ssh --delete --delete-excluded -L --exclude-from=exclude ./ ocean:/var/www/html/"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "dotenv-flow": "^3.2.0",
     "fastify": "3.4.1",
     "fastify-autoload": "^3.1.0",
@@ -38,14 +39,17 @@
     "query-string": "^6.13.2",
     "ramda": "^0.27.1",
     "source-map-support": "^0.5.10",
-    "under-pressure": "^5.2.0"
+    "under-pressure": "^5.2.0",
+    "validator": "^13.1.17"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
     "@types/jest": "26.0.14",
     "@types/mongodb": "^3.1.19",
     "@types/mongoose": "^5.3.8",
     "@types/node": "^14.11.2",
     "@types/ramda": "^0.27.19",
+    "@types/validator": "^13.1.0",
     "jest": "26.4.2",
     "json-schema-to-typescript": "^9.1.1",
     "prettier": "^2.1.2",

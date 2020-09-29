@@ -13,7 +13,7 @@ export default class {
 
   constructor() {
     this.port = process.env.PORT || 3000;
-    this.server = fastify({ ignoreTrailingSlash: true, logger: { level: 'error' } });
+    this.server = fastify({ ignoreTrailingSlash: true, logger: { level: 'fatal' } });
 
     this.registerPlugins();
     this.registerRoutes();

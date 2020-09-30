@@ -1,5 +1,5 @@
-import { randomBytes } from 'crypto';
 import { compare, genSalt, hash } from 'bcryptjs';
+import { uid } from 'rand-token';
 import validator from 'validator';
 import User from '../models/User';
 import Controller from './Controller';
@@ -22,6 +22,7 @@ export default class Auth extends Controller {
       // Add token to user
       user.token = await this.reply.jwtSign({ user: { id: user.id } });
 
+      this.reply.setCookie('refreshToken', user.refreshToken, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
       this.reply.setCookie('token', user.token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
 
       this.reply.status(200).send(user.toAuthJSON());
@@ -64,8 +65,7 @@ export default class Auth extends Controller {
       let user = await User.findOne({ email });
       if (!user) this.reply.badRequest('No user exist with this email.');
 
-      const buffer = await randomBytes(48);
-      user.resetPasswordToken = buffer.toString('hex');
+      user.resetPasswordToken = uid(64);
       user.resetPasswordExpires = Date.now() + 3600000;
 
       await user.save();

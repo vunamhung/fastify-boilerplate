@@ -1,6 +1,7 @@
+import { genSalt, hash } from 'bcryptjs';
+import { uid } from 'rand-token';
 import User from '../models/User';
 import Controller from './Controller';
-import { genSalt, hash } from 'bcryptjs';
 
 export default class Users extends Controller {
   public async addNewEntry(): Promise<any> {
@@ -15,6 +16,7 @@ export default class Users extends Controller {
 
       const salt = await genSalt(10);
       user.password = await hash(password, salt);
+      user.refreshToken = uid(64);
 
       await user.save();
 

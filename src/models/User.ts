@@ -6,6 +6,7 @@ interface IUserModel extends Document {
   email: string;
   password: string;
   role: string;
+  refreshToken: string;
   firstName?: string;
   lastName?: string;
   avatar?: string;
@@ -42,6 +43,7 @@ const UserSchema: Schema = new Schema(
       enum: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_MERCHANT'],
       default: 'ROLE_MEMBER',
     },
+    refreshToken: { type: String },
     resetPasswordToken: { type: String },
     resetPasswordExpires: { type: Number },
     firstName: { type: String },

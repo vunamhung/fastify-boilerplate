@@ -63,6 +63,7 @@ export default class {
       message: 'Under pressure!',
       retryAfter: 50,
     });
+    this.server.register(import('fastify-helmet'));
     this.server.register(import('fastify-sensible'));
     this.server.register(import('fastify-cookie'));
     this.server.register(import('fastify-rate-limit'), {

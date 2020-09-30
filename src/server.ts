@@ -1,11 +1,12 @@
-import { join } from 'path';
+import { join, resolve } from 'path';
 import { connection, connect } from 'mongoose';
 import { fastify, FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
+import ejs from 'ejs';
 
 import utilities from './utilities';
 import authenticate from './middlewares/authenticate';
-import { swaggerOpts, rateLimitOpts } from './utilities/pluginConfigs';
+import { swaggerOpts } from './utilities/pluginConfigs';
 
 export default class {
   private server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
@@ -62,12 +63,22 @@ export default class {
     });
     this.server.register(import('fastify-sensible'));
     this.server.register(import('fastify-cookie'));
-    this.server.register(import('fastify-rate-limit'), rateLimitOpts);
+    this.server.register(import('fastify-rate-limit'), {
+      max: 100,
+      timeWindow: 6000,
+      cache: 10000,
+    });
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-swagger'), swaggerOpts);
     this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-qs'), { disabled: false });
+    this.server.register(import('point-of-view'), {
+      engine: { ejs },
+      templates: join(__dirname, '..', 'templates'),
+      options: { filename: resolve(__dirname, '..', 'templates') },
+      includeViewExtension: true,
+    });
   }
 
   private async registerRoutes() {

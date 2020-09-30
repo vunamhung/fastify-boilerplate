@@ -1,13 +1,6 @@
 import { join } from 'path';
 import { SwaggerOptions } from 'fastify-swagger';
 import { FastifyStaticOptions } from 'fastify-static';
-import { RateLimitPluginOptions } from 'fastify-rate-limit';
-
-export const rateLimitOpts: RateLimitPluginOptions = {
-  max: 100,
-  timeWindow: 6000,
-  cache: 10000,
-};
 
 export const swaggerOpts: SwaggerOptions = {
   routePrefix: '/documentation',

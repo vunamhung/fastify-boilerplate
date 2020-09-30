@@ -14,7 +14,7 @@ const OptionSchema: Schema = new Schema(
       required: true,
     },
     data: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },

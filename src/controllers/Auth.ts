@@ -1,11 +1,11 @@
 import { compare, genSalt, hash } from 'bcryptjs';
 import { uid } from 'rand-token';
 import validator from 'validator';
-import User from '../models/User';
 import Controller from './Controller';
+import User from '../models/User';
 
 export default class Auth extends Controller {
-  public async loginUser(): Promise<any> {
+  public async login(): Promise<any> {
     const { email, password } = this.requestBody;
 
     if (!validator.isEmail(email)) this.reply.badRequest('You must enter an email address.');
@@ -29,6 +29,13 @@ export default class Auth extends Controller {
     } catch (error) {
       this.reply.send(error);
     }
+  }
+
+  public logout() {
+    this.reply.clearCookie('token');
+    this.reply.clearCookie('refreshToken');
+
+    this.reply.code(200).send();
   }
 
   public async resetPasswordByToken(): Promise<any> {
@@ -77,12 +84,5 @@ export default class Auth extends Controller {
     } catch (error) {
       this.reply.send(error);
     }
-  }
-
-  public logout() {
-    this.reply.clearCookie('token');
-    this.reply.clearCookie('refreshToken');
-
-    this.reply.code(200).send();
   }
 }

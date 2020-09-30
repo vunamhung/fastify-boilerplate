@@ -5,18 +5,18 @@ export default abstract class Controller {
   protected server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
   protected request: FastifyRequest;
   protected reply: FastifyReply;
-  protected params;
-  protected query;
-  protected requestBody;
+  protected reqParams;
+  protected reqQuery;
+  protected reqBody;
 
   constructor(server, request, reply) {
     this.server = server;
     this.request = request;
     this.reply = reply;
 
-    this.params = this.request.params;
-    this.query = this.request.query;
-    this.requestBody = this.request.body;
+    this.reqParams = this.request.params;
+    this.reqQuery = this.request.query;
+    this.reqBody = this.request.body;
   }
 
   public async findAllEntries(): Promise<any> {

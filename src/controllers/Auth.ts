@@ -3,10 +3,11 @@ import { uid } from 'rand-token';
 import validator from 'validator';
 import Controller from './Controller';
 import User from '../models/User';
+import { HOUR_IN_SECONDS } from '../utilities/constants';
 
 export default class Auth extends Controller {
   public async login(): Promise<any> {
-    const { email, password } = this.requestBody;
+    const { email, password } = this.reqBody;
 
     if (!validator.isEmail(email)) this.reply.badRequest('You must enter an email address.');
 
@@ -22,7 +23,6 @@ export default class Auth extends Controller {
       // Add token to user
       user.token = await this.reply.jwtSign({ user: { id: user.id } });
 
-      this.reply.setCookie('refreshToken', user.refreshToken, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
       this.reply.setCookie('token', user.token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
 
       this.reply.status(200).send(user.toAuthJSON());
@@ -33,17 +33,16 @@ export default class Auth extends Controller {
 
   public logout() {
     this.reply.clearCookie('token');
-    this.reply.clearCookie('refreshToken');
 
     this.reply.code(200).send();
   }
 
   public async resetPasswordByToken(): Promise<any> {
-    const { password } = this.requestBody;
+    const { password } = this.reqBody;
 
     try {
       let user = await User.findOne({
-        resetPasswordToken: this.params.token,
+        resetPasswordToken: this.reqParams.token,
         resetPasswordExpires: { $gt: Date.now() },
       });
 
@@ -64,7 +63,7 @@ export default class Auth extends Controller {
   }
 
   public async forgotPassword(): Promise<any> {
-    const { email } = this.requestBody;
+    const { email } = this.reqBody;
 
     if (!validator.isEmail(email)) this.reply.badRequest('You must enter an email address.');
 
@@ -73,7 +72,7 @@ export default class Auth extends Controller {
       if (!user) this.reply.badRequest('No user exist with this email.');
 
       user.resetPasswordToken = uid(64);
-      user.resetPasswordExpires = Date.now() + 3600000;
+      user.resetPasswordExpires = Date.now() + 4 * HOUR_IN_SECONDS;
 
       await user.save();
 

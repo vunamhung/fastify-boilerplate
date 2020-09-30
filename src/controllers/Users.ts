@@ -5,7 +5,7 @@ import Controller from './Controller';
 
 export default class Users extends Controller {
   public async addNewEntry(): Promise<any> {
-    const { email, username, password, info } = this.requestBody;
+    const { email, username, password, info } = this.reqBody;
 
     try {
       let user = await User.findOne({ email });

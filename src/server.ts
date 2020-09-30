@@ -5,6 +5,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 import ejs from 'ejs';
 
 import utilities from './utilities';
+import mailgun from './services/mailgun';
 import authenticate from './middlewares/authenticate';
 import { swaggerOpts } from './utilities/pluginConfigs';
 
@@ -54,6 +55,7 @@ export default class {
 
   private registerPlugins() {
     this.server.register(utilities);
+    this.server.register(mailgun);
     this.server.register(authenticate);
 
     this.server.register(import('under-pressure'), {

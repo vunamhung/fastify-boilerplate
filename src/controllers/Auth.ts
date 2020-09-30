@@ -78,4 +78,11 @@ export default class Auth extends Controller {
       this.reply.send(error);
     }
   }
+
+  public logout() {
+    this.reply.clearCookie('token');
+    this.reply.clearCookie('refreshToken');
+
+    this.reply.code(200).send();
+  }
 }

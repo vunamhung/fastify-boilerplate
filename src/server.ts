@@ -25,7 +25,7 @@ export default class {
   }
 
   public async initDb() {
-    connection.on('connected', () => console.log('MongoDB connected'));
+    connection.on('connected', () => console.log('MongoDB connected successfully'));
     connection.on('disconnected', () => this.server.log.error({ actor: 'MongoDB' }, 'disconnected'));
 
     await connect(process.env.MONGO_URI, {

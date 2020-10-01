@@ -5,4 +5,4 @@ import Server from './server';
 install();
 config();
 
-new Server().start();
+new Server().start().catch(console.log);

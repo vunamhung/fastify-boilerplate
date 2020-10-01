@@ -3,7 +3,7 @@ import fp from 'fastify-plugin';
 
 export default fp((server: FastifyInstance, options, done) => {
   server.decorate('isAdmin', async (request: FastifyRequest, reply: FastifyReply) => {
-    let token: { user };
+    let token;
 
     token = request.headers.authorization
       ? await server.jwt.decode(request.headers.authorization?.split(' ')[1])

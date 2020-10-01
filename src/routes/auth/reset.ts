@@ -7,6 +7,13 @@ export default function (server: FastifyInstance, options, done) {
     '/reset/:token',
     {
       schema: {
+        tags: ['auth'],
+        params: {
+          type: 'object',
+          properties: {
+            token: { type: 'string', description: 'reset password token' },
+          },
+        },
         body: {
           type: 'object',
           properties: {

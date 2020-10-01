@@ -8,6 +8,7 @@ export default function (server: FastifyInstance, options, done) {
     '/',
     {
       schema: {
+        tags: ['users'],
         body: {
           type: 'object',
           properties: {

@@ -5,6 +5,9 @@ export default function (server: FastifyInstance, options, done) {
     url: '/status',
     logLevel: 'warn',
     method: ['GET', 'HEAD'],
+    schema: {
+      tags: ['status'],
+    },
     handler: async (request, reply) => reply.send({ date: new Date(), works: true }),
   });
 

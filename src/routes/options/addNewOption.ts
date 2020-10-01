@@ -6,11 +6,12 @@ export default function (server: FastifyInstance, options, done) {
     '/',
     {
       schema: {
+        tags: ['options'],
         body: {
           type: 'object',
           properties: {
             name: { type: 'string' },
-            data: { type: 'array' },
+            data: { type: 'object' },
           },
           required: ['name', 'data'],
         },

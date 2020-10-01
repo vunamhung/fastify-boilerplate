@@ -8,6 +8,7 @@ export default function (server: FastifyInstance, options, done) {
     '/login',
     {
       schema: {
+        tags: ['auth'],
         description: 'Authentication endpoint, for all the users, to allow access to protected resources',
         summary: 'Sign in to access protected resources',
         body: {

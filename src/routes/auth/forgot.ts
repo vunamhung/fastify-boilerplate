@@ -9,6 +9,7 @@ export default function (server: FastifyInstance, options, done) {
     '/forgot',
     {
       schema: {
+        tags: ['auth'],
         body: {
           type: 'object',
           properties: {

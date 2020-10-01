@@ -7,6 +7,7 @@ import ejs from 'ejs';
 import mailgun from './services/mailgun';
 import authenticate from './middlewares/authenticate';
 import { swaggerOpts } from './utilities/pluginConfigs';
+import { MINUTE_IN_SECONDS } from './utilities/constants';
 
 export default class {
   private server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
@@ -66,7 +67,7 @@ export default class {
     this.server.register(import('fastify-cookie'));
     this.server.register(import('fastify-rate-limit'), {
       max: 100,
-      timeWindow: 6000,
+      timeWindow: MINUTE_IN_SECONDS,
       cache: 10000,
     });
     this.server.register(import('fastify-prettier'));

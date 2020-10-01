@@ -5,7 +5,7 @@ interface IUserModel extends Document {
   username: string;
   email: string;
   password: string;
-  role: string;
+  role: 'member' | 'admin' | 'merchant';
   refreshToken: string;
   firstName?: string;
   lastName?: string;
@@ -40,8 +40,8 @@ const UserSchema: Schema = new Schema(
     },
     role: {
       type: String,
-      enum: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_MERCHANT'],
-      default: 'ROLE_MEMBER',
+      enum: ['member', 'admin', 'merchant'],
+      default: 'member',
     },
     refreshToken: { type: String },
     resetPasswordToken: { type: String },

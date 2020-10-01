@@ -5,8 +5,8 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
-import authenticate from './middlewares/authenticate';
-import { swaggerOpts } from './utilities/pluginConfigs';
+import authenticate from './utilities/authenticate';
+import document from './utilities/document';
 import { MINUTE_IN_SECONDS } from './utilities/constants';
 
 export default class {
@@ -25,13 +25,8 @@ export default class {
   }
 
   public async initDb() {
-    connection.on('connected', () => {
-      this.server.log.info({ actor: 'MongoDB' }, 'connected');
-    });
-
-    connection.on('disconnected', () => {
-      this.server.log.error({ actor: 'MongoDB' }, 'disconnected');
-    });
+    connection.on('connected', () => console.log('MongoDB connected'));
+    connection.on('disconnected', () => this.server.log.error({ actor: 'MongoDB' }, 'disconnected'));
 
     await connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
@@ -56,6 +51,7 @@ export default class {
   private registerPlugins() {
     this.server.register(mailgun);
     this.server.register(authenticate);
+    this.server.register(document);
 
     this.server.register(import('under-pressure'), {
       maxEventLoopDelay: 1000, // maximum detected delay between event loop ticks.
@@ -71,7 +67,6 @@ export default class {
       cache: 10000,
     });
     this.server.register(import('fastify-prettier'));
-    this.server.register(import('fastify-swagger'), swaggerOpts);
     this.server.register(import('fastify-cors'), { origin: true });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-qs'), { disabled: false });

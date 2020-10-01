@@ -41,7 +41,7 @@ export default function (server: FastifyInstance, options, done) {
 
         reply.setCookie('token', token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
 
-        reply.status(200).send({ success: true, token: token });
+        reply.send({ success: true, token });
       } catch (error) {
         reply.send(error);
       }

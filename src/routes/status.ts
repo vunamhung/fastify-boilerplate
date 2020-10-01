@@ -1,15 +1,7 @@
 import { FastifyInstance } from 'fastify';
 
 export default function (server: FastifyInstance, options, done) {
-  server.route({
-    url: '/status',
-    logLevel: 'warn',
-    method: ['GET', 'HEAD'],
-    schema: {
-      tags: ['status'],
-    },
-    handler: async (request, reply) => reply.send({ date: new Date(), works: true }),
-  });
+  server.get('/', { schema: { hide: true } }, async (request, reply) => reply.send({ date: new Date(), works: true }));
 
   done();
 }

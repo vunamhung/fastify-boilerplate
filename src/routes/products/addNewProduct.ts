@@ -19,7 +19,9 @@ export default function (server: FastifyInstance, options, done) {
     async (request: FastifyRequest, reply) => {
       try {
         // @ts-ignore
-        const checkSku = await Product.findOne({ sku: request.body.sku });
+        const { sku } = request.body;
+
+        const checkSku = await Product.findOne({ sku });
 
         if (checkSku) reply.badRequest('This sku is already in use.');
 

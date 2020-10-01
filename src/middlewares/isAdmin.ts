@@ -5,9 +5,9 @@ export default fp((server: FastifyInstance, options, done) => {
   server.decorate('isAdmin', async (request: FastifyRequest, reply: FastifyReply) => {
     let token: { user };
 
-    token = request.cookies.token
-      ? server.jwt.decode(request.cookies.token)
-      : await server.jwt.decode(request.headers.authorization?.split(' ')[1]);
+    token = request.headers.authorization
+      ? await server.jwt.decode(request.headers.authorization?.split(' ')[1])
+      : server.jwt.decode(request.cookies.token);
 
     const { role } = token.user;
 

@@ -61,7 +61,15 @@ export default class {
       message: 'Under pressure!',
       retryAfter: 50,
     });
-    this.server.register(import('fastify-helmet'));
+    this.server.register(import('fastify-helmet'), {
+      contentSecurityPolicy: {
+        directives: {
+          'default-src': ["'self'"],
+          'script-src': ["'self'", "'sha256-iV83EgAQc1+Q++O7L1ZemfWFbYYPNv2syB2HreE5S/8='"],
+          'object-src': ["'none'"],
+        },
+      },
+    });
     this.server.register(import('fastify-sensible'));
     this.server.register(import('fastify-cookie'));
     this.server.register(import('fastify-rate-limit'), {

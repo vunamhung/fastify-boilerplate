@@ -13,7 +13,7 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            email: { type: 'string' },
+            email: { type: 'string', format: 'email' },
           },
           required: ['email'],
         },

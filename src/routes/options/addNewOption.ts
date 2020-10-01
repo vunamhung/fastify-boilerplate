@@ -13,7 +13,13 @@ export default function (server: FastifyInstance, options, done) {
           type: 'object',
           properties: {
             name: { type: 'string' },
-            data: { type: 'object' },
+            data: {
+              type: 'array',
+              items: {
+                type: 'string',
+              },
+              minItems: 1,
+            },
           },
           required: ['name', 'data'],
         },

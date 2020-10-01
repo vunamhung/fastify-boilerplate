@@ -15,24 +15,22 @@ export default function (server: FastifyInstance, options, done) {
           type: 'object',
           properties: {
             email: { type: 'string', format: 'email' },
-            username: { type: 'string' },
             password: { type: 'string' },
-            info: { type: 'string' },
           },
-          required: ['email', 'username', 'password'],
+          required: ['email', 'password'],
         },
       },
     },
     async (request: FastifyRequest, reply) => {
       // @ts-ignore
-      const { email, username, password, info } = request.body;
+      const { email, password } = request.body;
 
       try {
         let user = await User.findOne({ email });
 
-        if (user) reply.badRequest('User already exists');
+        if (user) reply.badRequest('User already exists.');
 
-        user = new User({ email, username, info });
+        user = new User({ email });
 
         const salt = await genSalt(10);
         user.password = await hash(password, salt);
@@ -40,9 +38,7 @@ export default function (server: FastifyInstance, options, done) {
 
         await user.save();
 
-        user.token = await reply.jwtSign({ user: { id: user.id } });
-
-        reply.status(201).send(user.toAuthJSON());
+        reply.status(201).send({ success: true, message: 'User created.' });
       } catch (error) {
         reply.send(error);
       }

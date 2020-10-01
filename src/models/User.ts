@@ -2,29 +2,20 @@ import { Document, Schema, model } from 'mongoose';
 import validator from 'validator';
 
 interface IUserModel extends Document {
-  username: string;
   email: string;
   password: string;
   role: 'member' | 'admin' | 'merchant';
   refreshToken: string;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: number;
   firstName?: string;
   lastName?: string;
   avatar?: string;
   info?: string;
-  token?: string;
-  resetPasswordToken?: string;
-  resetPasswordExpires?: number;
-  toAuthJSON?: Function;
 }
 
 const UserSchema: Schema = new Schema(
   {
-    username: {
-      type: String,
-      required: true,
-      lowercase: true,
-      maxlength: [36, 'Too long, max is 36 characters'],
-    },
     email: {
       type: String,
       required: true,
@@ -55,19 +46,5 @@ const UserSchema: Schema = new Schema(
     timestamps: true,
   },
 );
-
-UserSchema.methods.toAuthJSON = function () {
-  return {
-    success: true,
-    token: `Bearer ${this.token}`,
-    user: {
-      _id: this._id,
-      avatar: this.avatar,
-      username: this.username,
-      info: this.info,
-      email: this.email,
-    },
-  };
-};
 
 export default model<IUserModel>('User', UserSchema);

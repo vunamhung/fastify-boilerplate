@@ -26,7 +26,7 @@ export default function (server: FastifyInstance, options, done) {
 
         reply.code(201).send({
           success: true,
-          message: 'Option created',
+          message: 'Option created.',
           option,
         });
       } catch (error) {

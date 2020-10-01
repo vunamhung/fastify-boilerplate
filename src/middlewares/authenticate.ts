@@ -13,12 +13,8 @@ export default fp((server, options, done) => {
   server.register(fastifyJwt, {
     secret: process.env.JWT_SECRET_KEY,
     trusted: validateToken,
-    sign: {
-      expiresIn: '7d',
-    },
-    cookie: {
-      cookieName: 'token',
-    },
+    sign: { expiresIn: '7d' },
+    cookie: { cookieName: 'token' },
   });
 
   server.decorate('authenticate', async (request: FastifyRequest, reply) => {

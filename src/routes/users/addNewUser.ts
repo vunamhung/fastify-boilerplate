@@ -39,7 +39,7 @@ export default function (server: FastifyInstance, options, done) {
 
         await user.save();
 
-        reply.status(201).send({ success: true, message: 'User created.' });
+        reply.code(201).send({ success: true, message: 'User created.' });
       } catch (error) {
         reply.send(error);
       }

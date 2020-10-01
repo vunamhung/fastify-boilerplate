@@ -5,7 +5,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
-import authenticate from './utilities/authenticate';
+import authenticate from './middlewares/authenticate';
 import document from './utilities/document';
 import { MINUTE_IN_SECONDS } from './utilities/constants';
 

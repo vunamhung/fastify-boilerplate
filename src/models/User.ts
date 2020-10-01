@@ -59,7 +59,7 @@ const UserSchema: Schema = new Schema(
 UserSchema.methods.toAuthJSON = function () {
   return {
     success: true,
-    token: this.token,
+    token: `Bearer ${this.token}`,
     user: {
       _id: this._id,
       avatar: this.avatar,

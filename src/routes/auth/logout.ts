@@ -4,14 +4,19 @@ export default function (server: FastifyInstance, options, done) {
   server.get(
     '/logout',
     {
+      preValidation: [server.authenticate],
       schema: {
         tags: ['auth'],
+        security: [{ apiKey: [] }],
       },
     },
     async (request: FastifyRequest, reply) => {
       reply.clearCookie('token');
 
-      reply.code(200).send();
+      reply.code(200).send({
+        success: true,
+        message: 'Logged out',
+      });
     },
   );
 

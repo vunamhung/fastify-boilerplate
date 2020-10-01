@@ -16,8 +16,9 @@ export const swaggerOpts: SwaggerOptions = {
     produces: ['application/json'],
     securityDefinitions: {
       apiKey: {
+        description: 'Standard Authorization header using the Bearer scheme. Example: "Bearer {token}"',
         type: 'apiKey',
-        name: 'apiKey',
+        name: 'Authorization',
         in: 'header',
       },
     },

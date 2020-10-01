@@ -5,8 +5,10 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/',
     {
+      preValidation: [server.authenticate],
       schema: {
         tags: ['products'],
+        security: [{ apiKey: [] }],
         body: {
           type: 'object',
           properties: {

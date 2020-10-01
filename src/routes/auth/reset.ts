@@ -4,30 +4,23 @@ import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
-    '/reset/:token',
+    '/reset',
     {
       schema: {
         tags: ['auth'],
-        params: {
-          type: 'object',
-          properties: {
-            token: { type: 'string', description: 'reset password token' },
-          },
-        },
         body: {
           type: 'object',
           properties: {
             password: { type: 'string' },
+            token: { type: 'string' },
           },
-          required: ['password'],
+          required: ['password', 'token'],
         },
       },
     },
     async (request: FastifyRequest, reply) => {
       // @ts-ignore
-      const { password } = request.body;
-      // @ts-ignore
-      const { token } = request.params;
+      const { password, token } = request.body;
 
       try {
         let user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });

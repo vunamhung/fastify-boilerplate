@@ -11,6 +11,7 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],
+        summary: 'Add new user.',
         body: {
           type: 'object',
           properties: {

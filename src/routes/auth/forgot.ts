@@ -10,6 +10,7 @@ export default function (server: FastifyInstance, options, done) {
     {
       schema: {
         tags: ['auth'],
+        summary: 'Send reset password link to user email.',
         body: {
           type: 'object',
           properties: {
@@ -34,10 +35,7 @@ export default function (server: FastifyInstance, options, done) {
 
         await user.save();
 
-        reply.code(200).send({
-          success: true,
-          message: 'Please check your email for the link to reset your password.',
-        });
+        reply.send({ success: true, message: 'Please check your email for the link to reset your password.' });
       } catch (error) {
         reply.send(error);
       }

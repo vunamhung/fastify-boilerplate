@@ -14,10 +14,7 @@ export default function (server: FastifyInstance, options, done) {
     async (request: FastifyRequest, reply) => {
       reply.clearCookie('token');
 
-      reply.code(200).send({
-        success: true,
-        message: 'Logged out',
-      });
+      reply.send({ success: true, message: 'Logged out' });
     },
   );
 

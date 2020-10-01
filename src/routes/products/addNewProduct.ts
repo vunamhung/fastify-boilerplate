@@ -9,6 +9,7 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['products'],
         security: [{ apiKey: [] }],
+        summary: 'Add new product.',
         body: {
           type: 'object',
           properties: {

@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
 import { uniq } from 'ramda';
-import Option from '../../models/Option';
+import Option from '../models/Option';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -8,7 +8,7 @@ export default function (server: FastifyInstance, options, done) {
     {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {
-        tags: ['options'],
+        tags: ['ban'],
         security: [{ apiKey: [] }],
         summary: 'Unban user by email.',
         params: {
@@ -26,6 +26,8 @@ export default function (server: FastifyInstance, options, done) {
       const banUsers = await Option.findOne({ name: 'ban_users' });
 
       banUsers.data = banUsers.data.filter((banEmail) => banEmail !== email);
+
+      banUsers.data = uniq(banUsers.data);
 
       await banUsers.save();
 

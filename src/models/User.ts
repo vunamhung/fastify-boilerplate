@@ -1,4 +1,5 @@
 import { Document, model, Schema } from 'mongoose';
+import { FastifyReply } from 'fastify';
 import { compare } from 'bcryptjs';
 
 export interface IUserModel extends Document {
@@ -13,6 +14,7 @@ export interface IUserModel extends Document {
   avatar?: string;
   info?: string;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  generateToken(reply: FastifyReply): Promise<string>;
 }
 
 const { String, Number } = Schema.Types;
@@ -63,6 +65,10 @@ const UserSchema: Schema = new Schema(
 
 UserSchema.methods.comparePassword = async function (candidatePassword) {
   return await compare(candidatePassword, this.password).catch((err) => console.log(err));
+};
+
+UserSchema.methods.generateToken = async function (reply: FastifyReply) {
+  return await reply.jwtSign({ user: { id: this.id, email: this.email, role: this.role } });
 };
 
 export default model<IUserModel>('User', UserSchema);

@@ -36,7 +36,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!isMatch) reply.badRequest('Invalid Credentials');
 
         // Add token to user
-        const token: string = await reply.jwtSign({ user: { id: user.id, email: user.email, role: user.role } });
+        const token: string = await user.generateToken(reply);
 
         reply.setCookie('token', token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
 

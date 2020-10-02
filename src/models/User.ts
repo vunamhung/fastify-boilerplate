@@ -13,13 +13,13 @@ export interface iUserModel extends Document {
   lastName?: string;
   avatar?: string;
   info?: string;
-  comparePassword(candidatePassword: string): Promise<boolean>;
+  comparePassword(candidatePassword: string): Promise<boolean | void>;
   generateToken(reply: FastifyReply): Promise<string>;
 }
 
 const { String, Number } = Schema.Types;
 
-const userSchema: Schema = new Schema(
+const userSchema = new Schema<iUserModel>(
   {
     email: {
       type: String,

@@ -11,7 +11,7 @@ export interface iProductModel extends Document {
 
 const { String, Number, Boolean, ObjectId, Buffer } = Schema.Types;
 
-const productSchema: Schema = new Schema(
+const productSchema = new Schema<iProductModel>(
   {
     sku: {
       type: String,

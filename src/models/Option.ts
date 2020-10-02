@@ -7,7 +7,7 @@ interface iOptionModel extends Document {
 
 const { String, Array } = Schema.Types;
 
-const optionSchema: Schema = new Schema(
+const optionSchema = new Schema<iOptionModel>(
   {
     name: {
       type: String,

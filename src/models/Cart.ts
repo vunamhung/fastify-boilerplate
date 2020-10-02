@@ -14,7 +14,7 @@ export interface iCartModel extends Document {
 
 const { ObjectId, Number } = Schema.Types;
 
-const cartItemSchema: Schema = new Schema({
+const cartItemSchema = new Schema<iCartItemModel>({
   product: {
     type: ObjectId,
     ref: 'Product',
@@ -36,7 +36,7 @@ const cartItemSchema: Schema = new Schema({
   },
 });
 
-const cartSchema: Schema = new Schema(
+const cartSchema = new Schema<iCartModel>(
   {
     products: [cartItemSchema],
   },

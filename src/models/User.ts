@@ -1,5 +1,4 @@
 import { Document, Schema, model } from 'mongoose';
-import validator from 'validator';
 
 interface IUserModel extends Document {
   email: string;
@@ -14,15 +13,14 @@ interface IUserModel extends Document {
   info?: string;
 }
 
+const { String, Number } = Schema.Types;
+
 const UserSchema: Schema = new Schema(
   {
     email: {
       type: String,
       required: true,
       unique: true,
-      lowercase: true,
-      match: [/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/],
-      validate: [validator.isEmail, 'Please provide a valid email'],
     },
     password: {
       type: String,
@@ -34,13 +32,27 @@ const UserSchema: Schema = new Schema(
       enum: ['member', 'admin', 'merchant'],
       default: 'member',
     },
-    refreshToken: { type: String },
-    resetPasswordToken: { type: String },
-    resetPasswordExpires: { type: Number },
-    firstName: { type: String },
-    lastName: { type: String },
-    avatar: { type: String },
-    info: { type: String },
+    refreshToken: {
+      type: String,
+    },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Number,
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    avatar: {
+      type: String,
+    },
+    info: {
+      type: String,
+    },
   },
   {
     timestamps: true,

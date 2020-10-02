@@ -5,6 +5,8 @@ interface IOptionModel extends Document {
   data: any;
 }
 
+const { String, Array } = Schema.Types;
+
 const OptionSchema: Schema = new Schema(
   {
     name: {

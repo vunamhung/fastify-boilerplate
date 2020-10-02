@@ -1,7 +1,5 @@
 import { Document, Schema, model } from 'mongoose';
 
-const { ObjectId } = Schema.Types;
-
 interface IProductModel extends Document {
   sku: string;
   name: string;
@@ -10,6 +8,8 @@ interface IProductModel extends Document {
   quantity: number;
   price: number;
 }
+
+const { String, Number, Boolean, ObjectId, Buffer } = Schema.Types;
 
 const ProductSchema: Schema = new Schema(
   {

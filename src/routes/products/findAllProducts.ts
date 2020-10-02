@@ -13,7 +13,7 @@ export default function (server: FastifyInstance, options, done) {
     async (request: FastifyRequest, reply) => {
       const products = await Product.find().catch((err) => reply.send(err));
 
-      if (!products) reply.badRequest('No products found.');
+      if (!products) reply.notFound('No products found.');
 
       reply.send({ products });
     },

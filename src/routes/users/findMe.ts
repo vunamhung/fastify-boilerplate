@@ -9,7 +9,7 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],
-        summary: 'Find me',
+        summary: 'Find me.',
       },
     },
     async (request: FastifyRequest, reply) => {

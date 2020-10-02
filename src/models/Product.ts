@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 
-export interface IProductModel extends Document {
+export interface iProductModel extends Document {
   sku: string;
   name: string;
   image: string;
@@ -53,4 +53,4 @@ const productSchema: Schema = new Schema(
 
 productSchema.plugin(require('mongoose-slug-generator'));
 
-export default model<IProductModel>('Product', productSchema);
+export default model<iProductModel>('Product', productSchema);

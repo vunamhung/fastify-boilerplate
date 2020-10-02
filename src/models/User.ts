@@ -2,7 +2,7 @@ import { Document, model, Schema } from 'mongoose';
 import { FastifyReply } from 'fastify';
 import { compare } from 'bcryptjs';
 
-export interface IUserModel extends Document {
+export interface iUserModel extends Document {
   email: string;
   password: string;
   role: 'member' | 'admin' | 'merchant';
@@ -71,4 +71,4 @@ userSchema.methods.generateToken = async function (reply: FastifyReply) {
   return await reply.jwtSign({ user: { id: this.id, email: this.email, role: this.role } });
 };
 
-export default model<IUserModel>('User', userSchema);
+export default model<iUserModel>('User', userSchema);

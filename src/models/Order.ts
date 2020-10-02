@@ -1,8 +1,8 @@
 import { Document, Schema, model } from 'mongoose';
-import { ICartModel } from './Cart';
+import { iCartModel } from './Cart';
 
-interface IOrderModel extends Document {
-  cart: ICartModel;
+interface iOrderModel extends Document {
+  cart: iCartModel;
   total: number;
   totalTax?: number;
 }
@@ -29,4 +29,4 @@ const orderSchema: Schema = new Schema(
   },
 );
 
-export default model<IOrderModel>('Order', orderSchema);
+export default model<iOrderModel>('Order', orderSchema);

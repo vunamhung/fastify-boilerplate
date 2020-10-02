@@ -1,6 +1,6 @@
 import { Document, Schema, model } from 'mongoose';
 
-interface IOptionModel extends Document {
+interface iOptionModel extends Document {
   name: string;
   data: any;
 }
@@ -25,4 +25,4 @@ const optionSchema: Schema = new Schema(
   },
 );
 
-export default model<IOptionModel>('Option', optionSchema);
+export default model<iOptionModel>('Option', optionSchema);

@@ -1,15 +1,15 @@
 import { Document, Schema, model } from 'mongoose';
-import { IProductModel } from './Product';
+import { iProductModel } from './Product';
 
-interface ICartItemModel extends Document {
-  product: IProductModel;
+interface iCartItemModel extends Document {
+  product: iProductModel;
   quantity: number;
   totalPrice: number;
   priceWithTax?: number;
 }
 
-export interface ICartModel extends Document {
-  products: [ICartItemModel];
+export interface iCartModel extends Document {
+  products: [iCartItemModel];
 }
 
 const { ObjectId, Number } = Schema.Types;
@@ -45,4 +45,4 @@ const cartSchema: Schema = new Schema(
   },
 );
 
-export default model<ICartModel>('Cart', cartSchema);
+export default model<iCartModel>('Cart', cartSchema);

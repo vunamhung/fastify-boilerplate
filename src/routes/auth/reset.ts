@@ -29,7 +29,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!user) reply.badRequest('Your token has expired. Please attempt to reset your password again.');
 
-        const salt = await genSalt(10);
+        const salt = await genSalt();
         user.password = await hash(password, salt);
 
         await user.save();

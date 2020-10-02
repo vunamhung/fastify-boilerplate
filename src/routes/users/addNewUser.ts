@@ -33,7 +33,7 @@ export default function (server: FastifyInstance, options, done) {
 
         user = new User({ email });
 
-        const salt = await genSalt(10);
+        const salt = await genSalt();
         user.password = await hash(password, salt);
         user.refreshToken = uid(64);
 

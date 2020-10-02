@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { compare } from 'bcryptjs';
 import validator from 'validator';
 import User from '../../models/User';
 
@@ -33,11 +32,11 @@ export default function (server: FastifyInstance, options, done) {
         if (!user) reply.badRequest('Invalid Credentials');
 
         // compare password with db user password
-        const isMatch = await compare(password, user.password);
+        const isMatch: boolean = await user.comparePassword(password);
         if (!isMatch) reply.badRequest('Invalid Credentials');
 
         // Add token to user
-        const token = await reply.jwtSign({ user: { id: user.id, email: user.email, role: user.role } });
+        const token: string = await reply.jwtSign({ user: { id: user.id, email: user.email, role: user.role } });
 
         reply.setCookie('token', token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
 

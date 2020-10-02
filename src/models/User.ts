@@ -1,4 +1,5 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
+import { compare } from 'bcryptjs';
 
 export interface IUserModel extends Document {
   email: string;
@@ -11,6 +12,7 @@ export interface IUserModel extends Document {
   lastName?: string;
   avatar?: string;
   info?: string;
+  comparePassword(candidatePassword: string): Promise<boolean>;
 }
 
 const { String, Number } = Schema.Types;
@@ -58,5 +60,9 @@ const UserSchema: Schema = new Schema(
     timestamps: true,
   },
 );
+
+UserSchema.methods.comparePassword = async function (candidatePassword) {
+  return await compare(candidatePassword, this.password).catch((err) => console.log(err));
+};
 
 export default model<IUserModel>('User', UserSchema);

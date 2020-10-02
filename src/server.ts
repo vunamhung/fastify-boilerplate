@@ -1,7 +1,7 @@
-import { join, resolve } from 'path';
-import { connection, connect } from 'mongoose';
-import { fastify, FastifyInstance } from 'fastify';
 import { Server, IncomingMessage, ServerResponse } from 'http';
+import { fastify, FastifyInstance } from 'fastify';
+import { connection, connect } from 'mongoose';
+import { join, resolve } from 'path';
 import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
@@ -9,7 +9,7 @@ import authenticate from './middlewares/authenticate';
 import isAdmin from './middlewares/isAdmin';
 import token from './utilities/token';
 import document from './utilities/document';
-import { MINUTE_IN_SECONDS } from './utilities/constants';
+import { validateToken, MINUTE_IN_SECONDS } from './utilities';
 
 export default class {
   private server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
@@ -51,25 +51,24 @@ export default class {
   }
 
   private registerPlugins() {
+    this.server.register(import('fastify-jwt'), {
+      secret: process.env.JWT_SECRET_KEY,
+      sign: { expiresIn: '7d' },
+      cookie: { cookieName: 'token' },
+      trusted: validateToken,
+    });
+
     this.server.register(mailgun);
     this.server.register(authenticate);
     this.server.register(token);
     this.server.register(isAdmin);
     this.server.register(document);
 
-    this.server.register(import('under-pressure'), {
-      maxEventLoopDelay: 1000, // maximum detected delay between event loop ticks.
-      message: 'Under pressure!',
-      retryAfter: 50,
-    });
+    this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), { contentSecurityPolicy: false });
     this.server.register(import('fastify-sensible'));
     this.server.register(import('fastify-cookie'));
-    this.server.register(import('fastify-rate-limit'), {
-      max: 100,
-      timeWindow: MINUTE_IN_SECONDS,
-      cache: 10000,
-    });
+    this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-cors'), { preflight: true, credentials: true });
     this.server.register(import('fastify-blipp'));

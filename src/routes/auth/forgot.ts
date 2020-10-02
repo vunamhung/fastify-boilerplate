@@ -2,7 +2,7 @@ import { FastifyInstance, FastifyRequest } from 'fastify';
 import { uid } from 'rand-token';
 import validator from 'validator';
 import User from '../../models/User';
-import { HOUR_IN_SECONDS } from '../../utilities/constants';
+import { HOUR_IN_SECONDS } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(

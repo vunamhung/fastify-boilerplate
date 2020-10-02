@@ -13,11 +13,12 @@ export interface iUserModel extends Document {
   lastName?: string;
   avatar?: string;
   info?: string;
+  banned?: boolean;
   comparePassword(candidatePassword: string): Promise<boolean | void>;
   generateToken(reply: FastifyReply): Promise<string>;
 }
 
-const { String, Number } = Schema.Types;
+const { String, Number, Boolean } = Schema.Types;
 
 const userSchema = new Schema<iUserModel>(
   {
@@ -57,6 +58,9 @@ const userSchema = new Schema<iUserModel>(
     info: {
       type: String,
     },
+    banned: {
+      type: Boolean,
+    },
   },
   {
     timestamps: true,
@@ -68,8 +72,8 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.methods.generateToken = async function (reply: FastifyReply) {
-  const { id, email, role } = this;
-  return await reply.jwtSign({ user: { id, email, role } });
+  const { id, email, role, banned } = this;
+  return await reply.jwtSign({ user: { id, email, role, banned } });
 };
 
 export default model<iUserModel>('User', userSchema);

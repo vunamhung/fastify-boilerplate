@@ -11,7 +11,7 @@ export interface IProductModel extends Document {
 
 const { String, Number, Boolean, ObjectId, Buffer } = Schema.Types;
 
-const ProductSchema: Schema = new Schema(
+const productSchema: Schema = new Schema(
   {
     sku: {
       type: String,
@@ -51,6 +51,6 @@ const ProductSchema: Schema = new Schema(
   },
 );
 
-ProductSchema.plugin(require('mongoose-slug-generator'));
+productSchema.plugin(require('mongoose-slug-generator'));
 
-export default model<IProductModel>('Product', ProductSchema);
+export default model<IProductModel>('Product', productSchema);

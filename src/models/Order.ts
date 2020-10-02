@@ -9,7 +9,7 @@ interface IOrderModel extends Document {
 
 const { ObjectId, Number } = Schema.Types;
 
-const OrderSchema: Schema = new Schema(
+const orderSchema: Schema = new Schema(
   {
     cart: {
       type: ObjectId,
@@ -29,4 +29,4 @@ const OrderSchema: Schema = new Schema(
   },
 );
 
-export default model<IOrderModel>('Order', OrderSchema);
+export default model<IOrderModel>('Order', orderSchema);

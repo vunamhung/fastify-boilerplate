@@ -7,7 +7,7 @@ interface IOptionModel extends Document {
 
 const { String, Array } = Schema.Types;
 
-const OptionSchema: Schema = new Schema(
+const optionSchema: Schema = new Schema(
   {
     name: {
       type: String,
@@ -25,4 +25,4 @@ const OptionSchema: Schema = new Schema(
   },
 );
 
-export default model<IOptionModel>('Option', OptionSchema);
+export default model<IOptionModel>('Option', optionSchema);

@@ -14,7 +14,7 @@ export interface ICartModel extends Document {
 
 const { ObjectId, Number } = Schema.Types;
 
-const CartItemSchema: Schema = new Schema({
+const cartItemSchema: Schema = new Schema({
   product: {
     type: ObjectId,
     ref: 'Product',
@@ -36,13 +36,13 @@ const CartItemSchema: Schema = new Schema({
   },
 });
 
-const CartSchema: Schema = new Schema(
+const cartSchema: Schema = new Schema(
   {
-    products: [CartItemSchema],
+    products: [cartItemSchema],
   },
   {
     timestamps: true,
   },
 );
 
-export default model<ICartModel>('Cart', CartSchema);
+export default model<ICartModel>('Cart', cartSchema);

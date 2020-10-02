@@ -19,7 +19,7 @@ export interface IUserModel extends Document {
 
 const { String, Number } = Schema.Types;
 
-const UserSchema: Schema = new Schema(
+const userSchema: Schema = new Schema(
   {
     email: {
       type: String,
@@ -63,12 +63,12 @@ const UserSchema: Schema = new Schema(
   },
 );
 
-UserSchema.methods.comparePassword = async function (candidatePassword) {
+userSchema.methods.comparePassword = async function (candidatePassword) {
   return await compare(candidatePassword, this.password).catch((err) => console.log(err));
 };
 
-UserSchema.methods.generateToken = async function (reply: FastifyReply) {
+userSchema.methods.generateToken = async function (reply: FastifyReply) {
   return await reply.jwtSign({ user: { id: this.id, email: this.email, role: this.role } });
 };
 
-export default model<IUserModel>('User', UserSchema);
+export default model<IUserModel>('User', userSchema);

@@ -14,18 +14,18 @@ export default function (server: FastifyInstance, options, done) {
           type: 'object',
           properties: {
             password: { type: 'string' },
-            token: { type: 'string' },
+            resetToken: { type: 'string' },
           },
-          required: ['password', 'token'],
+          required: ['password', 'resetToken'],
         },
       },
     },
     async (request: FastifyRequest, reply) => {
       // @ts-ignore
-      const { password, token } = request.body;
+      const { password, resetToken } = request.body;
 
       try {
-        let user = await User.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
+        let user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: Date.now() } });
 
         if (!user) reply.badRequest('Your token has expired. Please attempt to reset your password again.');
 

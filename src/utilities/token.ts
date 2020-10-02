@@ -11,13 +11,8 @@ export interface iToken {
 
 export default fp((server: FastifyInstance, options, done) => {
   server.decorate('token', (request: FastifyRequest) => {
-    let token: iToken;
-
-    if (request.headers.authorization && request.headers.authorization.startsWith('Bearer')) {
-      token = server.jwt.decode(request.headers.authorization?.split(' ')[1]);
-    } else {
-      token = server.jwt.decode(request.cookies.token);
-    }
+    const auth = request.headers.authorization;
+    const token: iToken = auth?.startsWith('Bearer') ? server.jwt.decode(auth?.split(' ')[1]) : server.jwt.decode(request.cookies.token);
 
     return token;
   });

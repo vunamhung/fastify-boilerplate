@@ -32,7 +32,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!user) reply.badRequest('Invalid Credentials');
 
         // compare password with db user password
-        const isMatch: boolean = await user.comparePassword(password);
+        const isMatch: boolean | void = await user.comparePassword(password);
         if (!isMatch) reply.badRequest('Invalid Credentials');
 
         // Add token to user

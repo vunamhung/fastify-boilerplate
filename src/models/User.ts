@@ -68,7 +68,8 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.methods.generateToken = async function (reply: FastifyReply) {
-  return await reply.jwtSign({ user: { id: this.id, email: this.email, role: this.role } });
+  const { id, email, role } = this;
+  return await reply.jwtSign({ user: { id, email, role } });
 };
 
 export default model<iUserModel>('User', userSchema);

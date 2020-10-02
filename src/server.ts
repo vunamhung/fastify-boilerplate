@@ -7,6 +7,7 @@ import ejs from 'ejs';
 import mailgun from './services/mailgun';
 import authenticate from './middlewares/authenticate';
 import isAdmin from './middlewares/isAdmin';
+import token from './utilities/token';
 import document from './utilities/document';
 import { MINUTE_IN_SECONDS } from './utilities/constants';
 
@@ -52,6 +53,7 @@ export default class {
   private registerPlugins() {
     this.server.register(mailgun);
     this.server.register(authenticate);
+    this.server.register(token);
     this.server.register(isAdmin);
     this.server.register(document);
 

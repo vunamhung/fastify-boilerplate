@@ -7,8 +7,8 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.authenticate],
       schema: {
         tags: ['auth'],
-        hide: true,
         security: [{ apiKey: [] }],
+        summary: 'Logged out user',
       },
     },
     async (request: FastifyRequest, reply) => {

@@ -7,7 +7,7 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/',
     {
-      preValidation: [server.authenticate],
+      preValidation: [server.authenticate, server.isAdmin],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],

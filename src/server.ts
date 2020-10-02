@@ -5,11 +5,12 @@ import { join, resolve } from 'path';
 import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
+import Option from './models/Option';
 import authenticate from './middlewares/authenticate';
 import isAdmin from './middlewares/isAdmin';
 import token from './utilities/token';
 import document from './utilities/document';
-import { validateToken, MINUTE_IN_SECONDS } from './utilities';
+import { MINUTE_IN_SECONDS } from './utilities';
 
 export default class {
   private server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
@@ -55,7 +56,7 @@ export default class {
       secret: process.env.JWT_SECRET_KEY,
       sign: { expiresIn: '7d' },
       cookie: { cookieName: 'token' },
-      trusted: validateToken,
+      trusted: this.validateToken,
     });
 
     this.server.register(mailgun);
@@ -86,5 +87,13 @@ export default class {
     this.server.register(require('fastify-autoload'), {
       dir: join(__dirname, 'routes'),
     });
+  }
+
+  private async validateToken(request, decodedToken) {
+    if (decodedToken.user.banned) return false;
+
+    const banUsers = await Option.findOne({ name: 'ban_users' });
+
+    return !banUsers?.data?.includes(decodedToken.user.email);
   }
 }

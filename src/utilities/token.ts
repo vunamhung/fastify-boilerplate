@@ -6,6 +6,7 @@ export interface iToken {
     id: string;
     email: string;
     role: string;
+    banned?: boolean;
   };
 }
 

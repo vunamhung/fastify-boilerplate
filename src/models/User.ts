@@ -68,7 +68,7 @@ const userSchema = new Schema<iUserModel>(
 );
 
 userSchema.methods.comparePassword = async function (candidatePassword) {
-  return await compare(candidatePassword, this.password).catch((err) => console.log(err));
+  return await compare(candidatePassword, this.password).catch(console.log);
 };
 
 userSchema.methods.generateToken = async function (reply: FastifyReply) {

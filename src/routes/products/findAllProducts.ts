@@ -11,15 +11,11 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request: FastifyRequest, reply) => {
-      try {
-        const products = await Product.find();
+      const products = await Product.find().catch((err) => reply.send(err));
 
-        if (!products) reply.badRequest('No products found.');
+      if (!products) reply.badRequest('No products found.');
 
-        reply.send({ products });
-      } catch (error) {
-        reply.send(error);
-      }
+      reply.send({ products });
     },
   );
 

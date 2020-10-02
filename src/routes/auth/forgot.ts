@@ -36,8 +36,8 @@ export default function (server: FastifyInstance, options, done) {
         await user.save();
 
         reply.send({ success: true, message: 'Please check your email for the link to reset your password.' });
-      } catch (error) {
-        reply.send(error);
+      } catch (err) {
+        reply.send(err);
       }
     },
   );

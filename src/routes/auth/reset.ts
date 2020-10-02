@@ -35,8 +35,8 @@ export default function (server: FastifyInstance, options, done) {
         await user.save();
 
         reply.send({ success: true, message: 'Password changed successfully. Please login with your new password.' });
-      } catch (error) {
-        reply.send(error);
+      } catch (err) {
+        reply.send(err);
       }
     },
   );

@@ -21,14 +21,10 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request: FastifyRequest, reply) => {
-      try {
-        // @ts-ignore
-        const option = await Option.create(request.body);
+      // @ts-ignore
+      const option = await Option.create(request.body).catch((err) => reply.send(err));
 
-        reply.code(201).send({ success: true, message: 'Option created.', option });
-      } catch (error) {
-        reply.send(error);
-      }
+      reply.code(201).send({ success: true, message: 'Option created.', option });
     },
   );
 

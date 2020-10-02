@@ -22,16 +22,12 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request, reply) => {
-      try {
-        // @ts-ignore
-        const { name } = request.params;
+      // @ts-ignore
+      const { name } = request.params;
 
-        await Option.deleteOne({ name });
+      await Option.deleteOne({ name }).catch((err) => reply.send(err));
 
-        reply.send({ success: true, message: `Option ${name} deleted` });
-      } catch (error) {
-        reply.send(error);
-      }
+      reply.send({ success: true, message: `Option ${name} deleted` });
     },
   );
 

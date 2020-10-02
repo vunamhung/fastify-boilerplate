@@ -15,13 +15,9 @@ export default function (server: FastifyInstance, options, done) {
     async (request: FastifyRequest, reply) => {
       const { id } = server.token(request).user;
 
-      try {
-        let user = await User.findById(id, { password: 0, refreshToken: 0 });
+      const user = await User.findById(id, { password: 0, refreshToken: 0 }).catch((err) => reply.send(err));
 
-        reply.send(user);
-      } catch (error) {
-        reply.send(error);
-      }
+      reply.send(user);
     },
   );
 

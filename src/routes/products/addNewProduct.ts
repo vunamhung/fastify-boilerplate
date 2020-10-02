@@ -33,8 +33,8 @@ export default function (server: FastifyInstance, options, done) {
         const product = await Product.create(request.body);
 
         reply.code(201).send({ success: true, message: 'Product created.', product });
-      } catch (error) {
-        reply.send(error);
+      } catch (err) {
+        reply.send(err);
       }
     },
   );

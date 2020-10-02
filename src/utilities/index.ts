@@ -9,7 +9,7 @@ export const WEEK_IN_SECONDS = 7 * DAY_IN_SECONDS;
 export async function validateToken(request, decodedToken) {
   const banUsers = await Option.findOne({ name: 'ban_users' });
 
-  return !banUsers?.data?.includes(decodedToken.user.id);
+  return !banUsers?.data?.includes(decodedToken.user.email);
 }
 
 export async function hashPassword(password) {

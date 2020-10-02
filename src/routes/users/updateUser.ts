@@ -27,13 +27,15 @@ export default function (server: FastifyInstance, options, done) {
       if (!validator.isEmail(email)) reply.badRequest('Please provide a valid email');
 
       // @ts-ignore
-      let user = { ...request.body };
+      let data = { ...request.body };
 
-      if (user.password) user.password = await hashPassword(user.password);
+      if (data.password) data.password = await hashPassword(data.password);
 
-      await User.findOneAndUpdate({ email }, user).catch((err) => reply.send(err));
+      const result = await User.findOneAndUpdate({ email }, data).catch((err) => reply.send(err));
 
-      reply.send({ success: true, message: 'user is updated' });
+      if (result) reply.send({ success: true, message: 'user is updated' });
+
+      reply.notFound('No user found with this email');
     },
   );
 

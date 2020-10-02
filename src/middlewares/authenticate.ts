@@ -3,11 +3,7 @@ import fp from 'fastify-plugin';
 
 export default fp((server, options, done) => {
   server.decorate('authenticate', async (request: FastifyRequest, reply) => {
-    try {
-      await request.jwtVerify();
-    } catch (error) {
-      reply.send(error);
-    }
+    await request.jwtVerify().catch((error) => reply.send(error));
   });
 
   done();

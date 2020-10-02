@@ -25,11 +25,7 @@ export default function (server: FastifyInstance, options, done) {
         // @ts-ignore
         const option = await Option.create(request.body);
 
-        reply.code(201).send({
-          success: true,
-          message: 'Option created.',
-          option,
-        });
+        reply.code(201).send({ success: true, message: 'Option created.', option });
       } catch (error) {
         reply.send(error);
       }

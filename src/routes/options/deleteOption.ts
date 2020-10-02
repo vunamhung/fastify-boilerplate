@@ -28,10 +28,7 @@ export default function (server: FastifyInstance, options, done) {
 
         await Option.deleteOne({ name });
 
-        reply.send({
-          success: true,
-          message: `Option ${name} deleted`,
-        });
+        reply.send({ success: true, message: `Option ${name} deleted` });
       } catch (error) {
         reply.send(error);
       }

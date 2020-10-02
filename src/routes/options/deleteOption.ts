@@ -25,9 +25,11 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { name } = request.params;
 
-      await Option.deleteOne({ name }).catch((err) => reply.send(err));
+      const result = await Option.findOneAndDelete({ name }).catch((err) => reply.send(err));
 
-      reply.send({ success: true, message: `Option ${name} deleted` });
+      if (result) reply.send({ success: true, message: `Option ${name} deleted.` });
+
+      reply.notFound(`Option ${name} not found.`);
     },
   );
 

@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { genSalt, hash } from 'bcryptjs';
 import { uid } from 'rand-token';
 import User from '../../models/User';
+import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -33,8 +33,7 @@ export default function (server: FastifyInstance, options, done) {
 
         user = new User({ email });
 
-        const salt = await genSalt();
-        user.password = await hash(password, salt);
+        user.password = await hashPassword(password);
         user.refreshToken = uid(64);
 
         await user.save();

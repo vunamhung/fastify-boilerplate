@@ -1,7 +1,7 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { genSalt, hash } from 'bcryptjs';
 import validator from 'validator';
 import User from '../../models/User';
+import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -29,10 +29,7 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       let user = { ...request.body };
 
-      if (user.password) {
-        const salt = await genSalt();
-        user.password = await hash(user.password, salt);
-      }
+      if (user.password) user.password = await hashPassword(user.password);
 
       await User.findOneAndUpdate({ email }, user).catch((err) => reply.send(err));
 

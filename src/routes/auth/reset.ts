@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { genSalt, hash } from 'bcryptjs';
 import User from '../../models/User';
+import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -29,8 +29,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!user) reply.badRequest('Your token has expired. Please attempt to reset your password again.');
 
-        const salt = await genSalt();
-        user.password = await hash(password, salt);
+        user.password = await hashPassword(password);
 
         await user.save();
 

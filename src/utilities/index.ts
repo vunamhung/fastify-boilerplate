@@ -1,3 +1,4 @@
+import { genSalt, hash } from 'bcryptjs';
 import Option from '../models/Option';
 
 export const MINUTE_IN_SECONDS = 60 * 1000;
@@ -9,4 +10,9 @@ export async function validateToken(request, decodedToken) {
   const banUsers = await Option.findOne({ name: 'ban_users' });
 
   return !banUsers?.data?.includes(decodedToken.user.id);
+}
+
+export async function hashPassword(password) {
+  const salt = await genSalt();
+  return await hash(password, salt);
 }

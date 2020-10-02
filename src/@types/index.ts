@@ -6,6 +6,7 @@ declare module 'fastify' {
   export interface FastifyInstance {
     authenticate: preValidationHookHandler;
     isAdmin: preValidationHookHandler;
+    isVerified: preValidationHookHandler;
     mailgun: Messages;
     token(request: FastifyRequest): iToken;
   }

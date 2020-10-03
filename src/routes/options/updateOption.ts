@@ -6,7 +6,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/update/:name',
     {
-      preValidation: [server.authenticate, server.isAdmin],
+      preValidation: [server.authenticate, server.isRoot],
       schema: {
         tags: ['options'],
         security: [{ apiKey: [] }],

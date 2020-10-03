@@ -5,7 +5,7 @@ import { compare } from 'bcryptjs';
 export interface iUserModel extends Document {
   email: string;
   password: string;
-  role: 'member' | 'admin' | 'merchant';
+  role: 'root' | 'admin' | 'member';
   refreshToken: string;
   resetPasswordToken?: string;
   resetPasswordExpires?: number;
@@ -35,7 +35,7 @@ const userSchema = new Schema<iUserModel>(
     },
     role: {
       type: String,
-      enum: ['member', 'admin', 'merchant'],
+      enum: ['root', 'admin', 'member'],
       default: 'member',
     },
     refreshToken: {

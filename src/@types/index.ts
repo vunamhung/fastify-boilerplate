@@ -5,6 +5,7 @@ import { iToken } from '../utilities/token';
 declare module 'fastify' {
   export interface FastifyInstance {
     authenticate: preValidationHookHandler;
+    isRoot: preValidationHookHandler;
     isAdmin: preValidationHookHandler;
     isVerified: preValidationHookHandler;
     mailgun: Messages;

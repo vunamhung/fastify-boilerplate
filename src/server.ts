@@ -6,9 +6,10 @@ import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
 import Option from './models/Option';
-import authenticate from './middlewares/authenticate';
-import isAdmin from './middlewares/isAdmin';
 import token from './utilities/token';
+import authenticate from './middlewares/authenticate';
+import isRoot from './middlewares/isRoot';
+import isAdmin from './middlewares/isAdmin';
 import document from './utilities/document';
 import { MINUTE_IN_SECONDS } from './utilities';
 
@@ -60,8 +61,9 @@ export default class {
     });
 
     this.server.register(mailgun);
-    this.server.register(authenticate);
     this.server.register(token);
+    this.server.register(authenticate);
+    this.server.register(isRoot);
     this.server.register(isAdmin);
     this.server.register(document);
 

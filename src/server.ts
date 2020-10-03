@@ -70,7 +70,6 @@ export default class {
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), { contentSecurityPolicy: false });
     this.server.register(import('fastify-sensible'));
-    this.server.register(import('fastify-cookie'));
     this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-cors'), { preflight: true, credentials: true });

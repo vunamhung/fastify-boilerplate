@@ -25,7 +25,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!cart) reply.notFound('No cart found.');
 
-        reply.code(201).send({ cart });
+        reply.code(201).send(cart);
       } catch (err) {
         reply.send(err);
       }

@@ -46,11 +46,7 @@ export default function (server: FastifyInstance, options, done) {
         // Add token to user
         const token: string = await user.generateToken(reply);
 
-        reply.setCookie('token', token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
-
-        reply.header('Location', request.headers.referer || '/');
-
-        reply.send({ success: true, token });
+        reply.send({ success: true, token: `Bearer ${token}` });
       } catch (err) {
         reply.send(err);
       }

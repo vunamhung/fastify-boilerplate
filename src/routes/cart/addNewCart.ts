@@ -26,8 +26,6 @@ export default function (server: FastifyInstance, options, done) {
 
         await cart.save();
 
-        reply.setCookie('cart_id', cart.id, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
-
         reply.code(201).send({ success: true, message: 'Cart created.', cart });
       } catch (err) {
         reply.send(err);

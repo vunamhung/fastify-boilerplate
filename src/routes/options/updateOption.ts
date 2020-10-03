@@ -14,7 +14,7 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            email: { type: 'string', format: 'email' },
+            name: { type: 'string' },
           },
         },
         body: {

@@ -11,7 +11,7 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            cardId: { type: 'string' },
+            cartId: { type: 'string' },
           },
         },
         body: {

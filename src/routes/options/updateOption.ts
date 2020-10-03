@@ -4,7 +4,7 @@ import Option from '../../models/Option';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
-    '/:name',
+    '/update/:name',
     {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {

@@ -3,7 +3,7 @@ import Option from '../../models/Option';
 
 export default function (server: FastifyInstance, options, done) {
   server.delete(
-    '/:name',
+    '/delete/:name',
     {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {

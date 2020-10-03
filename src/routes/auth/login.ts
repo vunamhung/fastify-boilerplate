@@ -48,6 +48,8 @@ export default function (server: FastifyInstance, options, done) {
 
         reply.setCookie('token', token, { domain: '*', path: '/', secure: true, httpOnly: true, sameSite: true });
 
+        reply.header('Location', request.headers.referer || '/');
+
         reply.send({ success: true, token });
       } catch (err) {
         reply.send(err);

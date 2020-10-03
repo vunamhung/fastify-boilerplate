@@ -1,10 +1,9 @@
 import { Document, Schema, model } from 'mongoose';
-import { iProductModel } from './Product';
 
 interface iCartItemModel extends Document {
-  product: iProductModel;
+  product: string;
   quantity: number;
-  totalPrice: number;
+  totalPrice?: number;
   priceWithTax?: number;
 }
 

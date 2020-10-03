@@ -3,15 +3,15 @@ import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
-    '/:cardId',
+    '/:cartId',
     {
       schema: {
         tags: ['cart'],
-        summary: 'Find cart by card id.',
+        summary: 'Find cart by cart id.',
         params: {
           type: 'object',
           properties: {
-            cardId: { type: 'string' },
+            cartId: { type: 'string' },
           },
         },
       },
@@ -19,9 +19,9 @@ export default function (server: FastifyInstance, options, done) {
     async (request: FastifyRequest, reply) => {
       try {
         // @ts-ignore
-        const { cardId } = request.params;
+        const { cartId } = request.params;
 
-        let cart = await Cart.findById(cardId).populate({ path: 'products.product' });
+        let cart = await Cart.findById(cartId).populate({ path: 'products.product' });
 
         if (!cart) reply.notFound('No cart found.');
 

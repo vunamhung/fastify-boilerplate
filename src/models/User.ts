@@ -16,7 +16,7 @@ export interface iUserModel extends Document {
   banned?: boolean;
   verified?: boolean;
   comparePassword(candidatePassword: string): Promise<boolean | void>;
-  generateToken(reply: FastifyReply): Promise<string>;
+  generateToken(reply): Promise<string>;
 }
 
 const { String, Number, Boolean } = Schema.Types;

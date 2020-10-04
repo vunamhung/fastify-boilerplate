@@ -1,14 +1,17 @@
 import { preValidationHookHandler } from 'fastify';
+import { HttpErrorReplys } from 'fastify-sensible/lib/httpError';
 import { Messages } from 'mailgun-js';
 import { iToken } from '../utilities/token';
 
 declare module 'fastify' {
-  export interface FastifyInstance {
+  interface FastifyInstance {
     authenticate: preValidationHookHandler;
     isRoot: preValidationHookHandler;
     isAdmin: preValidationHookHandler;
     isVerified: preValidationHookHandler;
     mailgun: Messages;
-    token(request: FastifyRequest): iToken;
+    token(request): iToken;
   }
+
+  interface FastifyReply extends HttpErrorReplys {}
 }

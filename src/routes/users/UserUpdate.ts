@@ -7,7 +7,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/:email',
     {
-      preValidation: [server.authenticate, server.isAdmin],
+      preValidation: [server.authenticate, server.isRoot],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],
@@ -33,9 +33,9 @@ export default function (server: FastifyInstance, options, done) {
 
       const result = await User.findOneAndUpdate({ email }, data).catch((err) => reply.send(err));
 
-      if (result) reply.send({ success: true, message: 'user is updated' });
+      if (result) reply.send({ success: true, message: `User ${email} updated.` });
 
-      reply.notFound('No user found with this email');
+      reply.notFound(`User ${email} not found.`);
     },
   );
 

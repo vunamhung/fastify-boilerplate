@@ -25,7 +25,6 @@ const cartItemSchema = new Schema<iCartItemModel>({
   },
   totalPrice: {
     type: Number,
-    required: true,
     min: 0,
   },
   priceWithTax: {

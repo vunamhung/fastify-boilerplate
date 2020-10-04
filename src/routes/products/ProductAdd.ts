@@ -13,10 +13,14 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            sku: { type: 'string' },
             name: { type: 'string' },
+            sku: { type: 'string' },
+            price: { type: 'number' },
+            description: { type: 'string' },
+            taxable: { type: 'boolean' },
+            brand: { type: 'string' },
           },
-          required: ['sku', 'name'],
+          required: ['name', 'sku', 'price'],
         },
       },
     },

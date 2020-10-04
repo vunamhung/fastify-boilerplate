@@ -1,28 +1,35 @@
 import { Document, Schema, model } from 'mongoose';
 
 export interface iProductModel extends Document {
-  sku: string;
   name: string;
+  sku: string;
+  price: number;
   image: string;
   description: string;
-  quantity: number;
-  price: number;
 }
 
 const { String, Number, Boolean, ObjectId, Buffer } = Schema.Types;
 
 const productSchema = new Schema<iProductModel>(
   {
-    sku: {
-      type: String,
-      required: true,
-    },
     name: {
       type: String,
       trim: true,
       required: true,
     },
-    slug: { type: String, slug: 'name', unique: true },
+    sku: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
+    slug: {
+      type: String,
+      slug: 'name',
+      unique: true,
+    },
     image: {
       data: Buffer,
       contentType: String,
@@ -30,12 +37,6 @@ const productSchema = new Schema<iProductModel>(
     description: {
       type: String,
       trim: true,
-    },
-    quantity: {
-      type: Number,
-    },
-    price: {
-      type: Number,
     },
     taxable: {
       type: Boolean,

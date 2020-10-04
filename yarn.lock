@@ -1973,7 +1973,7 @@ fastify-no-icon@^4.0.0:
   dependencies:
     fastify-plugin "^2.3.0"
 
-fastify-plugin@2.3.4, fastify-plugin@^2.0.0, fastify-plugin@^2.0.1, fastify-plugin@^2.1.1, fastify-plugin@^2.3.0, fastify-plugin@^2.3.2:
+fastify-plugin@2.3.4, fastify-plugin@^2.0.0, fastify-plugin@^2.0.1, fastify-plugin@^2.1.1, fastify-plugin@^2.3.0, fastify-plugin@^2.3.2, fastify-plugin@^2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-2.3.4.tgz#b17abdc36a97877d88101fb86ad8a07f2c07de87"
   integrity sha512-I+Oaj6p9oiRozbam30sh39BiuiqBda7yK2nmSPVwDCfIBlKnT8YB3MY+pRQc2Fcd07bf6KPGklHJaQ2Qu81TYQ==
@@ -2006,6 +2006,14 @@ fastify-rate-limit@^4.0.2:
     fastify-plugin "^2.0.0"
     ms "^2.1.1"
     tiny-lru "^7.0.0"
+
+fastify-response-caching@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/fastify-response-caching/-/fastify-response-caching-0.0.3.tgz#f2e419387391f099f562befd5563b03016db1156"
+  integrity sha512-fU2Ih10lIn1FxF4q3RWfpavrP0FiwoX72Vse4MJRPOhq+lxUbwhmd+lNgiUzKNNdKGvrrHSd2aYuf2McxuhzgQ==
+  dependencies:
+    fastify-plugin "^2.3.4"
+    keyv "^4.0.2"
 
 fastify-secure-session@^2.3.0:
   version "2.3.0"
@@ -3239,6 +3247,11 @@ jsesc@^2.5.1:
   resolved "https://registry.yarnpkg.com/jsesc/-/jsesc-2.5.2.tgz#80564d2e483dacf6e8ef209650a67df3f0c283a4"
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
 
+json-buffer@3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/json-buffer/-/json-buffer-3.0.1.tgz#9338802a30d3b6605fbe0613e094008ca8c05a13"
+  integrity sha512-4bV5BfR2mqfQTJm+V5tPPdf+ZpuhiIvTuAB5g8kcrXOZpTT/QwwVRWBywX1ozr6lEuPdbHxwaJlm9G6mI2sfSQ==
+
 json-parse-even-better-errors@^2.3.0:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/json-parse-even-better-errors/-/json-parse-even-better-errors-2.3.1.tgz#7c47805a94319928e05777405dc12e1f7a4ee02d"
@@ -3347,6 +3360,13 @@ kareem@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/kareem/-/kareem-2.3.1.tgz#def12d9c941017fabfb00f873af95e9c99e1be87"
   integrity sha512-l3hLhffs9zqoDe8zjmb/mAN4B8VT3L56EUvKNqLFVs9YlFA+zx7ke1DO8STAdDyYNkeSo1nKmjuvQeI12So8Xw==
+
+keyv@^4.0.2:
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/keyv/-/keyv-4.0.3.tgz#4f3aa98de254803cafcd2896734108daa35e4254"
+  integrity sha512-zdGa2TOpSZPq5mU6iowDARnMBZgtCqJ11dJROFi6tg6kTn4nuUdU09lFyLFSaHrWqpIJ+EBq4E8/Dc0Vx5vLdA==
+  dependencies:
+    json-buffer "3.0.1"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"

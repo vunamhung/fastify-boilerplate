@@ -82,6 +82,7 @@ export default class {
     });
     this.server.register(import('fastify-sensible'));
     this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
+    this.server.register(import('fastify-response-caching'), { ttl: 2000 });
     this.server.register(import('fastify-prettier'));
     this.server.register(import('fastify-cors'), { preflight: true, credentials: true });
     this.server.register(import('fastify-blipp'));

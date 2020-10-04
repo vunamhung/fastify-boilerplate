@@ -68,7 +68,16 @@ export default class {
     this.server.register(document);
 
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
-    this.server.register(import('fastify-helmet'), { contentSecurityPolicy: false });
+    this.server.register(import('fastify-helmet'), {
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"], // default source is mandatory
+          imgSrc: ["'self'", 'data:', 'validator.swagger.io'],
+          scriptSrc: ["'self'", "'sha256-iV83EgAQc1+Q++O7L1ZemfWFbYYPNv2syB2HreE5S/8='"],
+          styleSrc: ["'self'", "'sha256-pyVPiLlnqL9OWVoJPs/E6VVF5hBecRzM2gBiarnaqAo='"],
+        },
+      },
+    });
     this.server.register(import('fastify-sensible'));
     this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
     this.server.register(import('fastify-prettier'));

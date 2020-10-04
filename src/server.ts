@@ -57,7 +57,7 @@ export default class {
       secret: process.env.JWT_SECRET_KEY,
       sign: { expiresIn: '7d' },
       cookie: { cookieName: 'token' },
-      trusted: this.validateToken,
+      trusted: this.validUsers,
     });
 
     this.server.register(mailgun);
@@ -90,7 +90,7 @@ export default class {
     });
   }
 
-  private async validateToken(request, decodedToken) {
+  private async validUsers(request, decodedToken) {
     if (decodedToken.user.banned) return false;
 
     const banUsers = await Option.findOne({ name: 'ban_users' });

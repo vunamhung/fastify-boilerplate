@@ -18,18 +18,12 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request: FastifyRequest, reply) => {
-      try {
-        // @ts-ignore
-        const { products } = request.body;
+      // @ts-ignore
+      const { products } = request.body;
 
-        const cart = new Cart({ products });
+      const cart = await Cart.create({ products }).catch((err) => reply.send(err));
 
-        await cart.save();
-
-        reply.code(201).send({ success: true, message: 'Cart created.', cart });
-      } catch (err) {
-        reply.send(err);
-      }
+      reply.code(201).send({ success: true, message: 'Cart created.', cart });
     },
   );
 

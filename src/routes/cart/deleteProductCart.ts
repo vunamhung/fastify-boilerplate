@@ -3,7 +3,7 @@ import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
   server.delete(
-    '/:cartId/delete/:productId',
+    '/:cartId/:productId',
     {
       schema: {
         tags: ['cart'],

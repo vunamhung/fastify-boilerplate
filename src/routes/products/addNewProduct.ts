@@ -3,7 +3,7 @@ import Product from '../../models/Product';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
-    '/add',
+    '/',
     {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {

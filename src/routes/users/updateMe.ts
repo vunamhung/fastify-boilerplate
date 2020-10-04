@@ -5,7 +5,7 @@ import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
-    '/me/update',
+    '/me',
     {
       preValidation: [server.authenticate],
       schema: {

@@ -644,10 +644,10 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.1.1.tgz#be148756d5480a84cde100324c03a86ae5739fb5"
   integrity sha512-2zs+O+UkDsJ1Vcp667pd3f8xearMdopz/z54i99wtRDI5KLmngk7vlrYZD0ZjKHaROR03EznlBbVY9PfAEyJIQ==
 
-"@types/ramda@^0.27.19":
-  version "0.27.19"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.19.tgz#20a96954ca63aa42f419f392745dde94fde7dbee"
-  integrity sha512-BAeH07a6pRfFyoTuwhWJeNNHucbMlwh+imkO2BKOTZ6wpAElOAPyhBdyP1hx4W4sCPDnV/5UetcjZ/RT5lcMTA==
+"@types/ramda@0.27.20":
+  version "0.27.20"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.20.tgz#ced17424e358f058af271d97353d6913fd178663"
+  integrity sha512-Oxi5JMT6YIiMLP0gir8Eiy22f1CfbKLGGisu6tDrLCl5gHQd0EeUTUCfy7zdWfV19WEU/ccUVBfKOh2B1c2DbQ==
   dependencies:
     ts-toolbelt "^6.3.3"
 
@@ -1901,10 +1901,10 @@ fastfall@^1.5.0:
   dependencies:
     reusify "^1.0.0"
 
-fastify-autoload@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/fastify-autoload/-/fastify-autoload-3.1.0.tgz#53e3a7e221f26488a2d84d1572d7143cd04fcbb2"
-  integrity sha512-tr/RbD40vsZgAdQZEfDhsOtn3iHfPDx8KAfd4MTp35JyPyDpWrvxCFqkq3o5ojdTpPx5KYbXdJGxrz1mjwGEwA==
+fastify-autoload@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/fastify-autoload/-/fastify-autoload-3.3.0.tgz#50f648a26f27d05444d3c8f94424ea57e9bdb89a"
+  integrity sha512-H125T3Da47vFFNY1bthIkOdYEXW8aw3dPq/hO863VmzzGLtTOyGQsoUKXhRTd/ERM3mkMR1s8w3cKiknKnIZgg==
   dependencies:
     pkg-up "^3.1.0"
     semver "^7.3.2"
@@ -2039,10 +2039,10 @@ fastify-static@^3.0.0, fastify-static@^3.2.0:
     readable-stream "^3.4.0"
     send "^0.17.1"
 
-fastify-swagger@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/fastify-swagger/-/fastify-swagger-3.3.0.tgz#b848b51cb4278a81180b817187880405a09deb28"
-  integrity sha512-gqrBtbPVhhnEd4D0HtpQ4sEgeHT6Kxo54WQjwFsjoiAsXHUJaE0lz2Z0zlMY8IL+Zca4jRmoiubfM4fYdxvaFA==
+fastify-swagger@3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/fastify-swagger/-/fastify-swagger-3.4.0.tgz#8f18318d121df96a8edfe347d62005d6b7cae6ea"
+  integrity sha512-L0qO10eeH9YrkB1j7SvCPKnZppEIbF4NQBx+Uxy91HBf6Oxv1Co0RxMW2dSGvmNRUHvjNWrYlHd3V1VaTv/kUg==
   dependencies:
     "@types/swagger-schema-official" "^2.0.20"
     fastify-plugin "^2.3.0"
@@ -2055,10 +2055,10 @@ fastify-warning@^0.2.0:
   resolved "https://registry.yarnpkg.com/fastify-warning/-/fastify-warning-0.2.0.tgz#e717776026a4493dc9a2befa44db6d17f618008f"
   integrity sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==
 
-fastify@3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.4.1.tgz#7dce8f31f0c9f6f44f3e25403b1f4be75e1f87bd"
-  integrity sha512-a3I9hjet4XfWFSNYOEO209lERiMNIjpNm7gSuEzESeKAuX5BChJV9r09zWXEJqOLseBUTVCvakjookG7O8Zapw==
+fastify@3.5.0:
+  version "3.5.0"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.5.0.tgz#4e46de69e9ac51c80474a08b20b23fbf9e1176aa"
+  integrity sha512-wTd2l3Ndz8LSHBJG4zIwroJfgBdwHN/nilqraDy0GOnhWaCAbtTHaHb8xE6+wn1zPRDnYvmfn1/jStjqTU6UfA==
   dependencies:
     abstract-logging "^2.0.0"
     ajv "^6.12.2"
@@ -2074,6 +2074,7 @@ fastify@3.4.1:
     readable-stream "^3.4.0"
     rfdc "^1.1.4"
     secure-json-parse "^2.0.0"
+    semver "^7.3.2"
     tiny-lru "^7.0.0"
 
 fastparallel@^2.2.0:
@@ -4288,10 +4289,10 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-query-string@^6.13.2:
-  version "6.13.2"
-  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.2.tgz#3585aa9412c957cbd358fd5eaca7466f05586dda"
-  integrity sha512-BMmDaUiLDFU1hlM38jTFcRt7HYiGP/zt1sRzrIWm5zpeEuO1rkbPS0ELI3uehoLuuhHDCS8u8lhFN3fEN4JzPQ==
+query-string@6.13.5:
+  version "6.13.5"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.13.5.tgz#99e95e2fb7021db90a6f373f990c0c814b3812d8"
+  integrity sha512-svk3xg9qHR39P3JlHuD7g3nRnyay5mHbrPctEBDUxUkHRifPHXJDhBUycdCC0NBjXoDf44Gb+IsOZL1Uwn8M/Q==
   dependencies:
     decode-uri-component "^0.2.0"
     split-on-first "^1.0.0"
@@ -5259,10 +5260,10 @@ trim-newlines@^1.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-1.0.0.tgz#5887966bb582a4503a41eb524f7d35011815a613"
   integrity sha1-WIeWa7WCpFA6QetST301ARgVphM=
 
-ts-jest@26.4.0:
-  version "26.4.0"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.0.tgz#903c7827f3d3bc33efc2f91be294b164400c32e3"
-  integrity sha512-ofBzoCqf6Nv/PoWb/ByV3VNKy2KJSikamOBxvR3E6eVdIw10GwAXoyvMWXXjZJK2s6S27ZE8fI+JBTnGaovl6Q==
+ts-jest@26.4.1:
+  version "26.4.1"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-26.4.1.tgz#08ec0d3fc2c3a39e4a46eae5610b69fafa6babd0"
+  integrity sha512-F4aFq01aS6mnAAa0DljNmKr/Kk9y4HVZ1m6/rtJ0ED56cuxINGq3Q9eVAh+z5vcYKe5qnTMvv90vE8vUMFxomg==
   dependencies:
     "@types/jest" "26.x"
     bs-logger "0.x"

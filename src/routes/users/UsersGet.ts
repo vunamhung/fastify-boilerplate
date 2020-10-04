@@ -13,9 +13,9 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request: FastifyRequest, reply) => {
-      const user = await User.find().catch((err) => reply.send(err));
+      const users = await User.find().catch((err) => reply.send(err));
 
-      reply.send(user);
+      reply.send(users);
     },
   );
 

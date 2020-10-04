@@ -15,7 +15,7 @@ export default function (server: FastifyInstance, options, done) {
 
       if (!products) reply.notFound('No products found.');
 
-      reply.send({ products });
+      reply.send(products);
     },
   );
 

@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
 import validator from 'validator';
 import User from '../../models/User';
@@ -20,9 +20,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ body }, reply) => {
       // @ts-ignore
-      const { email } = request.body;
+      const { email } = body;
 
       if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
 

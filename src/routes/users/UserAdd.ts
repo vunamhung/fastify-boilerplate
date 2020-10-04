@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
 import User from '../../models/User';
 import { hashPassword } from '../../utilities';
@@ -22,9 +22,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params, body }, reply) => {
       // @ts-ignore
-      const { email, password } = request.body;
+      const { email, password } = body;
 
       try {
         let user = await User.findOne({ email });

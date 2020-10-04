@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import Product from '../../models/Product';
 
 export default function (server: FastifyInstance, options, done) {
@@ -16,9 +16,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params }, reply) => {
       // @ts-ignore
-      const { productId } = request.params;
+      const { productId } = params;
 
       const product = await Product.findById(productId).catch((err) => reply.send(err));
 

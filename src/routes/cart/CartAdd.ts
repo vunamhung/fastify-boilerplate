@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
@@ -17,9 +17,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ body }, reply) => {
       // @ts-ignore
-      const { products } = request.body;
+      const { products } = body;
 
       const cart = await Cart.create({ products }).catch((err) => reply.send(err));
 

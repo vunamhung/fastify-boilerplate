@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
 import { hashPassword } from '../../utilities';
 
@@ -20,9 +20,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ body }, reply) => {
       // @ts-ignore
-      const { password, resetToken } = request.body;
+      const { password, resetToken } = body;
 
       try {
         let user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: Date.now() } });

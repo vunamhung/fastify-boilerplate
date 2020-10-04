@@ -1,5 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
-import validator from 'validator';
+import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
 import { hashPassword } from '../../utilities';
 
@@ -20,7 +19,7 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async (request, reply) => {
       const { email } = server.token(request).user;
 
       // @ts-ignore

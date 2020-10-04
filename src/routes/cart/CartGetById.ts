@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
@@ -16,10 +16,10 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params }, reply) => {
       try {
         // @ts-ignore
-        const { cartId } = request.params;
+        const { cartId } = params;
 
         let cart = await Cart.findById(cartId).populate({ path: 'products.product' });
 

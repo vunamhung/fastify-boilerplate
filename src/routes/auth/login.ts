@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import validator from 'validator';
 import Option from '../../models/Option';
 import User from '../../models/User';
@@ -21,9 +21,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ body }, reply) => {
       // @ts-ignore
-      const { email, password } = request.body;
+      const { email, password } = body;
 
       if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
 

@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import validator from 'validator';
 import User from '../../models/User';
 import { hashPassword } from '../../utilities';
@@ -20,14 +20,14 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params, body }, reply) => {
       // @ts-ignore
-      const { email } = request.params;
+      const { email } = params;
 
       if (!validator.isEmail(email)) reply.badRequest('Please provide a valid email');
 
       // @ts-ignore
-      let data = { ...request.body };
+      let data = { ...body };
 
       if (data.password) data.password = await hashPassword(data.password);
 

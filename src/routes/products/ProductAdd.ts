@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import Product from '../../models/Product';
 
 export default function (server: FastifyInstance, options, done) {
@@ -24,17 +24,17 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ body }, reply) => {
       try {
         // @ts-ignore
-        const { sku } = request.body;
+        const { sku } = body;
 
         const checkSku = await Product.findOne({ sku });
 
         if (checkSku) reply.badRequest('This sku is already in use.');
 
         // @ts-ignore
-        const product = await Product.create(request.body);
+        const product = await Product.create(body);
 
         reply.code(201).send({ success: true, message: 'Product created.', product });
       } catch (err) {

@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
@@ -24,12 +24,12 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params, body }, reply) => {
       try {
         // @ts-ignore
-        const { cartId } = request.params;
+        const { cartId } = params;
         // @ts-ignore
-        const { quantity, productId } = request.body;
+        const { quantity, productId } = body;
 
         const cart = await Cart.findById(cartId);
 

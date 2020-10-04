@@ -21,9 +21,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request, reply) => {
+    async ({ params }, reply) => {
       // @ts-ignore
-      const { name } = request.params;
+      const { name } = params;
 
       const result = await Option.findOneAndDelete({ name }).catch((err) => reply.send(err));
 

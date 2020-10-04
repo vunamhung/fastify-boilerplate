@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { uniq } from 'ramda';
 import Option from '../models/Option';
 
@@ -19,9 +19,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params }, reply) => {
       // @ts-ignore
-      const { email } = request.params;
+      const { email } = params;
 
       const banUsers = await Option.findOne({ name: 'ban_users' });
 

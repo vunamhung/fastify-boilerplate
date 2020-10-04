@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import { uniq } from 'ramda';
 import Option from '../../models/Option';
 
@@ -26,16 +26,16 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ params, body }, reply) => {
       // @ts-ignore
-      const { name } = request.params;
+      const { name } = params;
 
       const option = await Option.findOne({ name });
 
       if (!option) reply.notFound(`Option ${name} not found.`);
 
       // @ts-ignore
-      option.data = [...option.data, ...request.body.data];
+      option.data = [...option.data, ...body.data];
 
       option.data = uniq(option.data);
 

@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
@@ -12,7 +12,7 @@ export default function (server: FastifyInstance, options, done) {
         summary: 'Find all users.',
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async (request, reply) => {
       const users = await User.find().catch((err) => reply.send(err));
 
       reply.send(users);

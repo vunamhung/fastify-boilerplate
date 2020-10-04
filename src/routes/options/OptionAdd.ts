@@ -1,4 +1,4 @@
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance } from 'fastify';
 import Option from '../../models/Option';
 
 export default function (server: FastifyInstance, options, done) {
@@ -20,9 +20,9 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request: FastifyRequest, reply) => {
+    async ({ body }, reply) => {
       // @ts-ignore
-      const option = await Option.create(request.body).catch((err) => reply.send(err));
+      const option = await Option.create(body).catch((err) => reply.send(err));
 
       reply.code(201).send({ success: true, message: 'Option created.', option });
     },

@@ -3,7 +3,7 @@ import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
   server.delete(
-    '/:cartId/:productId',
+    '/:cartId/product',
     {
       schema: {
         tags: ['cart'],
@@ -12,15 +12,23 @@ export default function (server: FastifyInstance, options, done) {
           type: 'object',
           properties: {
             cartId: { type: 'string' },
+          },
+        },
+        body: {
+          type: 'object',
+          properties: {
             productId: { type: 'string' },
           },
+          required: ['productId'],
         },
       },
     },
     async (request: FastifyRequest, reply) => {
       try {
         // @ts-ignore
-        const { cartId, productId } = request.params;
+        const { cartId } = request.params;
+        // @ts-ignore
+        const { productId } = request.body;
 
         await Cart.findByIdAndUpdate(cartId, { $pull: { products: { product: productId } } });
 

@@ -3,7 +3,7 @@ import Cart from '../../models/Cart';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
-    '/:cartId/quantity',
+    '/:cartId/product/quantity',
     {
       schema: {
         tags: ['cart'],

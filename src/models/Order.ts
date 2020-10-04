@@ -7,16 +7,17 @@ interface iOrderModel extends Document {
   totalTax?: number;
 }
 
-const { ObjectId, Number } = Schema.Types;
+const { Number } = Schema.Types;
 
 const orderSchema = new Schema<iOrderModel>(
   {
     cart: {
-      type: ObjectId,
-      ref: 'Cart',
+      type: Object,
+      required: true,
     },
     total: {
       type: Number,
+      required: true,
       default: 0,
     },
     totalTax: {

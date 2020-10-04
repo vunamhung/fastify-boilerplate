@@ -76,7 +76,7 @@ export default class {
           defaultSrc: ["'self'"], // default source is mandatory
           imgSrc: ["'self'", 'data:', 'validator.swagger.io'],
           scriptSrc: ["'self'", "'sha256-iV83EgAQc1+Q++O7L1ZemfWFbYYPNv2syB2HreE5S/8='"],
-          styleSrc: ["'self'", "'sha256-pyVPiLlnqL9OWVoJPs/E6VVF5hBecRzM2gBiarnaqAo='"],
+          styleSrc: ["'self'", "'unsafe-inline'"],
         },
       },
     });

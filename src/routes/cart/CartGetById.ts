@@ -25,7 +25,9 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!cart) reply.notFound('No cart found.');
 
-        reply.send(cart);
+        const total = cart.total();
+
+        reply.send({ cart, total });
       } catch (err) {
         reply.send(err);
       }

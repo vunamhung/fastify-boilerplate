@@ -1,14 +1,13 @@
-import { Document, Schema, model } from 'mongoose';
+import { Document, model, Schema } from 'mongoose';
 
 interface iCartItemModel extends Document {
   product: string;
   quantity: number;
-  totalPrice?: number;
-  priceWithTax?: number;
 }
 
 export interface iCartModel extends Document {
   products: [iCartItemModel];
+  total(): number;
 }
 
 const { ObjectId, Number } = Schema.Types;
@@ -23,15 +22,6 @@ const cartItemSchema = new Schema<iCartItemModel>({
     type: Number,
     required: true,
   },
-  totalPrice: {
-    type: Number,
-    min: 0,
-  },
-  priceWithTax: {
-    type: Number,
-    default: 0,
-    min: 0,
-  },
 });
 
 const cartSchema = new Schema<iCartModel>(
@@ -42,5 +32,12 @@ const cartSchema = new Schema<iCartModel>(
     timestamps: true,
   },
 );
+
+cartSchema.methods.total = function () {
+  return this.products.reduce((acc, el) => {
+    acc += el.product?.price * el.quantity;
+    return acc;
+  }, 0);
+};
 
 export default model<iCartModel>('Cart', cartSchema);

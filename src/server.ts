@@ -25,9 +25,9 @@ export default class {
       logger: { level: 'error', prettyPrint: { colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss', ignore: 'pid,hostname' } },
     });
 
-    this.initDb();
+    this.initDb().catch((err) => this.server.log.error({ actor: 'MongoDB' }, err));
     this.registerPlugins();
-    this.registerRoutes();
+    this.registerRoutes().catch((err) => this.server.log.error(err));
   }
 
   public async initDb() {

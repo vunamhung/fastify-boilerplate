@@ -6,7 +6,7 @@ import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
 import Option from './models/Option';
-import token from './utilities/token';
+import token, { iToken } from './utilities/token';
 import authenticate from './middlewares/authenticate';
 import isRoot from './middlewares/isRoot';
 import isAdmin from './middlewares/isAdmin';
@@ -102,11 +102,13 @@ export default class {
     });
   }
 
-  private async validUsers(request, decodedToken) {
-    if (decodedToken.user.banned) return false;
+  private async validUsers(request, decodedToken: iToken) {
+    const { email, banned } = decodedToken.user;
+
+    if (banned) return false;
 
     const banUsers = await Option.findOne({ name: 'ban_users' });
 
-    return !banUsers?.data?.includes(decodedToken.user.email);
+    return !banUsers?.data?.includes(email);
   }
 }

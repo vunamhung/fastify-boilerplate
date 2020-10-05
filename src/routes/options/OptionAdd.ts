@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Option from '../../models/Option';
+import { DUPLICATE_KEY_ERROR } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -22,7 +23,10 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ body }, reply) => {
       // @ts-ignore
-      const option = await Option.create(body).catch((err) => reply.send(err));
+      const option = await Option.create(body).catch((err) => {
+        if (err.code === DUPLICATE_KEY_ERROR) reply.conflict('Duplicate key');
+        reply.send(err);
+      });
 
       reply.code(201).send({ success: true, message: 'Option created.', option });
     },

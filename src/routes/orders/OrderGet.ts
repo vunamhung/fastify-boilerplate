@@ -12,7 +12,7 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            orderId: { type: 'string', format: 'uuid' },
+            orderId: { type: 'string' },
           },
         },
       },

@@ -11,13 +11,13 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            cartId: { type: 'string', format: 'uuid' },
+            cartId: { type: 'string' },
           },
         },
         body: {
           type: 'object',
           properties: {
-            productId: { type: 'string', format: 'uuid' },
+            productId: { type: 'string' },
             quantity: { type: 'number' },
           },
           required: ['productId', 'quantity'],

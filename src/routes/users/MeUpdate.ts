@@ -6,7 +6,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/me',
     {
-      preValidation: [server.authenticate],
+      preValidation: [server.isMember],
       schema: {
         tags: ['users'],
         summary: 'Update me.',

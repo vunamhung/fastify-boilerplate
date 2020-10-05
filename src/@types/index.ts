@@ -4,10 +4,10 @@ import { iToken } from '../utilities/token';
 
 declare module 'fastify' {
   interface FastifyInstance {
-    authenticate: preValidationHookHandler;
     isRoot: preValidationHookHandler;
     isAdmin: preValidationHookHandler;
-    isVerified: preValidationHookHandler;
+    isTrustMember: preValidationHookHandler;
+    isMember: preValidationHookHandler;
     mailgun: Messages;
     token(request): iToken;
   }

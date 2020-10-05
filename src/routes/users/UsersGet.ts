@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.get(
     '/',
     {
-      preValidation: [server.authenticate, server.isRoot],
+      preValidation: [server.isRoot],
       schema: {
         tags: ['users'],
         summary: 'Find all users.',

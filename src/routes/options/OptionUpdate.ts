@@ -6,7 +6,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/:name',
     {
-      preValidation: [server.authenticate, server.isRoot],
+      preValidation: [server.isRoot],
       schema: {
         tags: ['options'],
         summary: 'Update option by name.',

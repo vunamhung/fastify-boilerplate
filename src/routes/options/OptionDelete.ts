@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.delete(
     '/:name',
     {
-      preValidation: [server.authenticate, server.isRoot],
+      preValidation: [server.isRoot],
       schema: {
         tags: ['options'],
         summary: 'Delete a option by name.',

@@ -7,7 +7,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/:email',
     {
-      preValidation: [server.authenticate, server.isRoot],
+      preValidation: [server.isRoot],
       schema: {
         tags: ['users'],
         summary: 'Update user by email.',

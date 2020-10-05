@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/',
     {
-      preValidation: [server.authenticate, server.isAdmin],
+      preValidation: [server.isAdmin],
       schema: {
         tags: ['products'],
         summary: 'Add new product.',

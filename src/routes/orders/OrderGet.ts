@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.get(
     '/:orderId',
     {
-      preValidation: [server.authenticate, server.isAdmin],
+      preValidation: [server.isAdmin],
       schema: {
         tags: ['orders'],
         summary: 'Get one order by id.',

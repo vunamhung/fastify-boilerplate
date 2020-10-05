@@ -7,7 +7,7 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/',
     {
-      preValidation: [server.authenticate, server.isRoot],
+      preValidation: [server.isRoot],
       schema: {
         tags: ['users'],
         summary: 'Add new user.',

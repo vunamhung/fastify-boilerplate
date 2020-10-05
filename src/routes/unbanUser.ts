@@ -6,7 +6,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/unban/:email',
     {
-      preValidation: [server.authenticate, server.isAdmin],
+      preValidation: [server.isAdmin],
       schema: {
         tags: ['ban'],
         summary: 'Unban user by email.',

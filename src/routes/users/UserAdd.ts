@@ -10,7 +10,6 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.authenticate, server.isRoot],
       schema: {
         tags: ['users'],
-        security: [{ apiKey: [] }],
         summary: 'Add new user.',
         body: {
           type: 'object',

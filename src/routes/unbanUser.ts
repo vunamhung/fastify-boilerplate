@@ -9,7 +9,6 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {
         tags: ['ban'],
-        security: [{ apiKey: [] }],
         summary: 'Unban user by email.',
         params: {
           type: 'object',

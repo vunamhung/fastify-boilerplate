@@ -8,7 +8,6 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.authenticate],
       schema: {
         tags: ['users'],
-        security: [{ apiKey: [] }],
         summary: 'Find me.',
       },
     },

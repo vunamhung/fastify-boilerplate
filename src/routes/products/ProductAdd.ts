@@ -8,7 +8,6 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {
         tags: ['products'],
-        security: [{ apiKey: [] }],
         summary: 'Add new product.',
         body: {
           type: 'object',

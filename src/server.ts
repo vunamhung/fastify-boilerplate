@@ -1,16 +1,16 @@
 import { Server, IncomingMessage, ServerResponse } from 'http';
+import { join, resolve } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import { connection, connect } from 'mongoose';
-import { join, resolve } from 'path';
 import ejs from 'ejs';
 
-import mailgun from './services/mailgun';
 import Option from './models/Option';
-import token, { iToken } from './utilities/token';
+import mailgun from './services/mailgun';
 import authenticate from './middlewares/authenticate';
 import isRoot from './middlewares/isRoot';
 import isAdmin from './middlewares/isAdmin';
 import document from './utilities/document';
+import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
 
 export default class {
@@ -90,8 +90,8 @@ export default class {
     this.server.register(import('fastify-qs'), { disabled: false });
     this.server.register(import('point-of-view'), {
       engine: { ejs },
-      templates: join(__dirname, '..', 'templates'),
-      options: { filename: resolve(__dirname, '..', 'templates') },
+      templates: join(__dirname, '../templates'),
+      options: { filename: resolve(__dirname, '../templates') },
       includeViewExtension: true,
     });
   }

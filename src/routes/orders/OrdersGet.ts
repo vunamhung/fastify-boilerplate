@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import Product from '../../models/Product';
+import Order from '../../models/Order';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -7,16 +7,16 @@ export default function (server: FastifyInstance, options, done) {
     {
       preValidation: [server.authenticate, server.isAdmin],
       schema: {
-        tags: ['products'],
-        summary: 'Find all products.',
+        tags: ['orders'],
+        summary: 'Find all orders.',
       },
     },
     async (request, reply) => {
-      const products = await Product.find().catch((err) => reply.send(err));
+      const orders = await Order.find().catch((err) => reply.send(err));
 
-      if (!products) reply.notFound('No products found.');
+      if (!orders) reply.notFound('No orders found.');
 
-      reply.send(products);
+      reply.send(orders);
     },
   );
 

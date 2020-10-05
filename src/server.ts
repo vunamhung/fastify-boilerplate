@@ -8,6 +8,7 @@ import Option from './models/Option';
 import mailgun from './services/mailgun';
 import authenticate from './middlewares/authenticate';
 import document from './utilities/document';
+import upload from './utilities/upload';
 import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
 
@@ -64,6 +65,7 @@ export default class {
     this.server.register(token);
     this.server.register(authenticate);
     this.server.register(document);
+    this.server.register(upload);
 
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), {
@@ -84,6 +86,10 @@ export default class {
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
     this.server.register(import('fastify-qs'), { disabled: false });
+    this.server.register(import('fastify-static'), {
+      root: join(__dirname, '../public'),
+      prefix: '/public/',
+    });
     this.server.register(import('point-of-view'), {
       engine: { ejs },
       templates: join(__dirname, '../templates'),

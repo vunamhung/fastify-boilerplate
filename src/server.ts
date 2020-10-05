@@ -6,10 +6,7 @@ import ejs from 'ejs';
 
 import Option from './models/Option';
 import mailgun from './services/mailgun';
-import isRoot from './middlewares/isRoot';
-import isAdmin from './middlewares/isAdmin';
-import isTrustMember from './middlewares/isTrustMember';
-import isMember from './middlewares/isMember';
+import authenticate from './middlewares/authenticate';
 import document from './utilities/document';
 import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
@@ -65,10 +62,7 @@ export default class {
 
     this.server.register(mailgun);
     this.server.register(token);
-    this.server.register(isRoot);
-    this.server.register(isAdmin);
-    this.server.register(isTrustMember);
-    this.server.register(isMember);
+    this.server.register(authenticate);
     this.server.register(document);
 
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });

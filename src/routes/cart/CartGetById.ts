@@ -29,6 +29,7 @@ export default function (server: FastifyInstance, options, done) {
 
         reply.send({ cart, total });
       } catch (err) {
+        if (err.kind === 'ObjectId') reply.badRequest('Wrong OId!');
         reply.send(err);
       }
     },

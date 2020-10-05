@@ -20,7 +20,10 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { productId } = params;
 
-      const product = await Product.findById(productId).catch((err) => reply.send(err));
+      const product = await Product.findById(productId).catch((err) => {
+        if (err.kind === 'ObjectId') return reply.badRequest('Wrong OId!');
+        return reply.send(err);
+      });
 
       if (!product) reply.notFound(`Product with id '${productId}' not found.`);
 

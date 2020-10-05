@@ -23,7 +23,7 @@ export default function (server: FastifyInstance, options, done) {
 
         let cart = await Cart.findById(cartId).populate({ path: 'products.product' });
 
-        if (!cart) reply.notFound('No cart found.');
+        if (!cart) reply.notFound(`Cart with id '${cartId}' not found.`);
 
         const total = cart.total();
 

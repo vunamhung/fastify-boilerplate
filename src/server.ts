@@ -97,7 +97,7 @@ export default class {
   }
 
   private async registerRoutes() {
-    this.server.register(require('fastify-autoload'), {
+    this.server.register(import('fastify-autoload'), {
       dir: join(__dirname, 'routes'),
     });
   }

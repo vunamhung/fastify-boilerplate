@@ -11,7 +11,7 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            productId: { type: 'string' },
+            productId: { type: 'string', format: 'uuid' },
           },
         },
       },

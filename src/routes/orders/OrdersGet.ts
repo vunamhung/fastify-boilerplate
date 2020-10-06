@@ -9,10 +9,24 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['orders'],
         summary: 'Find all orders.',
+        querystring: {
+          type: 'object',
+          properties: {
+            limit: { type: 'number' },
+            skip: { type: 'number' },
+          },
+        },
       },
     },
-    async (request, reply) => {
-      const orders = await Order.find().catch((err) => reply.send(err));
+    async ({ query }, reply) => {
+      // @ts-ignore
+      const { limit = 20, skip = 0 } = query;
+
+      console.log(limit);
+      const orders = await Order.find()
+        .limit(limit)
+        .skip(skip)
+        .catch((err) => reply.send(err));
 
       if (!orders) reply.notFound('No orders found.');
 

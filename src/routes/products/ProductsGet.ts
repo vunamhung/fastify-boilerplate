@@ -9,10 +9,23 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['products'],
         summary: 'Find all products.',
+        querystring: {
+          type: 'object',
+          properties: {
+            limit: { type: 'number' },
+            skip: { type: 'number' },
+          },
+        },
       },
     },
-    async (request, reply) => {
-      const products = await Product.find().catch((err) => reply.send(err));
+    async ({ query }, reply) => {
+      // @ts-ignore
+      const { limit = 20, skip = 0 } = query;
+
+      const products = await Product.find()
+        .limit(limit)
+        .skip(skip)
+        .catch((err) => reply.send(err));
 
       if (!products) reply.notFound('No products found.');
 

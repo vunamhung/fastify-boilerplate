@@ -8,7 +8,7 @@ export const WEEK_IN_SECONDS = 7 * DAY_IN_SECONDS;
 
 export const DUPLICATE_KEY_ERROR = 11000;
 
-export async function hashPassword(password) {
+export async function hashPassword(password): Promise<string> {
   const salt = await genSalt();
   return await hash(password, salt);
 }

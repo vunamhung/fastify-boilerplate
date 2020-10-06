@@ -10,10 +10,12 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['users'],
         summary: 'Update me.',
-        params: {
+        body: {
           type: 'object',
           properties: {
-            email: { type: 'string', format: 'email' },
+            password: { type: 'string' },
+            firstName: { type: 'string' },
+            lastName: { type: 'string' },
           },
         },
       },
@@ -28,7 +30,7 @@ export default function (server: FastifyInstance, options, done) {
 
       await User.findOneAndUpdate({ email }, data).catch((err) => reply.send(err));
 
-      reply.send({ success: true, message: 'user is updated' });
+      reply.send({ success: true, message: `User '${email}' is updated.` });
     },
   );
 

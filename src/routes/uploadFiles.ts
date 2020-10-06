@@ -1,12 +1,12 @@
 import { FastifyInstance } from 'fastify';
 import File from '../models/File';
-import { upload } from '../utilities/upload';
+import { uploader } from '../utilities/uploader';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
     '/files',
     {
-      preHandler: upload.array('files', 10),
+      preHandler: uploader.array('files', 10),
       schema: {
         tags: ['files'],
         summary: 'Upload files.',

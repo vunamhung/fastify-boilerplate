@@ -8,7 +8,7 @@ import Option from './models/Option';
 import mailgun from './services/mailgun';
 import authenticate from './middlewares/authenticate';
 import document from './utilities/document';
-import upload from './utilities/upload';
+import uploader from './utilities/uploader';
 import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
 
@@ -65,7 +65,7 @@ export default class {
     this.server.register(token);
     this.server.register(authenticate);
     this.server.register(document);
-    this.server.register(upload);
+    this.server.register(uploader);
 
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), {

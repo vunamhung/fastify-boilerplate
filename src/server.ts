@@ -29,7 +29,18 @@ export default class {
     this.registerRoutes();
   }
 
-  public async initDb() {
+  public async start() {
+    await this.server.listen(this.port as number, '0.0.0.0').catch(console.log);
+
+    this.server.blipp();
+    this.server.swagger();
+
+    console.log('Server listening on', this.server.server.address());
+    process.on('uncaughtException', console.error);
+    process.on('unhandledRejection', console.error);
+  }
+
+  private async initDb() {
     connection.on('connected', () => console.log('MongoDB connected successfully'));
     connection.on('disconnected', () => this.server.log.error({ actor: 'MongoDB' }, 'disconnected'));
 
@@ -40,17 +51,6 @@ export default class {
       useCreateIndex: true,
       useFindAndModify: false,
     });
-  }
-
-  public async start() {
-    await this.server.listen(this.port as number, '0.0.0.0').catch(console.log);
-
-    this.server.blipp();
-    this.server.swagger();
-
-    console.log('Server listening on', this.server.server.address());
-    process.on('uncaughtException', console.error);
-    process.on('unhandledRejection', console.error);
   }
 
   private registerPlugins() {

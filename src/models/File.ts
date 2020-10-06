@@ -1,13 +1,19 @@
 import { Document, Schema, model } from 'mongoose';
 
-interface iMediaModel extends Document {
-  name: string;
-  data: any;
+interface iFileModel extends Document {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: string;
 }
 
 const { String } = Schema.Types;
 
-const optionSchema = new Schema<iMediaModel>(
+const optionSchema = new Schema<iFileModel>(
   {
     fieldname: {
       type: String,
@@ -39,4 +45,4 @@ const optionSchema = new Schema<iMediaModel>(
   },
 );
 
-export default model<iMediaModel>('Media', optionSchema);
+export default model<iFileModel>('File', optionSchema);

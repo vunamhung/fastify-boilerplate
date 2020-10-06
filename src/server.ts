@@ -26,7 +26,7 @@ export default class {
 
     this.initDb().catch((err) => this.server.log.error({ actor: 'MongoDB' }, err));
     this.registerPlugins();
-    this.registerRoutes().catch((err) => this.server.log.error(err));
+    this.registerRoutes();
   }
 
   public async initDb() {
@@ -95,7 +95,7 @@ export default class {
     });
   }
 
-  private async registerRoutes() {
+  private registerRoutes() {
     this.server.register(import('fastify-autoload'), {
       dir: join(__dirname, 'routes'),
     });

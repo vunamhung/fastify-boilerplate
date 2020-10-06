@@ -4,9 +4,11 @@ import multer, { contentParser, diskStorage } from 'fastify-multer';
 const storage = diskStorage({
   destination: (req, file, cb) => cb(null, 'public/uploads/'),
   filename: (req, file, cb) => {
-    const [name, ext] = file.originalname.split('.');
+    const [name, ...ext] = file.originalname.split('.');
 
-    cb(null, `${name}-${Date.now()}.${ext}`);
+    const finalExt = ext.slice(-1)[0];
+
+    cb(null, `${name}-${Date.now()}.${finalExt}`);
   },
 });
 

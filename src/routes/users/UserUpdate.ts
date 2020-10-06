@@ -17,6 +17,14 @@ export default function (server: FastifyInstance, options, done) {
             email: { type: 'string', format: 'email' },
           },
         },
+        body: {
+          type: 'object',
+          properties: {
+            password: { type: 'string' },
+            firstName: { type: 'string' },
+            lastName: { type: 'string' },
+          },
+        },
       },
     },
     async ({ params, body }, reply) => {

@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
 import validator from 'validator';
 import User from '../../models/User';
-import { HOUR_IN_SECONDS } from '../../utilities';
+import { HOUR_IN_SECONDS, NOW_IN_SECONDS } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -31,7 +31,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!user) reply.badRequest('No user exist with this email.');
 
         user.resetPasswordToken = uid(64);
-        user.resetPasswordExpires = Date.now() + 4 * HOUR_IN_SECONDS;
+        user.resetPasswordExpires = NOW_IN_SECONDS + 4 * HOUR_IN_SECONDS;
 
         await user.save();
 

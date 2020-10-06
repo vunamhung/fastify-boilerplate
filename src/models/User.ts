@@ -16,7 +16,7 @@ export interface iUserModel extends Document {
   banned?: boolean;
   verified?: boolean;
   comparePassword(candidatePassword: string): Promise<boolean | void>;
-  generateToken(reply): Promise<string>;
+  generateToken(reply: FastifyReply): Promise<string>;
 }
 
 const { String, Number, Boolean } = Schema.Types;
@@ -75,7 +75,7 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
   return await compare(candidatePassword, this.password).catch(console.log);
 };
 
-userSchema.methods.generateToken = async function (reply: FastifyReply) {
+userSchema.methods.generateToken = async function (reply) {
   const { id, email, role, banned, verified } = this;
   return await reply.jwtSign({ user: { id, email, role, banned, verified } });
 };

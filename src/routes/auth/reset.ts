@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
-import { hashPassword } from '../../utilities';
+import { hashPassword, NOW_IN_SECONDS } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -25,7 +25,7 @@ export default function (server: FastifyInstance, options, done) {
       const { password, resetToken } = body;
 
       try {
-        let user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: Date.now() } });
+        let user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: NOW_IN_SECONDS } });
 
         if (!user) reply.badRequest('Your token has expired. Please attempt to reset your password again.');
 

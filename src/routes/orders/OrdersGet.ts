@@ -22,7 +22,6 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { limit = 20, skip = 0 } = query;
 
-      console.log(limit);
       const orders = await Order.find()
         .limit(limit)
         .skip(skip)

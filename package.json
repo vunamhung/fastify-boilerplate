@@ -30,6 +30,7 @@
     "fastify-jwt": "^2.1.3",
     "fastify-language-parser": "^3.0.0",
     "fastify-multer": "^2.0.2",
+    "fastify-nextjs": "^5.0.4",
     "fastify-no-icon": "^4.0.0",
     "fastify-plugin": "2.3.4",
     "fastify-prettier": "^1.1.6",

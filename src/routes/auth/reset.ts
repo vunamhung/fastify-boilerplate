@@ -27,7 +27,7 @@ export default function (server: FastifyInstance, options, done) {
       try {
         let user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: NOW_IN_SECONDS } });
 
-        if (!user) reply.badRequest('Your token has expired. Please attempt to reset your password again.');
+        if (!user) reply.notAcceptable('Your token has expired. Please attempt to reset your password again.');
 
         user.password = await hashPassword(password);
 

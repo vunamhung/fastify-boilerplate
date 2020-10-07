@@ -6,7 +6,10 @@ import ejs from 'ejs';
 
 import Option from './models/Option';
 import mailgun from './services/mailgun';
-import authenticate from './middlewares/authenticate';
+import isRoot from './middlewares/isRoot';
+import isAdmin from './middlewares/isAdmin';
+import isTrustMember from './middlewares/isTrustMember';
+import isMember from './middlewares/isMember';
 import document from './utilities/document';
 import uploader from './utilities/uploader';
 import token, { iToken } from './utilities/token';
@@ -63,7 +66,10 @@ export default class {
 
     this.server.register(mailgun);
     this.server.register(token);
-    this.server.register(authenticate);
+    this.server.register(isRoot);
+    this.server.register(isAdmin);
+    this.server.register(isTrustMember);
+    this.server.register(isMember);
     this.server.register(document);
     this.server.register(uploader);
 

@@ -11,9 +11,23 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            products: { type: 'array', items: { type: 'object' } },
+            products: { type: 'array', items: { type: 'object', properties: { product: { type: 'string' }, quantity: { type: 'number' } } } },
           },
           required: ['products'],
+        },
+        response: {
+          201: {
+            description: 'Cart created.',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              message: { type: 'string' },
+              cart: {
+                type: 'object',
+                properties: { _id: { type: 'string' }, products: { type: 'array', properties: { items: { type: 'object' } } } },
+              },
+            },
+          },
         },
       },
     },

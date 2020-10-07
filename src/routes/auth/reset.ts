@@ -18,6 +18,16 @@ export default function (server: FastifyInstance, options, done) {
           },
           required: ['password', 'resetToken'],
         },
+        response: {
+          200: {
+            description: 'Password changed successfully',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              message: { type: 'string' },
+            },
+          },
+        },
       },
     },
     async ({ body }, reply) => {

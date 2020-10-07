@@ -21,6 +21,16 @@ export default function (server: FastifyInstance, options, done) {
           },
           required: ['productId'],
         },
+        response: {
+          200: {
+            description: 'Product removed.',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              message: { type: 'string' },
+            },
+          },
+        },
       },
     },
     async ({ params, body }, reply) => {

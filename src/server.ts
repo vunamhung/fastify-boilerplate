@@ -85,6 +85,7 @@ export default class {
       },
     });
     this.server.register(import('fastify-sensible'));
+    this.server.register(import('fastify-compress'));
     this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
     this.server.register(import('fastify-response-caching'), { ttl: 2000 });
     this.server.register(import('fastify-prettier'));

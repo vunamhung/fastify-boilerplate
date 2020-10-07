@@ -8,7 +8,7 @@ const uploadDirs = {
   'image/jpeg': 'public/uploads/images',
   'image/png': 'public/uploads/images',
   'image/webp': 'public/uploads/images',
-  'image/svg+xml': 'public/uploads/images',
+  'image/svg+xml': 'public/uploads/svg',
   'image/gif': 'public/uploads/gifs',
   'application/msword': 'public/uploads/documents',
   'application/pdf': 'public/uploads/documents',

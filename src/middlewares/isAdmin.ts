@@ -7,7 +7,7 @@ export default fp((server: FastifyInstance, options, next) => {
 
     const { role } = server.token(request).user;
 
-    if (role !== 'admin' && role !== 'root') reply.unauthorized('You are not allowed to make this request.');
+    if (role !== 'admin' && role !== 'root') reply.forbidden('You are not allowed to make this request.');
   });
 
   next();

@@ -5,7 +5,6 @@ export default function (server: FastifyInstance, options, done) {
   server.get(
     '/',
     {
-      preValidation: [server.isAdmin],
       schema: {
         tags: ['products'],
         summary: 'Find all products.',

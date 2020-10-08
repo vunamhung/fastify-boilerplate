@@ -8,6 +8,7 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.isRoot],
       schema: {
         tags: ['options'],
+        security: [{ apiKey: [] }],
         summary: 'Delete a option by name.',
         params: {
           type: 'object',

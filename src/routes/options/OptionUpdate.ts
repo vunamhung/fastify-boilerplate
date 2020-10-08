@@ -9,6 +9,7 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.isRoot],
       schema: {
         tags: ['options'],
+        security: [{ apiKey: [] }],
         summary: 'Update option by name.',
         params: {
           type: 'object',

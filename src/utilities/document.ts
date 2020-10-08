@@ -13,7 +13,6 @@ export default fp((server, options, done) => {
       schemes: ['https'],
       consumes: ['application/json'],
       produces: ['application/json'],
-      security: [{ apiKey: [] }],
       securityDefinitions: {
         apiKey: {
           description: 'Standard Authorization header using the Bearer scheme. Example: "Bearer {token}"',

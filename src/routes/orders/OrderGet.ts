@@ -8,6 +8,7 @@ export default function (server: FastifyInstance, options, done) {
       preValidation: [server.isAdmin],
       schema: {
         tags: ['orders'],
+        security: [{ apiKey: [] }],
         summary: 'Get one order by id.',
         params: {
           type: 'object',

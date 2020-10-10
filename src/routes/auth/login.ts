@@ -56,7 +56,7 @@ export default function (server: FastifyInstance, options, done) {
         // Add token to user
         const token: string = await user.generateToken(reply);
 
-        reply.send({ success: true, token: `Bearer ${token}` });
+        reply.send({ success: true, token });
       } catch (err) {
         reply.send(err);
       }

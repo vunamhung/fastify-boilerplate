@@ -7,11 +7,9 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/',
     {
-      preValidation: [server.isRoot],
       schema: {
-        tags: ['users'],
-        security: [{ apiKey: [] }],
-        summary: 'Add new user.',
+        tags: ['auth'],
+        summary: 'Register a account.',
         body: {
           type: 'object',
           properties: {

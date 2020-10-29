@@ -22,6 +22,16 @@ export default function (server: FastifyInstance, options, done) {
       reply.send({ success: true, message: 'Files uploaded.', files });
     },
   );
+  server.get(
+    '/files',
+    {
+      schema: {
+        tags: ['files'],
+        summary: 'Upload files form.',
+      },
+    },
+    async (request, reply) => reply.view('/upload'),
+  );
 
   done();
 }

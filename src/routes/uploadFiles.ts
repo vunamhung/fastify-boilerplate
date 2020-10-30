@@ -27,7 +27,7 @@ export default function (server: FastifyInstance, options, done) {
 
       files.map(async (file) => {
         await File.create(file);
-        s3.upload(
+        s3.putObject(
           {
             Bucket: process.env.AWS_BUCKET_NAME,
             Key: file.originalname,

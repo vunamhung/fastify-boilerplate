@@ -14,6 +14,7 @@
     "deploy": "rsync -avzhe ssh --delete --delete-excluded -L --exclude-from=exclude ./ ocean:/var/www/html/"
   },
   "dependencies": {
+    "aws-sdk": "^2.782.0",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "deep-email-validator": "^0.1.17",

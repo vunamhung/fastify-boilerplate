@@ -2,7 +2,7 @@ import fp from 'fastify-plugin';
 import { extname } from 'path';
 import { existsSync, mkdirSync } from 'fs';
 import { uid } from 'rand-token';
-import multer, { contentParser, diskStorage } from 'fastify-multer';
+import multer, { contentParser, diskStorage, memoryStorage } from 'fastify-multer';
 
 const uploadDirs = {
   'image/jpeg': 'public/uploads/images',
@@ -35,6 +35,7 @@ const storage = diskStorage({
 });
 
 export const uploader = multer({ storage });
+export const s3Uploader = multer({ storage: memoryStorage() });
 
 export default fp((server, options, done) => {
   server.register(contentParser);

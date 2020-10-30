@@ -52,6 +52,7 @@
     "query-string": "6.13.6",
     "ramda": "^0.27.1",
     "rand-token": "^1.0.1",
+    "sharp": "^0.26.2",
     "source-map-support": "^0.5.10",
     "under-pressure": "^5.2.0",
     "validator": "^13.1.17"

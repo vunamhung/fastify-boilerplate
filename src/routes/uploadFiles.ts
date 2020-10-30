@@ -2,8 +2,8 @@ import { existsSync, mkdirSync } from 'fs';
 import { FastifyInstance } from 'fastify';
 import AWS from 'aws-sdk';
 import sharp from 'sharp';
-import File from '../models/File';
 import { s3Uploader, uploader } from '../utilities/uploader';
+import File from '../models/File';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(

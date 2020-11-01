@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Cart from '../../models/Cart';
+import { isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -21,6 +22,8 @@ export default function (server: FastifyInstance, options, done) {
         // @ts-ignore
         const { cartId } = params;
 
+        if (!isObjectId(cartId)) return reply.badRequest('Wrong cart ID!');
+
         let cart = await Cart.findById(cartId).populate({ path: 'products.product' });
 
         if (!cart) reply.notFound(`Cart with id '${cartId}' not found.`);
@@ -29,7 +32,6 @@ export default function (server: FastifyInstance, options, done) {
 
         reply.send({ cart, total });
       } catch (err) {
-        if (err.kind === 'ObjectId') reply.badRequest('Wrong OId!');
         reply.send(err);
       }
     },

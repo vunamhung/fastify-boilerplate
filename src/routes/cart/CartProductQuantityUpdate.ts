@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Cart from '../../models/Cart';
+import { isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -30,6 +31,10 @@ export default function (server: FastifyInstance, options, done) {
         const { cartId } = params;
         // @ts-ignore
         const { quantity, productId } = body;
+
+        if (!isObjectId(cartId)) return reply.badRequest('Wrong cart ID!');
+
+        if (!isObjectId(productId)) return reply.badRequest('Wrong product ID!');
 
         await Cart.findOneAndUpdate({ _id: cartId, 'products.product': productId }, { $inc: { 'products.$.quantity': quantity } });
         reply.send({ success: true, message: 'Product quantity updated.' });

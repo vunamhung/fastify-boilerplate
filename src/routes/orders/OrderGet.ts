@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Order from '../../models/Order';
+import { isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -22,10 +23,9 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { orderId } = params;
 
-      const order = await Order.findById(orderId).catch((err) => {
-        if (err.kind === 'ObjectId') return reply.badRequest('Wrong OId!');
-        return reply.send(err);
-      });
+      if (!isObjectId(orderId)) return reply.badRequest('Wrong order ID!');
+
+      const order = await Order.findById(orderId).catch((err) => reply.send(err));
 
       if (!order) reply.notFound(`Order with id '${orderId}' not found.`);
 

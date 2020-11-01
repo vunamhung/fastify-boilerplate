@@ -13,11 +13,8 @@ import { MINUTE_IN_SECONDS } from './utilities';
 
 export default class {
   private server: FastifyInstance<Server, IncomingMessage, ServerResponse>;
-  private port: number | string;
 
   constructor() {
-    this.port = process.env.PORT || 3000;
-
     this.server = fastify({
       ignoreTrailingSlash: true,
       logger: { level: 'error', prettyPrint: { colorize: true, translateTime: 'yyyy-mm-dd HH:MM:ss', ignore: 'pid,hostname' } },
@@ -30,7 +27,7 @@ export default class {
   }
 
   public async start() {
-    await this.server.listen(this.port as number, '0.0.0.0').catch(console.log);
+    await this.server.listen(3000, '0.0.0.0').catch(console.log);
 
     this.server.blipp();
     this.server.swagger();
@@ -100,13 +97,10 @@ export default class {
 
   private registerHooks() {
     this.server.addHook('onRequest', (request, reply, done) => {
-      // if don't have token, not add hook
-      if (!request.headers.authorization) {
-        done();
-        return;
+      if (request.headers.authorization?.split(' ')[1]) {
+        request.user = this.server.token(request).user;
       }
 
-      request.user = this.server.token(request).user;
       done();
     });
   }

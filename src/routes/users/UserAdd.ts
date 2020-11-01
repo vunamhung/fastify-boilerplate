@@ -29,7 +29,7 @@ export default function (server: FastifyInstance, options, done) {
       try {
         let user = await User.findOne({ email });
 
-        if (user) reply.badRequest('User already exists.');
+        if (user) reply.badRequest(`User '${email}' already exists.`);
 
         user = new User({ email });
 
@@ -38,7 +38,7 @@ export default function (server: FastifyInstance, options, done) {
 
         await user.save();
 
-        reply.code(201).send({ success: true, message: 'User created.' });
+        reply.code(201).send({ success: true, message: `User '${email}' created.` });
       } catch (err) {
         reply.send(err);
       }

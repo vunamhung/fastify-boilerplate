@@ -9,9 +9,11 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/s3',
     {
+      preValidation: server.guard.role('root', 'admin'),
       preHandler: s3Uploader.array('files', 10),
       schema: {
         tags: ['files'],
+        security: [{ apiKey: [] }],
         summary: 'Upload files to Amazon S3.',
       },
     },
@@ -46,9 +48,11 @@ export default function (server: FastifyInstance, options, done) {
   server.post(
     '/files',
     {
+      preValidation: server.guard.role('root', 'admin'),
       preHandler: uploader.array('files', 10),
       schema: {
         tags: ['files'],
+        security: [{ apiKey: [] }],
         summary: 'Upload files.',
       },
     },

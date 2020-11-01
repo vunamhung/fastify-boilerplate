@@ -7,7 +7,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/:email',
     {
-      preValidation: [server.isRoot],
+      preValidation: server.guard.role('root'),
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],

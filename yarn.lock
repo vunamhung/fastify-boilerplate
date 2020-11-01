@@ -2213,6 +2213,15 @@ fastify-error@^0.2.0:
   resolved "https://registry.yarnpkg.com/fastify-error/-/fastify-error-0.2.0.tgz#9a1c28d4f42b6259e7a549671c8e5e2d85660634"
   integrity sha512-zabxsBatj59ROG0fhP36zNdc5Q1/eYeH9oSF9uvfrurZf8/JKfrJbMcIGrLpLWcf89rS6L91RHWm20A/X85hcA==
 
+fastify-guard@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/fastify-guard/-/fastify-guard-1.1.1.tgz#9b385eb0ad748cca9d8d7ba7a43db23a8d221bc1"
+  integrity sha512-WCybtCF0aqKTl3W8adp8T+NBHx4QkOKBJ0+Mxgy0goGxrnQMKFoa5hHMMTdROQ9In9J/upUMPTJO11cD3keY0Q==
+  dependencies:
+    fastify-plugin "^2.3.3"
+    http-errors "^1.8.0"
+    lodash.get "^4.4.2"
+
 fastify-helmet@^5.0.3:
   version "5.0.3"
   resolved "https://registry.yarnpkg.com/fastify-helmet/-/fastify-helmet-5.0.3.tgz#6f72b998d0bc9f6acb6546f1a5bfb631a9429ed3"
@@ -2273,7 +2282,7 @@ fastify-plugin@3.0.0, fastify-plugin@^3.0.0:
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-3.0.0.tgz#cf1b8c8098e3b5a7c8c30e6aeb06903370c054ca"
   integrity sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==
 
-fastify-plugin@^2.0.0, fastify-plugin@^2.0.1, fastify-plugin@^2.1.1, fastify-plugin@^2.2.0, fastify-plugin@^2.3.0, fastify-plugin@^2.3.2, fastify-plugin@^2.3.4:
+fastify-plugin@^2.0.0, fastify-plugin@^2.0.1, fastify-plugin@^2.1.1, fastify-plugin@^2.2.0, fastify-plugin@^2.3.0, fastify-plugin@^2.3.2, fastify-plugin@^2.3.3, fastify-plugin@^2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-2.3.4.tgz#b17abdc36a97877d88101fb86ad8a07f2c07de87"
   integrity sha512-I+Oaj6p9oiRozbam30sh39BiuiqBda7yK2nmSPVwDCfIBlKnT8YB3MY+pRQc2Fcd07bf6KPGklHJaQ2Qu81TYQ==
@@ -2814,7 +2823,7 @@ http-errors@1.7.3, http-errors@~1.7.2:
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
 
-http-errors@^1.7.1, http-errors@^1.7.3:
+http-errors@^1.7.1, http-errors@^1.7.3, http-errors@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.8.0.tgz#75d1bbe497e1044f51e4ee9e704a62f28d336507"
   integrity sha512-4I8r0C5JDhT5VkvI47QktDW75rNlGVsUf/8hzjCC/wkWI/jdTRmBb9aI7erSG82r1bjKY3F6k28WnsVxB1C73A==
@@ -3898,6 +3907,11 @@ locate-path@^5.0.0:
   integrity sha512-t7hw9pI+WvuwNJXwk5zVHpyhIqzg2qTlklJOf0mVxGSbe3Fp2VieZcduNYjaLDoy6p9uGpQEGWG87WpMKlNq8g==
   dependencies:
     p-locate "^4.1.0"
+
+lodash.get@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
+  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
 
 lodash.includes@^4.3.0:
   version "4.3.0"

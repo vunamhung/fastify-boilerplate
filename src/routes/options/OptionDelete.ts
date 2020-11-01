@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.delete(
     '/:name',
     {
-      preValidation: [server.isRoot],
+      preValidation: server.guard.role('root'),
       schema: {
         tags: ['options'],
         security: [{ apiKey: [] }],

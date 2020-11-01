@@ -6,10 +6,6 @@ import ejs from 'ejs';
 
 import Option from './models/Option';
 import mailgun from './services/mailgun';
-import isRoot from './middlewares/isRoot';
-import isAdmin from './middlewares/isAdmin';
-import isTrustMember from './middlewares/isTrustMember';
-import isMember from './middlewares/isMember';
 import document from './utilities/document';
 import uploader from './utilities/uploader';
 import token, { iToken } from './utilities/token';
@@ -29,6 +25,7 @@ export default class {
 
     this.initDb().catch((err) => this.server.log.error({ actor: 'MongoDB' }, err));
     this.registerPlugins();
+    this.registerHooks();
     this.registerRoutes();
   }
 
@@ -66,10 +63,6 @@ export default class {
 
     this.server.register(mailgun);
     this.server.register(token);
-    this.server.register(isRoot);
-    this.server.register(isAdmin);
-    this.server.register(isTrustMember);
-    this.server.register(isMember);
     this.server.register(document);
     this.server.register(uploader);
 
@@ -85,6 +78,9 @@ export default class {
       },
     });
     this.server.register(import('fastify-sensible'));
+    this.server.register(import('fastify-guard'), {
+      errorHandler: (result, req, reply) => reply.forbidden('You are not allowed to make this request.'),
+    });
     this.server.register(import('fastify-compress'));
     this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
     this.server.register(import('fastify-response-caching'), { ttl: 2000 });
@@ -99,6 +95,19 @@ export default class {
       templates: join(__dirname, '../templates'),
       options: { filename: resolve(__dirname, '../templates') },
       includeViewExtension: true,
+    });
+  }
+
+  private registerHooks() {
+    this.server.addHook('onRequest', (request, reply, done) => {
+      // if don't have token, not add hook
+      if (!request.headers.authorization) {
+        done();
+        return;
+      }
+
+      request.user = this.server.token(request).user;
+      done();
     });
   }
 

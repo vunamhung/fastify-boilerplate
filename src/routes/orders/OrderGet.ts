@@ -6,7 +6,7 @@ export default function (server: FastifyInstance, options, done) {
   server.get(
     '/:orderId',
     {
-      preValidation: server.guard.role('root', 'admin'),
+      preValidation: server.guard.role('root', 'admin', 'order:read'),
       schema: {
         tags: ['orders'],
         security: [{ apiKey: [] }],

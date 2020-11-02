@@ -646,10 +646,10 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@^5.3.8":
-  version "5.7.36"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.36.tgz#2dae28c63041c6afba8a83ea02969f463b3f1021"
-  integrity sha512-ggFXgvkHgCNlT35B9d/heDYfSqOSwTmQjkRoR32sObGV5Xjd0N0WWuYlLzqeCg94j4hYN/OZxZ1VNNLltX/IVQ==
+"@types/mongoose@5.7.37":
+  version "5.7.37"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.7.37.tgz#8aa6960a52e551ee49edbb6b0dce587bbb66762b"
+  integrity sha512-PRAZiDZvo3D1Dzs1xtFQBT8YTZIXI9MexkTWyTwIy6C/6jAEGQen2ayg4NjHhjM+5eE4isHq0vbUjzzVWu2qJQ==
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"
@@ -681,10 +681,10 @@
   dependencies:
     query-string "*"
 
-"@types/ramda@0.27.31":
-  version "0.27.31"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.31.tgz#81b54d641ac895d8353a472413e863f77650e613"
-  integrity sha512-VbqT74EAXSyVVRs4hCFvWGYGytoi98q+6BX0BGL8QPI5jndDa/WS3zNoaH6AhJczXenydIAE6mvD/jgp0SS0OQ==
+"@types/ramda@0.27.32":
+  version "0.27.32"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.32.tgz#4f62ff4fc3a41dc32dd9df3cde53861b6ee69e6f"
+  integrity sha512-vdwZcWC+hlTxB//LZQLS1+VEdArImGI4yVKUpeqB8b9mBXgDFXCuQoOt8spQbi8fTyNLOdqRv6liSm2ckxWLog==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -988,10 +988,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@^2.782.0:
-  version "2.782.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.782.0.tgz#84e22bf1bf370f702cb741b95a25356745b0a632"
-  integrity sha512-8aCZBQQoJ5dUWb0Ij8x7MwrKKuoHGF3g3EoDiRDJws/VdYSs995S0OTNX5/TwaR/ltdtBU0t+GGGTPPQFYZ1nA==
+aws-sdk@2.783.0:
+  version "2.783.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.783.0.tgz#f6a2fb2d1af2e7c5a6ec2959436499ff5b6c705b"
+  integrity sha512-u3/ZvY/ag1hEkPpgBJxypWRGf8930prIDOWk221pgH0WhlRA9qp3IE8D0j/BKFei0giqlxbN/AB05RITp/XlwQ==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -6166,13 +6166,13 @@ uid-safe@^2.1.5:
   dependencies:
     random-bytes "~1.0.0"
 
-under-pressure@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.yarnpkg.com/under-pressure/-/under-pressure-5.2.0.tgz#cdb77e51a539e85e267d1d88b20c8755fd1970a7"
-  integrity sha512-gx1bVtt1M3AuLIZD7NKusmSHfm/HpNkenKk8ZIDWjV1RIxB5Ixt5XR4jWfkx2aLIXy5a2TcqUdt3h9duycYzOA==
+under-pressure@5.3.0:
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/under-pressure/-/under-pressure-5.3.0.tgz#646725e81e5eaaac772d3b907a94b2a699f6d8cc"
+  integrity sha512-8mf2ZDXJ1qzA2KzqdXtwUm2DjlutT51xBspB3JWyQdJSv5KdCbAuRCO4XBTH3voOlC0n/UZPGVzU/Z3++kBYkg==
   dependencies:
     fastify-error "^0.2.0"
-    fastify-plugin "^2.0.0"
+    fastify-plugin "^3.0.0"
 
 union-value@^1.0.0:
   version "1.0.1"

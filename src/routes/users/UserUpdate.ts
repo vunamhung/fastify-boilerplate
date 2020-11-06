@@ -24,6 +24,7 @@ export default function (server: FastifyInstance, options, done) {
             password: { type: 'string' },
             firstName: { type: 'string' },
             lastName: { type: 'string' },
+            role: { type: 'array' },
           },
         },
       },

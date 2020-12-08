@@ -651,7 +651,15 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongodb@3.6.0", "@types/mongodb@^3.5.27":
+"@types/mongodb@3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.6.1.tgz#4d30e4a1506446df0f9157eaf969ac694fa0771e"
+  integrity sha512-+osAbNePe5UIQQCuSVkvDQoec76eRD5ZIvu9CBSf+efms1g7cV5Ni+GIPUIdDm9p1pHW4OxyepwBuUXSkFJDtw==
+  dependencies:
+    "@types/bson" "*"
+    "@types/node" "*"
+
+"@types/mongodb@^3.5.27":
   version "3.6.0"
   resolved "https://registry.yarnpkg.com/@types/mongodb/-/mongodb-3.6.0.tgz#7b8f7104a50b39d155f363d9572b0e51bcdaeae8"
   integrity sha512-5PGiTXS/tvvllyyD+LJt3bVyJixrY/ZIIJwsINnZorvJsN6gki4NH7Fhcep4MZF8HNCKNv2oWguysocS1jt9dw==
@@ -659,10 +667,10 @@
     "@types/bson" "*"
     "@types/node" "*"
 
-"@types/mongoose@5.10.1":
-  version "5.10.1"
-  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.10.1.tgz#41d5fe0fef5dce33c140467f1cb2a53b689a66e6"
-  integrity sha512-5yqbLHOyCQhUb7GPGW0A2dauUbhwgBvUWMzYcaUQiHdLZ8slgRp2R6i8FETZ+t5xeXpfhylYp9U7dAng7WamqQ==
+"@types/mongoose@5.10.2":
+  version "5.10.2"
+  resolved "https://registry.yarnpkg.com/@types/mongoose/-/mongoose-5.10.2.tgz#761d73b78caaa2c4c745ab4fcca4cb976e3fad1e"
+  integrity sha512-n23tptnyVk0FDew/5YMG9eee5DQGRq2YLyFxm5b04V5QzCmomX6L8sA4BUv1s4ibr+HP9gCABIEhcItFOQi/dA==
   dependencies:
     "@types/mongodb" "*"
     "@types/node" "*"
@@ -1006,10 +1014,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.802.0:
-  version "2.802.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.802.0.tgz#7215be2437c196f1b0b39a10feffdc1d1b980a62"
-  integrity sha512-PfjBr5Ag4PdcEYPrfMclVWk85kFSJNe7qllZBE8RhYNu+K+Z2pveKfYkC5mqYoKEYIQyI9by9N47F+Tqm1GXtg==
+aws-sdk@2.805.0:
+  version "2.805.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.805.0.tgz#23d2389f78e1ac2fc4c72212148f5c5e469c6626"
+  integrity sha512-mnIiHWp541pappZPJs+P6bx18yIcJTTr4eu2n0aF9+MY4UteuFWRu0fGLssYnDwCHvtzN7/j776Pd/1QXy9hqg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2215,7 +2223,16 @@ fastify-compress@3.4.0:
     string-to-stream "^3.0.0"
     unzipper "^0.10.8"
 
-fastify-cookie@^4.0.2, fastify-cookie@^4.1.0:
+fastify-cookie@4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-4.1.1.tgz#c2f71055651d0b1bb38f90ef839200592f348d43"
+  integrity sha512-rMrY5LWOHXxishMls5Urk2AqrJ3Xvln6jKmj5GyI+3OV9MlyxnXej/ZqDsPlfRS+58J1CzJRutGtoWRe19i5aA==
+  dependencies:
+    cookie "^0.4.0"
+    cookie-signature "^1.1.0"
+    fastify-plugin "^3.0.0"
+
+fastify-cookie@^4.0.2:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-4.1.0.tgz#b063f2b97cf9de7a33eb799a951b604ede48a915"
   integrity sha512-+se+kNPFDE49JCiBYQrfPfchcW9s8BXjCqP5ijuYpbydTcMlo9pnyd8tyxLi43SIXBmeTBkB1CjklmD7nlHsXg==
@@ -2330,13 +2347,13 @@ fastify-qs@3.0.0:
     fastify-plugin "^3.0.0"
     qs "^6.9.4"
 
-fastify-rate-limit@4.0.3:
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/fastify-rate-limit/-/fastify-rate-limit-4.0.3.tgz#efd1e2bee2afc1440665f7daf51130534b790e30"
-  integrity sha512-CSl91JWLNKA6lpf79PMM5KwqPGOaqDKKK9jNSGsExdge4o5FHlm16qZQsFJfo7seDEGyXdtel4NDGsGTNHVuyA==
+fastify-rate-limit@4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/fastify-rate-limit/-/fastify-rate-limit-4.1.0.tgz#bac419278502120713887b12176d9dce8d7db924"
+  integrity sha512-n7Wiz4J2BnCbppsWhMLTlllZFTHSS3rtq3gm0lg/04w3VfqT4y5QokrCrbmoZULQoOzgoieKSy//+vt5KyM3Qg==
   dependencies:
     fast-json-stringify "^2.2.1"
-    fastify-plugin "^2.0.0"
+    fastify-plugin "^3.0.0"
     ms "^2.1.1"
     tiny-lru "^7.0.0"
 
@@ -4249,10 +4266,10 @@ mongoose-slug-generator@^1.0.4:
     shortid "^2.2.4"
     speakingurl "^7.0.0"
 
-mongoose@5.11.2:
-  version "5.11.2"
-  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.11.2.tgz#ee5b99d0717cac67517663d642a6de335ef14163"
-  integrity sha512-vWmmzkyqJY46bn5H5eQOszhSmSAGghblZQLo8iNEqC4jlLhUrfh0qaGhfqxBQpbW03FDYk2xcDmYo/IC1S4x0A==
+mongoose@5.11.5:
+  version "5.11.5"
+  resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.11.5.tgz#4f0505f717d20ed01424e5938947e17dcc6dec4f"
+  integrity sha512-uwSeALQ1+qamUZBrIe1D6/uCzlHvcSbNQPG9w02DJqF3VHJSFOX1RdoxJE/wTN6WW7tTV8NMdLDSdxKqfo8J1A==
   dependencies:
     "@types/mongodb" "^3.5.27"
     bson "^1.1.4"

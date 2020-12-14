@@ -25,7 +25,8 @@ export default function (server: FastifyInstance, options, done) {
             type: 'object',
             properties: {
               success: { type: 'boolean' },
-              token: { type: 'string' },
+              accessToken: { type: 'string' },
+              refreshToken: { type: 'string' },
             },
           },
         },
@@ -54,9 +55,10 @@ export default function (server: FastifyInstance, options, done) {
         }
 
         // Add token to user
-        const token: string = await user.generateAccessToken(reply);
+        const accessToken: string = await user.generateAccessToken(reply);
+        const refreshToken: string = await user.generateRefreshToken(reply);
 
-        reply.send({ success: true, token });
+        reply.send({ success: true, accessToken, refreshToken });
       } catch (err) {
         reply.send(err);
       }

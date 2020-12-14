@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify';
 import { validate } from 'deep-email-validator';
-import { uid } from 'rand-token';
 import User from '../../models/User';
 import { hashPassword } from '../../utilities';
 
@@ -37,9 +36,10 @@ export default function (server: FastifyInstance, options, done) {
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
         user.password = await hashPassword(password);
-        user.refreshToken = uid(64);
 
         await user.save();
+
+        await user.generateRefreshToken(reply);
 
         reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {

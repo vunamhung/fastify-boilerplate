@@ -1,6 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import { FastifyReply } from 'fastify';
 import { compare } from 'bcryptjs';
+import Token from './Token';
 
 export interface iUserModel extends Document {
   email: string;
@@ -17,6 +18,7 @@ export interface iUserModel extends Document {
   verified?: boolean;
   comparePassword(candidatePassword: string): Promise<boolean | void>;
   generateAccessToken(reply: FastifyReply): Promise<string>;
+  generateRefreshToken(reply: FastifyReply): Promise<string>;
 }
 
 const { String, Number, Boolean } = Schema.Types;
@@ -77,7 +79,18 @@ userSchema.methods = {
 
   async generateAccessToken(reply) {
     const { id, email, role, banned, verified } = this;
-    return await reply.jwtSign({ user: { id, email, role, banned, verified } });
+
+    return await reply.jwtSign({ user: { id, email, role, banned, verified } }, { expiresIn: '10m' });
+  },
+
+  async generateRefreshToken(reply) {
+    const { id, email, role, banned, verified } = this;
+
+    const refreshToken = await reply.jwtSign({ user: { id, email, role, banned, verified } }, { expiresIn: '7d' });
+
+    await new Token({ token: refreshToken, email }).save();
+
+    return refreshToken;
   },
 };
 

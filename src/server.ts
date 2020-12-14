@@ -4,7 +4,6 @@ import { fastify, FastifyInstance } from 'fastify';
 import { connection, connect } from 'mongoose';
 import ejs from 'ejs';
 
-import Option from './models/Option';
 import mailgun from './services/mailgun';
 import document from './utilities/document';
 import uploader from './utilities/uploader';
@@ -53,8 +52,6 @@ export default class {
   private registerPlugins() {
     this.server.register(import('fastify-jwt'), {
       secret: process.env.JWT_SECRET_KEY,
-      sign: { expiresIn: '7d' },
-      cookie: { cookieName: 'token' },
       trusted: this.validUsers,
     });
 
@@ -112,12 +109,8 @@ export default class {
   }
 
   private async validUsers(request, decodedToken: iToken) {
-    const { email, banned } = decodedToken.user;
+    const { banned } = decodedToken.user;
 
     if (banned) return false;
-
-    const banUsers = await Option.findOne({ name: 'ban_users' });
-
-    return !banUsers?.data?.includes(email);
   }
 }

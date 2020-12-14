@@ -32,9 +32,11 @@ export default function (server: FastifyInstance, options, done) {
       try {
         // @ts-ignore
         const { refreshToken } = body;
+
+        if (!refreshToken) reply.badRequest('Access denied, token missing!');
+
         // check token exists
         let tokenDoc = await Token.findOne({ token: refreshToken });
-        if (!tokenDoc) reply.badRequest('Access denied, token missing!');
 
         if (!tokenDoc) {
           return reply.badRequest('Token expired!');

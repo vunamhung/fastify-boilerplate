@@ -1,5 +1,5 @@
 import { createCipheriv, createDecipheriv, scryptSync } from 'crypto';
-const secret = process.env.ACCESS_TOKEN_SECRET;
+const secret = process.env.JWT_SECRET_KEY;
 const algorithm = 'aes-192-cbc';
 
 const key = scryptSync(secret, 'salt', 24);

@@ -52,7 +52,7 @@ export default class {
 
   private registerPlugins() {
     this.server.register(import('fastify-jwt'), {
-      secret: process.env.ACCESS_TOKEN_SECRET,
+      secret: process.env.JWT_SECRET_KEY,
       sign: { expiresIn: '7d' },
       cookie: { cookieName: 'token' },
       trusted: this.validUsers,

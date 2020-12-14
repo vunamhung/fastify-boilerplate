@@ -70,13 +70,15 @@ const userSchema = new Schema<iUserModel>(
   },
 );
 
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  return await compare(candidatePassword, this.password).catch(console.log);
-};
+userSchema.methods = {
+  async comparePassword(candidatePassword) {
+    return await compare(candidatePassword, this.password).catch(console.log);
+  },
 
-userSchema.methods.generateToken = async function (reply) {
-  const { id, email, role, banned, verified } = this;
-  return await reply.jwtSign({ user: { id, email, role, banned, verified } });
+  async generateToken(reply) {
+    const { id, email, role, banned, verified } = this;
+    return await reply.jwtSign({ user: { id, email, role, banned, verified } });
+  },
 };
 
 export default model<iUserModel>('User', userSchema);

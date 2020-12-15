@@ -14,7 +14,7 @@
     "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ ocean:/var/www/html/"
   },
   "dependencies": {
-    "aws-sdk": "2.809.0",
+    "aws-sdk": "2.810.0",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "deep-email-validator": "0.1.18",
@@ -46,7 +46,7 @@
     "fastify-static": "3.3.0",
     "fastify-swagger": "3.5.0",
     "mailgun-js": "^0.22.0",
-    "mongoose": "5.11.7",
+    "mongoose": "5.11.8",
     "mongoose-deep-populate": "^3.2.0",
     "mongoose-slug-generator": "^1.0.4",
     "pino-pretty": "4.3.0",
@@ -64,7 +64,6 @@
     "@types/jest": "26.0.19",
     "@types/mailgun-js": "0.22.11",
     "@types/mongodb": "3.6.3",
-    "@types/mongoose": "5.10.3",
     "@types/node": "14.14.13",
     "@types/query-string": "^6.3.0",
     "@types/ramda": "0.27.33",

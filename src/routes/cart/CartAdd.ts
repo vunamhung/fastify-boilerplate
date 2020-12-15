@@ -35,6 +35,7 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { products } = body;
 
+      // @ts-ignore
       const cart = await Cart.create({ products }).catch((err) => reply.send(err));
 
       reply.code(201).send({ success: true, message: 'Cart created.', cart });

@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.get(
     '/me',
     {
-      preValidation: server.guard.role('root', 'admin', 'member'),
+      preValidation: [server.guard.role('root', 'admin', 'member'), server.authenticate],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],

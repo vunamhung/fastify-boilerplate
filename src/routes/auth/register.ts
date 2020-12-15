@@ -39,7 +39,7 @@ export default function (server: FastifyInstance, options, done) {
 
         await user.save();
 
-        await user.generateRefreshToken(reply);
+        await user.generateRefreshToken();
 
         reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {

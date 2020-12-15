@@ -6,7 +6,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/:name',
     {
-      preValidation: server.guard.role('root', 'option:write'),
+      preValidation: [server.guard.role('root', 'option:write'), server.authenticate],
       schema: {
         tags: ['options'],
         security: [{ apiKey: [] }],

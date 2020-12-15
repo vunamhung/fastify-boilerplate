@@ -7,6 +7,7 @@ import ejs from 'ejs';
 import mailgun from './services/mailgun';
 import document from './utilities/document';
 import uploader from './utilities/uploader';
+import authenticate from './utilities/authenticate';
 import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
 
@@ -51,10 +52,13 @@ export default class {
 
   private registerPlugins() {
     this.server.register(import('fastify-jwt'), {
-      secret: process.env.JWT_SECRET_KEY,
+      secret: process.env.ACCESS_TOKEN_SECRET,
+      sign: { expiresIn: '10m' },
+      cookie: { cookieName: 'accessToken' },
       trusted: this.validUsers,
     });
 
+    this.server.register(authenticate);
     this.server.register(mailgun);
     this.server.register(token);
     this.server.register(document);
@@ -111,6 +115,6 @@ export default class {
   private async validUsers(request, decodedToken: iToken) {
     const { banned } = decodedToken.user;
 
-    if (banned) return false;
+    return banned != true;
   }
 }

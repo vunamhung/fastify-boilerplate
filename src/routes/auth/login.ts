@@ -56,7 +56,7 @@ export default function (server: FastifyInstance, options, done) {
 
         // Add token to user
         const accessToken: string = await user.generateAccessToken(reply);
-        const refreshToken: string = await user.generateRefreshToken(reply);
+        const refreshToken: string = await user.generateRefreshToken();
 
         reply.send({ success: true, accessToken, refreshToken });
       } catch (err) {

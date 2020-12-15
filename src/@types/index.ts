@@ -1,3 +1,4 @@
+import { preValidationHookHandler } from 'fastify';
 import { Messages } from 'mailgun-js';
 import { iToken } from '../utilities/token';
 
@@ -7,6 +8,7 @@ declare module 'fastify' {
       role: Function;
       scope: Function;
     };
+    authenticate: preValidationHookHandler;
     mailgun: Messages;
     token(request): iToken;
   }

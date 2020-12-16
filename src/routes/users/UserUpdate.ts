@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import validator from 'validator';
 import User from '../../models/User';
-import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -35,12 +34,7 @@ export default function (server: FastifyInstance, options, done) {
 
       if (!validator.isEmail(email)) reply.badRequest('Please provide a valid email');
 
-      // @ts-ignore
-      let data = { ...body };
-
-      if (data.password) data.password = await hashPassword(data.password);
-
-      const result = await User.findOneAndUpdate({ email }, data).catch((err) => reply.send(err));
+      const result = await User.findOneAndUpdate({ email }, body).catch((err) => reply.send(err));
 
       if (result) reply.send({ success: true, message: `User ${email} updated.` });
 

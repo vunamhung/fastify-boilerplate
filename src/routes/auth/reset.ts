@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -40,7 +39,7 @@ export default function (server: FastifyInstance, options, done) {
 
         let user = await User.findOne({ resetPasswordToken: resetToken });
 
-        user.password = await hashPassword(password);
+        user.password = password;
 
         await user.save();
 

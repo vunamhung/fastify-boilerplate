@@ -1,7 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
-import { compare } from 'bcryptjs';
+import { compare, genSalt, hash } from 'bcryptjs';
 
 export interface iUserModel extends Document {
   email: string;
@@ -91,6 +91,14 @@ userSchema.methods = {
     return refreshToken;
   },
 };
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) next();
+
+  const salt = await genSalt();
+  // @ts-ignore
+  this.password = await hash(this.password, salt);
+});
 
 const User = model<iUserModel>('User', userSchema);
 

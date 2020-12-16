@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
-import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -26,8 +25,6 @@ export default function (server: FastifyInstance, options, done) {
 
       // @ts-ignore
       let data = { ...request.body };
-
-      if (data.password) data.password = await hashPassword(data.password);
 
       await User.findOneAndUpdate({ email }, data).catch((err) => reply.send(err));
 

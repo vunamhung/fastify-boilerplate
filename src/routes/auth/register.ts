@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { validate } from 'deep-email-validator';
 import User from '../../models/User';
-import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -33,9 +32,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
-        user = new User({ email });
-
-        user.password = await hashPassword(password);
+        user = new User({ email, password });
 
         await user.save();
 

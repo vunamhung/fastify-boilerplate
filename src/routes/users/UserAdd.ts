@@ -1,7 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { uid } from 'rand-token';
 import User from '../../models/User';
-import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -31,12 +29,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (user) reply.badRequest(`User '${email}' already exists.`);
 
-        user = new User({ email });
-
-        user.password = await hashPassword(password);
-        user.refreshToken = uid(64);
-
-        await user.save();
+        await new User({ email, password }).save();
 
         reply.code(201).send({ success: true, message: `User '${email}' created.` });
       } catch (err) {

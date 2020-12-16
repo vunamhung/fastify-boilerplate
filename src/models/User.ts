@@ -104,7 +104,7 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('findOneAndUpdate', async function (next) {
   // @ts-ignore
   this._update.password = await hashPassword(this._update.password);
-  // @ts-ignore
+
   next();
 });
 

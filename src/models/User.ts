@@ -74,7 +74,7 @@ userSchema.methods = {
     return await compare(candidatePassword, this.password).catch(console.log);
   },
 
-  async generateAccessToken(reply) {
+  async generateAccessToken(reply: FastifyReply) {
     const { id, email, role, banned, verified } = this;
 
     return await reply.jwtSign({ user: { id, email, role, banned, verified } });

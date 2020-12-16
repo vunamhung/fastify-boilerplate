@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
-import validator from 'validator';
+import { validate } from 'deep-email-validator';
 import User from '../../models/User';
 import { HOUR_IN_SECONDS, NOW_IN_SECONDS } from '../../utilities';
 
@@ -34,7 +34,9 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { email } = body;
 
-      if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
+      const { valid, reason, validators } = await validate(email);
+
+      if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
       try {
         let user = await User.findOne({ email });

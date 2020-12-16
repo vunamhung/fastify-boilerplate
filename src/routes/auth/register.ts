@@ -21,7 +21,7 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       // @ts-ignore
-      const { email, password } = body;
+      const { email } = body;
 
       try {
         let user = await User.findOne({ email });
@@ -32,11 +32,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
-        user = new User({ email, password });
-
-        await user.save();
-
-        await user.generateRefreshToken();
+        await new User(body).save();
 
         reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {

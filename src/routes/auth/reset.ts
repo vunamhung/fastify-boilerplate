@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
+import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { hashPassword, NOW_IN_SECONDS } from '../../utilities';
+import { hashPassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -35,9 +36,9 @@ export default function (server: FastifyInstance, options, done) {
       const { password, resetToken } = body;
 
       try {
-        let user = await User.findOne({ resetPasswordToken: resetToken, resetPasswordExpires: { $gt: NOW_IN_SECONDS } });
+        await jwt.verify(resetToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
 
-        if (!user) reply.notAcceptable('Your token has expired. Please attempt to reset your password again.');
+        let user = await User.findOne({ resetPasswordToken: resetToken });
 
         user.password = await hashPassword(password);
 

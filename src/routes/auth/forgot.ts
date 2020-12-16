@@ -1,8 +1,7 @@
 import { FastifyInstance } from 'fastify';
-import { uid } from 'rand-token';
 import { validate } from 'deep-email-validator';
+import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { HOUR_IN_SECONDS, NOW_IN_SECONDS } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -42,8 +41,7 @@ export default function (server: FastifyInstance, options, done) {
         let user = await User.findOne({ email });
         if (!user) reply.badRequest('No user exist with this email.');
 
-        user.resetPasswordToken = uid(64);
-        user.resetPasswordExpires = NOW_IN_SECONDS + 4 * HOUR_IN_SECONDS;
+        user.resetPasswordToken = await jwt.sign({ user: { email } }, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h' });
 
         await user.save();
 

@@ -9,7 +9,6 @@ export interface iUserModel extends Document {
   role: Array<string>;
   refreshToken: string;
   resetPasswordToken?: string;
-  resetPasswordExpires?: number;
   firstName?: string;
   lastName?: string;
   avatar?: string;
@@ -21,7 +20,7 @@ export interface iUserModel extends Document {
   generateRefreshToken(): Promise<string>;
 }
 
-const { String, Number, Boolean } = Schema.Types;
+const { String, Boolean } = Schema.Types;
 
 const userSchema = new Schema<iUserModel>(
   {
@@ -44,9 +43,6 @@ const userSchema = new Schema<iUserModel>(
     },
     resetPasswordToken: {
       type: String,
-    },
-    resetPasswordExpires: {
-      type: Number,
     },
     firstName: {
       type: String,

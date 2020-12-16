@@ -34,13 +34,11 @@ export default function (server: FastifyInstance, options, done) {
         // @ts-ignore
         const { refreshToken } = body;
 
-        if (!refreshToken) reply.badRequest('Access denied, token missing!');
-
-        let userData = await User.findOne({ refreshToken });
-        if (!userData) return reply.badRequest('Token expired!'); // check token exists
+        let existUser = await User.findOne({ refreshToken });
+        if (!existUser) return reply.badRequest('Token expired!'); // check token exists
 
         // @ts-ignore
-        const { user } = await jwt.verify(userData.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
+        const { user } = await jwt.verify(existUser.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
 
         const accessToken = await reply.jwtSign({ user });
 

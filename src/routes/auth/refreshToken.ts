@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import Token from '../../models/Token';
+import jwt from 'jsonwebtoken';
+import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -35,19 +36,15 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!refreshToken) reply.badRequest('Access denied, token missing!');
 
-        // check token exists
-        let tokenDoc = await Token.findOne({ token: refreshToken });
+        let userData = await User.findOne({ refreshToken });
+        if (!userData) return reply.badRequest('Token expired!'); // check token exists
 
-        if (!tokenDoc) {
-          return reply.badRequest('Token expired!');
-        } else {
-          //extract payload from refresh token and generate a new access token and send it
-          const { user } = await server.jwt.verify(tokenDoc.token);
+        // @ts-ignore
+        const { user } = await jwt.verify(userData.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
 
-          const accessToken = await reply.jwtSign({ user }, { expiresIn: '10m' });
+        const accessToken = await reply.jwtSign({ user });
 
-          reply.send({ success: true, accessToken });
-        }
+        reply.send({ success: true, accessToken });
       } catch (err) {
         reply.send(err);
       }

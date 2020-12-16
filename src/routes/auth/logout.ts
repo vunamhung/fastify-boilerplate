@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import Token from '../../models/Token';
+import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -31,7 +31,10 @@ export default function (server: FastifyInstance, options, done) {
       try {
         // @ts-ignore
         const { refreshToken } = body;
-        await Token.findOneAndDelete({ token: refreshToken });
+        let user = await User.findOne({ refreshToken });
+        if (!user) reply.notAcceptable('Wrong token');
+        user.refreshToken = '';
+        user.save();
 
         reply.send({ success: true });
       } catch (err) {

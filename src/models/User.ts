@@ -2,7 +2,6 @@ import { Document, model, Schema } from 'mongoose';
 import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
 import { compare } from 'bcryptjs';
-import Token from './Token';
 
 export interface iUserModel extends Document {
   email: string;
@@ -89,10 +88,14 @@ userSchema.methods = {
 
     const refreshToken = await jwt.sign({ user: { id, email, role, banned, verified } }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
 
-    await new Token({ token: refreshToken, email }).save();
+    let user = await User.findOne({ email });
+    user.refreshToken = refreshToken;
+    await user.save();
 
     return refreshToken;
   },
 };
 
-export default model<iUserModel>('User', userSchema);
+const User = model<iUserModel>('User', userSchema);
+
+export default User;

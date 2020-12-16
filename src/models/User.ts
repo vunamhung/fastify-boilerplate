@@ -1,7 +1,8 @@
 import { Document, model, Schema } from 'mongoose';
 import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
-import { compare, genSalt, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
+import { hashPassword } from '../utilities';
 
 export interface iUserModel extends Document {
   email: string;
@@ -94,10 +95,16 @@ userSchema.methods = {
 
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
-    const salt = await genSalt();
     // @ts-ignore
-    this.password = await hash(this.password, salt);
+    this.password = await hashPassword(this.password);
   }
+  next();
+});
+
+userSchema.pre('findOneAndUpdate', async function (next) {
+  // @ts-ignore
+  this._update.password = await hashPassword(this._update.password);
+  // @ts-ignore
   next();
 });
 

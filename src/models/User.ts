@@ -93,11 +93,12 @@ userSchema.methods = {
 };
 
 userSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) next();
-
-  const salt = await genSalt();
-  // @ts-ignore
-  this.password = await hash(this.password, salt);
+  if (this.isModified('password')) {
+    const salt = await genSalt();
+    // @ts-ignore
+    this.password = await hash(this.password, salt);
+  }
+  next();
 });
 
 const User = model<iUserModel>('User', userSchema);

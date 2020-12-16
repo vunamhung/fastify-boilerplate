@@ -10,6 +10,6 @@ declare module 'fastify' {
     };
     authenticate: preValidationHookHandler;
     mailgun: Messages;
-    token(request): iToken;
+    decodedToken(request): iToken;
   }
 }

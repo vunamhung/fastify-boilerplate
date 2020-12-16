@@ -13,7 +13,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request, reply) => {
-      const { id } = server.token(request).user;
+      const { id } = server.decodedToken(request)?.user;
 
       const user = await User.findById(id, { password: 0, refreshToken: 0 }).catch((err) => reply.send(err));
 

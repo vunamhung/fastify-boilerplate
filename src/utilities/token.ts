@@ -12,7 +12,7 @@ export interface iToken {
 }
 
 export default fp((server: FastifyInstance, options, done) => {
-  server.decorate('token', ({ headers }: FastifyRequest) => {
+  server.decorate('decodedToken', ({ headers }: FastifyRequest) => {
     const token: iToken = server.jwt.decode(headers?.authorization?.split(' ')[1]);
 
     return token;

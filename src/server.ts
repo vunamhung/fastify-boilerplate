@@ -99,7 +99,7 @@ export default class {
   private registerHooks() {
     this.server.addHook('onRequest', (request, reply, done) => {
       if (request.headers.authorization?.split(' ')[1]) {
-        request.user = this.server.token(request)?.user;
+        request.user = this.server.decodedToken(request)?.user;
       }
 
       done();

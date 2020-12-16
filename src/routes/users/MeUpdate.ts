@@ -21,7 +21,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request, reply) => {
-      const { email } = server.token(request).user;
+      const { email } = server.decodedToken(request)?.user;
 
       await User.findOneAndUpdate({ email }, request.body).catch((err) => reply.send(err));
 

@@ -31,9 +31,9 @@ export default function (server: FastifyInstance, options, done) {
 
         const { valid, reason, validators } = await validate(email);
 
-        user = new User({ email });
-
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
+
+        user = new User({ email });
 
         user.password = await hashPassword(password);
 

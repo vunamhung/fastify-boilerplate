@@ -22,14 +22,14 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       // @ts-ignore
-      const { email, password } = body;
+      const { email } = body;
 
       try {
         let user = await User.findOne({ email });
 
         if (user) reply.badRequest(`User '${email}' already exists.`);
 
-        await new User({ email, password }).save();
+        await new User(body).save();
 
         reply.code(201).send({ success: true, message: `User '${email}' created.` });
       } catch (err) {

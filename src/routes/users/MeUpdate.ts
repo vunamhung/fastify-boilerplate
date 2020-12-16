@@ -23,10 +23,7 @@ export default function (server: FastifyInstance, options, done) {
     async (request, reply) => {
       const { email } = server.token(request).user;
 
-      // @ts-ignore
-      let data = { ...request.body };
-
-      await User.findOneAndUpdate({ email }, data).catch((err) => reply.send(err));
+      await User.findOneAndUpdate({ email }, request.body).catch((err) => reply.send(err));
 
       reply.send({ success: true, message: `User '${email}' is updated.` });
     },

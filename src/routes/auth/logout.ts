@@ -33,7 +33,7 @@ export default function (server: FastifyInstance, options, done) {
         const { refreshToken } = body;
         let user = await User.findOne({ refreshToken });
         if (!user) reply.notAcceptable('Wrong token');
-        user.refreshToken = '';
+        user.refreshToken = undefined;
         user.save();
 
         reply.send({ success: true });

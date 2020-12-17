@@ -55,7 +55,7 @@ export default class {
       secret: process.env.ACCESS_TOKEN_SECRET,
       sign: { expiresIn: '10m' },
       cookie: { cookieName: 'accessToken' },
-      trusted: this.validUsers,
+      trusted: (request, { user }: iToken) => user?.banned != true,
     });
 
     this.server.register(authenticate);
@@ -110,11 +110,5 @@ export default class {
     this.server.register(import('fastify-autoload'), {
       dir: join(__dirname, 'routes'),
     });
-  }
-
-  private async validUsers(request, decodedToken: iToken) {
-    const { banned } = decodedToken.user;
-
-    return banned != true;
   }
 }

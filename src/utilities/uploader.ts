@@ -17,7 +17,7 @@ const uploadDirs = {
 };
 
 function createRandomFileName(originalname) {
-  const name: string = uid(16);
+  const name: string = uid(8);
   const ext: string = extname(originalname).split('.')[1];
 
   return name + '.' + ext;

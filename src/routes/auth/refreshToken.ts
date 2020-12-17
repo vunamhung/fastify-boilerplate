@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
+import { uid } from 'rand-token';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -40,7 +41,7 @@ export default function (server: FastifyInstance, options, done) {
         // @ts-ignore
         const { user } = await jwt.verify(existUser.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
 
-        const accessToken = await reply.jwtSign({ user });
+        const accessToken = await reply.jwtSign({ user }, { expiresIn: '10m', jwtid: uid(6) });
 
         reply.send({ success: true, accessToken });
       } catch (err) {

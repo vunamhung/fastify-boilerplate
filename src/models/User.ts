@@ -1,6 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import { FastifyReply } from 'fastify';
 import jwt from 'jsonwebtoken';
+import { uid } from 'rand-token';
 import { compare } from 'bcryptjs';
 import { hashPassword } from '../utilities';
 
@@ -77,7 +78,7 @@ userSchema.methods = {
   async generateAccessToken(reply: FastifyReply) {
     const { id, email, role, banned, verified } = this;
 
-    return await reply.jwtSign({ user: { id, email, role, banned, verified } });
+    return await reply.jwtSign({ user: { id, email, role, banned, verified } }, { expiresIn: '10m', jwtid: uid(6) });
   },
 
   async generateRefreshToken() {

@@ -2,7 +2,6 @@ import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
 import { compare } from 'bcryptjs';
 import validator from 'validator';
-import Option from '../../models/Option';
 import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
@@ -43,17 +42,11 @@ export default function (server: FastifyInstance, options, done) {
         // check user exists
         let user = await User.findOne({ email });
         if (!user) reply.badRequest('Invalid Credentials');
+        if (user.banned) reply.notAcceptable('You banned!');
 
-        // check ban status
-        const banUsers = await Option.findOne({ name: 'ban_users' });
-
-        if (banUsers?.data?.includes(email)) {
-          user.banned = true;
-        } else {
-          // compare password with db user password
-          const isMatch = await compare(password, user.password);
-          if (!isMatch) reply.badRequest('Invalid Credentials.');
-        }
+        // compare password with db user password
+        const isMatch = await compare(password, user.password);
+        if (!isMatch) reply.badRequest('Invalid Credentials.');
 
         const payload = await user.generateRefreshToken();
 

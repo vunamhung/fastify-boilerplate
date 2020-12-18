@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify';
-import { uniq } from 'ramda';
-import Option from '../models/Option';
+import User from '../models/User';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -23,13 +22,11 @@ export default function (server: FastifyInstance, options, done) {
       // @ts-ignore
       const { email } = params;
 
-      const banUsers = await Option.findOne({ name: 'ban_users' });
+      const user = await User.findOne({ email });
 
-      banUsers.data = banUsers.data.filter((banEmail) => banEmail !== email);
+      user.banned = undefined;
 
-      banUsers.data = uniq(banUsers.data);
-
-      await banUsers.save();
+      await user.save();
 
       reply.send({ success: true, message: `User ${email} is unban.` });
     },

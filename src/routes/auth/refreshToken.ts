@@ -39,7 +39,7 @@ export default function (server: FastifyInstance, options, done) {
         const { user: accessUser } = server.jwt.decode(token);
         let existUser = await User.findOne({ email: accessUser.email });
         // check refresh token exists
-        if (!existUser || !existUser.refreshToken) return reply.badRequest('Token expired!');
+        if (!existUser || !existUser.refreshToken) return reply.badRequest('Token expired.');
 
         // @ts-ignore
         const { user, jti } = await jwt.verify(existUser.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token

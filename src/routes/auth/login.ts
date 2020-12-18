@@ -16,10 +16,10 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            mail: { type: 'string', format: 'email' },
+            email: { type: 'string', format: 'email' },
             password: { type: 'string' },
           },
-          required: ['mail', 'password'],
+          required: ['email', 'password'],
         },
         response: {
           200: {
@@ -35,19 +35,19 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ body }, reply) => {
       // @ts-ignore
-      const { mail, password } = body;
+      const { email, password } = body;
 
-      if (!validator.isEmail(mail)) reply.badRequest('You must enter an email address.');
+      if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
 
       try {
         // check user exists
-        let user = await User.findOne({ email: mail });
+        let user = await User.findOne({ email });
         if (!user) reply.badRequest('Invalid Credentials');
 
         // check ban status
         const banUsers = await Option.findOne({ name: 'ban_users' });
 
-        if (banUsers?.data?.includes(mail)) {
+        if (banUsers?.data?.includes(email)) {
           user.banned = true;
         } else {
           // compare password with db user password

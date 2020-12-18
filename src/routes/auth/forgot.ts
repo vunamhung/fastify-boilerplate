@@ -38,6 +38,7 @@ export default function (server: FastifyInstance, options, done) {
       try {
         let user = await User.findOne({ email });
         if (!user) reply.badRequest('No user exist with this email.');
+        if (user.banned) reply.notAcceptable('You banned!');
 
         user.resetPasswordToken = await jwt.sign({ user: { email } }, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h' });
 

@@ -34,12 +34,12 @@ export default function (server: FastifyInstance, options, done) {
       try {
         // @ts-ignore
         const { token } = body;
-
         // @ts-ignore
         const { user: accessUser } = server.jwt.decode(token);
+
         let existUser = await User.findOne({ email: accessUser.email });
-        // check refresh token exists
-        if (!existUser || !existUser.refreshToken) return reply.badRequest('Token expired.');
+        if (!existUser || !existUser.refreshToken) return reply.badRequest('Token expired.'); // check refresh token exists
+        if (existUser.banned) reply.notAcceptable('You banned!');
 
         // @ts-ignore
         const { user, jti } = await jwt.verify(existUser.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token

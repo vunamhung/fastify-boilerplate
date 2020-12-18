@@ -38,6 +38,7 @@ export default function (server: FastifyInstance, options, done) {
         await jwt.verify(resetToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
 
         let user = await User.findOne({ resetPasswordToken: resetToken });
+        if (user.banned) reply.notAcceptable('You banned!');
 
         user.password = password;
 

@@ -1,7 +1,4 @@
 import { Document, model, Schema } from 'mongoose';
-import { FastifyReply } from 'fastify';
-import jwt from 'jsonwebtoken';
-import { uid } from 'rand-token';
 import { compare } from 'bcryptjs';
 import { hashPassword } from '../utilities';
 
@@ -18,8 +15,6 @@ export interface iUserModel extends Document {
   banned?: boolean;
   verified?: boolean;
   comparePassword(candidatePassword: string): Promise<boolean | void>;
-  generateAccessToken(reply: FastifyReply): Promise<string>;
-  generateRefreshToken(): Promise<string>;
 }
 
 const { String, Boolean } = Schema.Types;
@@ -74,24 +69,6 @@ userSchema.methods = {
   async comparePassword(candidatePassword) {
     return await compare(candidatePassword, this.password).catch(console.log);
   },
-
-  async generateAccessToken(reply: FastifyReply) {
-    const { id, email, role, banned, verified } = this;
-
-    return await reply.jwtSign({ user: { id, email, role, banned, verified } }, { expiresIn: '10m', jwtid: uid(6) });
-  },
-
-  async generateRefreshToken() {
-    const { id, email, role, banned, verified } = this;
-
-    const refreshToken = await jwt.sign({ user: { id, email, role, banned, verified } }, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d' });
-
-    let user = await User.findOne({ email });
-    user.refreshToken = refreshToken;
-    await user.save();
-
-    return refreshToken;
-  },
 };
 
 userSchema.pre('save', async function (next) {
@@ -106,6 +83,7 @@ userSchema.pre('findOneAndUpdate', async function (next) {
   // @ts-ignore
   this._update.password = await hashPassword(this._update.password);
 
+  // @ts-ignore
   next();
 });
 

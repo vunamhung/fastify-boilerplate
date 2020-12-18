@@ -2,6 +2,7 @@ import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import { uid } from 'rand-token';
+import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -14,9 +15,9 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            refreshToken: { type: 'string' },
+            accessToken: { type: 'string' },
           },
-          required: ['refreshToken'],
+          required: ['accessToken'],
         },
         response: {
           200: {
@@ -33,17 +34,20 @@ export default function (server: FastifyInstance, options, done) {
     async ({ body }, reply) => {
       try {
         // @ts-ignore
-        const { refreshToken } = body;
-
-        let existUser = await User.findOne({ refreshToken });
-        if (!existUser) return reply.badRequest('Token expired!'); // check token exists
+        const { accessToken } = body;
 
         // @ts-ignore
-        const { user } = await jwt.verify(existUser.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
+        const { user: accessUser } = server.jwt.decode(accessToken);
+        let existUser = await User.findOne({ email: accessUser.email });
+        // check refresh token exists
+        if (!existUser || !existUser.refreshToken) return reply.badRequest('Token expired!');
 
-        const accessToken = await reply.jwtSign({ user }, { expiresIn: '10m', jwtid: uid(6) });
+        // @ts-ignore
+        const { user, jti } = await jwt.verify(existUser.refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
 
-        reply.send({ success: true, accessToken });
+        if (accessUser.auth !== jti) return reply.badRequest('Token expired!');
+
+        reply.send({ success: true, accessToken: await reply.jwtSign({ user }, { expiresIn: '10m', jwtid: uid(6) }) });
       } catch (err) {
         reply.send(err);
       }

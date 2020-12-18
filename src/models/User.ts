@@ -1,5 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 import { hashPassword } from '../utilities';
+import { uid } from 'rand-token';
+import jwt from 'jsonwebtoken';
 
 export interface iUserModel extends Document {
   email: string;
@@ -13,6 +15,7 @@ export interface iUserModel extends Document {
   info?: string;
   banned?: boolean;
   verified?: boolean;
+  generateRefreshToken(): Promise<string>;
 }
 
 const { String, Boolean } = Schema.Types;
@@ -62,6 +65,20 @@ const userSchema = new Schema<iUserModel>(
     timestamps: true,
   },
 );
+
+userSchema.methods = {
+  async generateRefreshToken() {
+    const { id, email, role, banned, verified } = this;
+    const jti = uid(8);
+    const payload = { user: { id, email, role, banned, verified, auth: jti } };
+
+    let user = await User.findOne({ email });
+    user.refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+    await user.save();
+
+    return payload;
+  },
+};
 
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {

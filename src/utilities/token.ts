@@ -9,6 +9,7 @@ export interface iToken {
     banned?: boolean;
     verified?: boolean;
   };
+  jti: string;
 }
 
 export default fp((server: FastifyInstance, options, done) => {

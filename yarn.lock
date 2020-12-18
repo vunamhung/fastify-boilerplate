@@ -686,10 +686,10 @@
   dependencies:
     query-string "*"
 
-"@types/ramda@0.27.33":
-  version "0.27.33"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.33.tgz#ca39dbb72e7e15471f573fea08864d7792e854fd"
-  integrity sha512-uStXyYPPe9VxOe++ymWugHoMGh8SlCFGVJxuZPZG+S0WHEqE3T9hKuFAkTNo5j1Cb3lWnfxMesT2SPyx333cGQ==
+"@types/ramda@0.27.34":
+  version "0.27.34"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.27.34.tgz#08505be193a1ac9d9de0411fbf5aa0d9e817fd9a"
+  integrity sha512-8pJBMViQ4v88ebcNkDMDf59vZ4/EMTgvN/pKCAgp70XUjEPgs+U40DWhpIzcgOgDmXV2OMew2tqed5tqKwPWZg==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -998,10 +998,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.811.0:
-  version "2.811.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.811.0.tgz#a7e4040b2ee7d8b825b142ed5179d36dc3f315c4"
-  integrity sha512-Tbz31UUYj9MEDWKDEmK1Ppc6iFbZhaHjAkjA4CqEQQ6YE8309H+PhOXbcdzjMC1lDek32eItLvMGulPuhj2MyQ==
+aws-sdk@2.813.0:
+  version "2.813.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.813.0.tgz#16104b91a286c1fc8ca6480ac32ccebb955f6148"
+  integrity sha512-uOeJ6DgsImQLv0eC0KHloFgDP788A1MEYTKdSV+1Bjv1iqQHH3bJcH5DPPX2NSyeaXJAjkVSVT2Fqe4s5Vf9TA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2212,10 +2212,10 @@ fastify-compress@3.4.0:
     string-to-stream "^3.0.0"
     unzipper "^0.10.8"
 
-fastify-cookie@4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-4.2.0.tgz#c9d7f9c16a25f23ef1451f38e53ae7650e210b2e"
-  integrity sha512-BZjgIA143YevEjAwJmqfnJJ5hIonkl49nLBjRLbErFKor/Rd8DZ0xnHnmxSk8xUhnr5g5vxKHnH3/dQt+11cpg==
+fastify-cookie@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-5.0.1.tgz#9a41da570710023aa96f4efaa0d69c6a6b467513"
+  integrity sha512-HmAqVwX3Jro9Q+C63L/Sf8q1OFlqnxcHtUoMHwS3w62ILBlEHwNDV0alrJzo413RmXRMYhgq0QaQn9+j/8kKBw==
   dependencies:
     cookie "^0.4.0"
     cookie-signature "^1.1.0"
@@ -2411,10 +2411,10 @@ fastify-warning@^0.2.0:
   resolved "https://registry.yarnpkg.com/fastify-warning/-/fastify-warning-0.2.0.tgz#e717776026a4493dc9a2befa44db6d17f618008f"
   integrity sha512-s1EQguBw/9qtc1p/WTY4eq9WMRIACkj+HTcOIK1in4MV5aFaQC9ZCIt0dJ7pr5bIf4lPpHvAtP2ywpTNgs7hqw==
 
-fastify@3.9.1:
-  version "3.9.1"
-  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.9.1.tgz#fe7faba92c72fb90054c5f3422965e34142f4cdf"
-  integrity sha512-J+JyYc2PH7N6KxrG0d3d2V0HRPdBMpxp3eKdGcDtemTvXhuQKFHFLQ+WkeFLShkcGDsf+/vBV+NMK8Ki97/OTg==
+fastify@3.9.2:
+  version "3.9.2"
+  resolved "https://registry.yarnpkg.com/fastify/-/fastify-3.9.2.tgz#20007d1a558cf8c88a8ef2936b4e484553fdf706"
+  integrity sha512-8VEf4l6a2tdtrYQQwgT9Zh2/OvOgE4Sf6cDNMduAnKZ44CXrT0tXuH/uQkXuxqMAW27ZOy4jeexBl8CFaECntg==
   dependencies:
     abstract-logging "^2.0.0"
     ajv "^6.12.2"

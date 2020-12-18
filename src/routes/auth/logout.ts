@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
+import jwt from 'jsonwebtoken';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -12,9 +13,9 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            refreshToken: { type: 'string' },
+            token: { type: 'string' },
           },
-          required: ['refreshToken'],
+          required: ['token'],
         },
         response: {
           200: {
@@ -30,9 +31,17 @@ export default function (server: FastifyInstance, options, done) {
     async ({ body }, reply) => {
       try {
         // @ts-ignore
-        const { refreshToken } = body;
-        let user = await User.findOne({ refreshToken });
-        if (!user) reply.badRequest('Wrong token');
+        const { token } = body;
+        const { user: accessUser } = server.jwt.decode(token);
+
+        let user = await User.findOne({ email: accessUser.email });
+        if (!user || !user.refreshToken) reply.badRequest('Token expired.');
+
+        // @ts-ignore
+        const { jti } = await jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+        if (accessUser.auth !== jti) reply.badRequest('Token expired!');
+
         user.refreshToken = undefined;
         user.save();
 

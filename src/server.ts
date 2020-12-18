@@ -53,7 +53,7 @@ export default class {
   private registerPlugins() {
     this.server.register(import('fastify-jwt'), {
       secret: process.env.ACCESS_TOKEN_SECRET,
-      cookie: { cookieName: 'accessToken' },
+      cookie: { cookieName: 'token' },
       trusted: (request, { user }: iToken) => user?.banned != true,
     });
 

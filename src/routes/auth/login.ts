@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
+import { compare } from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import validator from 'validator';
 import Option from '../../models/Option';
@@ -27,7 +28,7 @@ export default function (server: FastifyInstance, options, done) {
             type: 'object',
             properties: {
               success: { type: 'boolean' },
-              accessToken: { type: 'string' },
+              token: { type: 'string' },
             },
           },
         },
@@ -51,7 +52,7 @@ export default function (server: FastifyInstance, options, done) {
           user.banned = true;
         } else {
           // compare password with db user password
-          const isMatch: boolean | void = await user.comparePassword(password);
+          const isMatch = await compare(password, user.password);
           if (!isMatch) reply.badRequest('Invalid Credentials.');
         }
 
@@ -63,7 +64,7 @@ export default function (server: FastifyInstance, options, done) {
         user.refreshToken = await jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
         await user.save();
 
-        reply.send({ success: true, accessToken: await reply.jwtSign(payload, { expiresIn: '10m', jwtid: uid(6) }) });
+        reply.send({ success: true, token: await reply.jwtSign(payload, { expiresIn: '10m', jwtid: uid(6) }) });
       } catch (err) {
         reply.send(err);
       }

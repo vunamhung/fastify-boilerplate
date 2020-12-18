@@ -1,5 +1,4 @@
 import { Document, model, Schema } from 'mongoose';
-import { compare } from 'bcryptjs';
 import { hashPassword } from '../utilities';
 
 export interface iUserModel extends Document {
@@ -14,7 +13,6 @@ export interface iUserModel extends Document {
   info?: string;
   banned?: boolean;
   verified?: boolean;
-  comparePassword(candidatePassword: string): Promise<boolean | void>;
 }
 
 const { String, Boolean } = Schema.Types;
@@ -64,12 +62,6 @@ const userSchema = new Schema<iUserModel>(
     timestamps: true,
   },
 );
-
-userSchema.methods = {
-  async comparePassword(candidatePassword) {
-    return await compare(candidatePassword, this.password).catch(console.log);
-  },
-};
 
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {

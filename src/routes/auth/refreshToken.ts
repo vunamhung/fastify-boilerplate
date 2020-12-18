@@ -2,7 +2,6 @@ import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import { uid } from 'rand-token';
-import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -15,9 +14,9 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            accessToken: { type: 'string' },
+            token: { type: 'string' },
           },
-          required: ['accessToken'],
+          required: ['token'],
         },
         response: {
           200: {
@@ -25,7 +24,7 @@ export default function (server: FastifyInstance, options, done) {
             type: 'object',
             properties: {
               success: { type: 'boolean' },
-              accessToken: { type: 'string' },
+              token: { type: 'string' },
             },
           },
         },
@@ -34,10 +33,10 @@ export default function (server: FastifyInstance, options, done) {
     async ({ body }, reply) => {
       try {
         // @ts-ignore
-        const { accessToken } = body;
+        const { token } = body;
 
         // @ts-ignore
-        const { user: accessUser } = server.jwt.decode(accessToken);
+        const { user: accessUser } = server.jwt.decode(token);
         let existUser = await User.findOne({ email: accessUser.email });
         // check refresh token exists
         if (!existUser || !existUser.refreshToken) return reply.badRequest('Token expired!');
@@ -47,7 +46,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (accessUser.auth !== jti) return reply.badRequest('Token expired!');
 
-        reply.send({ success: true, accessToken: await reply.jwtSign({ user }, { expiresIn: '10m', jwtid: uid(6) }) });
+        reply.send({ success: true, token: await reply.jwtSign({ user }, { expiresIn: '10m', jwtid: uid(6) }) });
       } catch (err) {
         reply.send(err);
       }

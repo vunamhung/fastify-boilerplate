@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
+import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -37,8 +38,7 @@ export default function (server: FastifyInstance, options, done) {
         let user = await User.findOne({ email: accessUser.email });
         if (!user || !user.refreshToken) reply.badRequest('Token expired.');
 
-        // @ts-ignore
-        const { jti } = await jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET);
+        const { jti } = (await jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET)) as iToken;
 
         if (accessUser.auth !== jti) reply.badRequest('Token expired!');
 

@@ -36,9 +36,9 @@ export default function (server: FastifyInstance, options, done) {
 
       try {
         let user = await User.findOne({ email });
+        if (!user || !user.refreshToken) return reply.badRequest('Token expired.');
         if (user.banned) reply.notAcceptable('You banned!');
         if (user.verified) reply.badRequest('User verified!');
-        if (!user.verifyToken) reply.badRequest('Token Expired.');
 
         // @ts-ignore
         const { jti } = await jwt.verify(user.verifyToken, process.env.VERIFY_TOKEN_SECRET);

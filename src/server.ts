@@ -54,7 +54,12 @@ export default class {
     this.server.register(import('fastify-jwt'), {
       secret: process.env.ACCESS_TOKEN_SECRET,
       cookie: { cookieName: 'token' },
-      trusted: (request, { user }: iToken) => user?.banned != true,
+      trusted: async (request, { jti }: iToken) => {
+        const { redis } = this.server;
+
+        const blacklistJti = await redis.get('jti');
+        return blacklistJti !== jti;
+      },
     });
 
     this.server.register(authenticate);
@@ -63,6 +68,7 @@ export default class {
     this.server.register(document);
     this.server.register(uploader);
 
+    this.server.register(import('fastify-redis'), { host: '127.0.0.1' });
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), {
       contentSecurityPolicy: {

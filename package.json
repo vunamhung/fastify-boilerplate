@@ -39,6 +39,7 @@
     "fastify-prettier": "1.1.7",
     "fastify-qs": "3.0.0",
     "fastify-rate-limit": "4.1.0",
+    "fastify-redis": "^4.1.0",
     "fastify-response-caching": "^0.0.3",
     "fastify-secure-session": "^2.3.0",
     "fastify-sensible": "3.1.0",

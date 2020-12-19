@@ -8,6 +8,7 @@ export interface iUserModel extends Document {
   password: string;
   role: Array<string>;
   refreshToken: string;
+  verifyToken?: string;
   resetPasswordToken?: string;
   firstName?: string;
   lastName?: string;
@@ -15,6 +16,7 @@ export interface iUserModel extends Document {
   info?: string;
   banned?: boolean;
   verified?: boolean;
+  generateVerifyToken(): Promise<string>;
   generateRefreshToken(): Promise<string>;
 }
 
@@ -37,6 +39,9 @@ const userSchema = new Schema<iUserModel>(
       default: ['member'],
     },
     refreshToken: {
+      type: String,
+    },
+    verifyToken: {
       type: String,
     },
     resetPasswordToken: {
@@ -67,6 +72,16 @@ const userSchema = new Schema<iUserModel>(
 );
 
 userSchema.methods = {
+  async generateVerifyToken() {
+    const { email } = this;
+
+    let user = await User.findOne({ email });
+    user.verifyToken = jwt.sign({ user: { email } }, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '1d' });
+    await user.save();
+
+    return user.verifyToken;
+  },
+
   async generateRefreshToken() {
     const { id, email, role, verified } = this;
     const jti = uid(8);

@@ -32,7 +32,9 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
-        await new User(body).save();
+        let newUser = await new User(body);
+        await newUser.save();
+        await newUser.generateVerifyToken();
 
         reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {

@@ -76,10 +76,11 @@ userSchema.methods = {
     const { email } = this;
 
     let user = await User.findOne({ email });
-    user.verifyToken = jwt.sign({ user: { email } }, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '1d' });
+    const jwtid = uid(8);
+    user.verifyToken = jwt.sign({ user: { email } }, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '1d', jwtid });
     await user.save();
 
-    return user.verifyToken;
+    return jwtid;
   },
 
   async generateRefreshToken() {

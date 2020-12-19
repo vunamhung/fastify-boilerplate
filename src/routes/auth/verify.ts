@@ -13,9 +13,10 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            verifyToken: { type: 'string' },
+            email: { type: 'string', format: 'email' },
+            id: { type: 'string' },
           },
-          required: ['verifyToken'],
+          required: ['email', 'id'],
         },
         response: {
           200: {
@@ -31,13 +32,17 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ body }, reply) => {
       // @ts-ignore
-      const { verifyToken } = body;
+      const { email, id } = body;
 
       try {
-        await jwt.verify(verifyToken, process.env.VERIFY_TOKEN_SECRET);
-
-        let user = await User.findOne({ verifyToken });
+        let user = await User.findOne({ email });
         if (user.banned) reply.notAcceptable('You banned!');
+        if (user.verified) reply.badRequest('User verified!');
+        if (!user.verifyToken) reply.badRequest('Token Expired.');
+
+        // @ts-ignore
+        const { jti } = await jwt.verify(user.verifyToken, process.env.VERIFY_TOKEN_SECRET);
+        if (id !== jti) reply.badRequest('Token Expired!');
 
         user.verifyToken = undefined;
         user.verified = true;

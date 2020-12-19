@@ -34,7 +34,7 @@ export default function (server: FastifyInstance, options, done) {
 
         let newUser = await new User(body);
         await newUser.save();
-        await newUser.generateVerifyToken();
+        const verifyId = await newUser.generateVerifyToken();
 
         reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {

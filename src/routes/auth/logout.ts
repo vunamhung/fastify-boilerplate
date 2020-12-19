@@ -1,4 +1,5 @@
 import { FastifyInstance } from 'fastify';
+import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import jwt from 'jsonwebtoken';
 

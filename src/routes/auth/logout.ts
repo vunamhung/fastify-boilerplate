@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import User from '../../models/User';
 import jwt from 'jsonwebtoken';
+import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(

@@ -14,7 +14,7 @@
     "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ ocean:/var/www/html/"
   },
   "dependencies": {
-    "aws-sdk": "2.813.0",
+    "aws-sdk": "2.814.0",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "deep-email-validator": "0.1.18",
@@ -26,11 +26,11 @@
     "fastify-blipp": "3.0.0",
     "fastify-caching": "^6.0.1",
     "fastify-compress": "3.4.0",
-    "fastify-cookie": "5.0.1",
+    "fastify-cookie": "5.0.2",
     "fastify-cors": "5.1.0",
     "fastify-guard": "1.2.0",
     "fastify-helmet": "^5.0.3",
-    "fastify-jwt": "^2.1.3",
+    "fastify-jwt": "2.2.0",
     "fastify-language-parser": "^3.0.0",
     "fastify-multer": "^2.0.2",
     "fastify-nextjs": "5.1.0",

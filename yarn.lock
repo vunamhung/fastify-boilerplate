@@ -628,7 +628,7 @@
     jest-diff "^25.2.1"
     pretty-format "^25.2.1"
 
-"@types/jsonwebtoken@^8.3.2":
+"@types/jsonwebtoken@^8.5.0":
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/@types/jsonwebtoken/-/jsonwebtoken-8.5.0.tgz#2531d5e300803aa63279b232c014acf780c981c5"
   integrity sha512-9bVao7LvyorRGZCw0VmH/dr7Og+NdjYSsKAxB43OQoComFbBgsEpoR9JW6+qSq/ogwVBg8GI2MfAlk4SYI4OLg==
@@ -998,10 +998,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.813.0:
-  version "2.813.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.813.0.tgz#16104b91a286c1fc8ca6480ac32ccebb955f6148"
-  integrity sha512-uOeJ6DgsImQLv0eC0KHloFgDP788A1MEYTKdSV+1Bjv1iqQHH3bJcH5DPPX2NSyeaXJAjkVSVT2Fqe4s5Vf9TA==
+aws-sdk@2.814.0:
+  version "2.814.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.814.0.tgz#7a1c36006e0b5826f14bd2511b1d229ef6814bb0"
+  integrity sha512-empd1m/J/MAkL6d9OeRpmg9thobULu0wk4v8W3JToaxGi2TD7PIdvE6yliZKyOVAdJINhBWEBhxR4OUIHhcGbQ==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2212,10 +2212,10 @@ fastify-compress@3.4.0:
     string-to-stream "^3.0.0"
     unzipper "^0.10.8"
 
-fastify-cookie@5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-5.0.1.tgz#9a41da570710023aa96f4efaa0d69c6a6b467513"
-  integrity sha512-HmAqVwX3Jro9Q+C63L/Sf8q1OFlqnxcHtUoMHwS3w62ILBlEHwNDV0alrJzo413RmXRMYhgq0QaQn9+j/8kKBw==
+fastify-cookie@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/fastify-cookie/-/fastify-cookie-5.0.2.tgz#04e32e7862cc0a2b5dedf812e0617c08826a38f9"
+  integrity sha512-sYdHT2PmQvzwuD/HUhHoQdEUixw7rxJcGiPEt/zvi0j/QNJwr5C8JzO2uMGUEOGLDlpSw2TtfEDeOhxJi25O5A==
   dependencies:
     cookie "^0.4.0"
     cookie-signature "^1.1.0"
@@ -2260,15 +2260,15 @@ fastify-helmet@^5.0.3:
     fastify-plugin "^2.1.1"
     helmet "^4.0.0"
 
-fastify-jwt@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/fastify-jwt/-/fastify-jwt-2.1.3.tgz#d016a2f6a810299edc72ad79ce2949fb88a20604"
-  integrity sha512-8732zt+7UA9JzeRebJFCH+56laMCAxq/Wyou6pzXZzEWcPGPLcRqCk+R0CcgwjjVToo6wLIeNNKHFegyemyHug==
+fastify-jwt@2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/fastify-jwt/-/fastify-jwt-2.2.0.tgz#450aa8dbc8c03b87e9f221d7cca29356ee8debc8"
+  integrity sha512-UxUpNWOxHy0h4v4XEiBfdlnsW3AwhWH0Yrxwyw7s34VVT/yRkMj1d52xBZ8kQEnWV23HEMNc2nqapj24HtTWHw==
   dependencies:
-    "@types/jsonwebtoken" "^8.3.2"
-    fastify-plugin "^2.0.0"
-    http-errors "^1.7.1"
-    jsonwebtoken "^8.3.0"
+    "@types/jsonwebtoken" "^8.5.0"
+    fastify-plugin "^3.0.0"
+    http-errors "^1.8.0"
+    jsonwebtoken "^8.5.1"
     steed "^1.1.3"
 
 fastify-language-parser@^3.0.0:
@@ -2842,7 +2842,7 @@ http-errors@1.7.3, http-errors@~1.7.2:
     statuses ">= 1.5.0 < 2"
     toidentifier "1.0.0"
 
-http-errors@^1.7.1, http-errors@^1.7.3, http-errors@^1.8.0:
+http-errors@^1.7.3, http-errors@^1.8.0:
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/http-errors/-/http-errors-1.8.0.tgz#75d1bbe497e1044f51e4ee9e704a62f28d336507"
   integrity sha512-4I8r0C5JDhT5VkvI47QktDW75rNlGVsUf/8hzjCC/wkWI/jdTRmBb9aI7erSG82r1bjKY3F6k28WnsVxB1C73A==
@@ -3789,7 +3789,7 @@ json5@2.x, json5@^2.1.2:
   dependencies:
     minimist "^1.2.5"
 
-jsonwebtoken@^8.3.0:
+jsonwebtoken@^8.5.1:
   version "8.5.1"
   resolved "https://registry.yarnpkg.com/jsonwebtoken/-/jsonwebtoken-8.5.1.tgz#00e71e0b8df54c2121a1f26137df2280673bcc0d"
   integrity sha512-XjwVfRS6jTMsqYs0EsuJ4LGxXV14zQybNd4L2r0UvbVnSF9Af8x7p5MzbJ90Ioz/9TI41/hTCvznF/loiSzn8w==

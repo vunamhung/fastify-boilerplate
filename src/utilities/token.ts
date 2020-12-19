@@ -7,7 +7,6 @@ export interface iToken {
     email: string;
     role: string;
     auth: string;
-    banned?: boolean;
     verified?: boolean;
   };
   jti: string;

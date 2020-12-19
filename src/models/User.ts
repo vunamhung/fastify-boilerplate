@@ -68,9 +68,9 @@ const userSchema = new Schema<iUserModel>(
 
 userSchema.methods = {
   async generateRefreshToken() {
-    const { id, email, role, banned, verified } = this;
+    const { id, email, role, verified } = this;
     const jti = uid(8);
-    const payload = { user: { id, email, role, banned, verified, auth: jti } };
+    const payload = { user: { id, email, role, verified, auth: jti } };
 
     let user = await User.findOne({ email });
     user.refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });

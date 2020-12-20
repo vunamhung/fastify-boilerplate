@@ -46,8 +46,8 @@ export default function (server: FastifyInstance, options, done) {
         user.save();
 
         reply.send({ success: true });
-      } catch (err) {
-        reply.send(err);
+      } catch ({ message }) {
+        reply.badRequest(message);
       }
     },
   );

@@ -38,6 +38,7 @@ export default function (server: FastifyInstance, options, done) {
         await jwt.verify(resetToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
 
         let user = await User.findOne({ resetPasswordToken: resetToken });
+        if (!user.resetPasswordToken) return reply.badRequest('Token expired!');
         if (user.banned) reply.notAcceptable('You banned!');
 
         user.password = password;
@@ -45,8 +46,8 @@ export default function (server: FastifyInstance, options, done) {
         await user.generateRefreshToken();
 
         reply.send({ success: true, message: 'Password changed successfully. Please login with your new password.' });
-      } catch (err) {
-        reply.send(err);
+      } catch ({ message }) {
+        reply.badRequest(message);
       }
     },
   );

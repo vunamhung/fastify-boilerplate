@@ -50,8 +50,8 @@ export default function (server: FastifyInstance, options, done) {
         await user.save();
 
         reply.send({ success: true, message: 'Email verify successfully. Thank you.' });
-      } catch (err) {
-        reply.send(err);
+      } catch ({ message }) {
+        reply.badRequest(message);
       }
     },
   );

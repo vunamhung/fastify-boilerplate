@@ -47,8 +47,8 @@ export default function (server: FastifyInstance, options, done) {
         if (accessUser.auth !== jti) return reply.badRequest('Token expired!');
 
         reply.send({ success: true, token: await reply.jwtSign({ user }, { expiresIn: '10m', jwtid: uid(6) }) });
-      } catch (err) {
-        reply.send(err);
+      } catch ({ message }) {
+        reply.badRequest(message);
       }
     },
   );

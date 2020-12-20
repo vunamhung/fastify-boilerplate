@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
+import { isEmpty } from 'ramda';
 import User from '../../models/User';
+import { validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -43,6 +45,13 @@ export default function (server: FastifyInstance, options, done) {
         // @ts-ignore
         const { jti } = await jwt.verify(user.resetPasswordToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
         if (id !== jti) reply.badRequest('Token Expired!');
+
+        const message = await validatePassword(password);
+
+        if (!isEmpty(message)) {
+          reply.code(400).send({ success: false, message });
+          return;
+        }
 
         user.password = password;
         user.resetPasswordToken = undefined;

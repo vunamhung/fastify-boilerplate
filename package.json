@@ -49,6 +49,7 @@
     "mongoose": "5.11.8",
     "mongoose-deep-populate": "^3.2.0",
     "mongoose-slug-generator": "^1.0.4",
+    "password-validator": "^5.1.1",
     "pino-pretty": "4.3.0",
     "point-of-view": "4.7.0",
     "query-string": "6.13.7",

@@ -1,6 +1,18 @@
 import { FastifyInstance } from 'fastify';
 import { validate } from 'deep-email-validator';
+import { isEmpty } from 'ramda';
+import PasswordValidator from 'password-validator';
 import User from '../../models/User';
+
+const schema = new PasswordValidator();
+// prettier-ignore
+schema
+  .is().min(8) // Minimum length 8
+  .is().max(100) // Maximum length 100
+  .has().uppercase() // Must have uppercase letters
+  .has().lowercase() // Must have lowercase letters
+  .has().digits(2) // Must have at least 2 digits
+  .has().not().spaces() // Should not have spaces
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -21,7 +33,7 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       // @ts-ignore
-      const { email } = body;
+      const { email, password } = body;
 
       try {
         let user = await User.findOne({ email });
@@ -31,6 +43,23 @@ export default function (server: FastifyInstance, options, done) {
         const { valid, reason, validators } = await validate(email);
 
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
+
+        const validPassword: string[] = schema.validate(password, { list: true });
+
+        if (!isEmpty(validPassword)) {
+          let message = {};
+          validPassword.forEach((item) => {
+            if (item === 'min') message[item] = 'Minimum length 8.';
+            if (item === 'max') message[item] = 'Maximum length 100.';
+            if (item === 'digits') message[item] = 'Must have at least 2 digits.';
+            if (item === 'spaces') message[item] = 'Should not have spaces.';
+            if (item === 'lowercase') message[item] = 'Must have lowercase letters.';
+            if (item === 'uppercase') message[item] = 'Must have uppercase letters.';
+          });
+
+          reply.code(400).send({ success: false, message });
+          return;
+        }
 
         let newUser = await new User(body);
         await newUser.save();

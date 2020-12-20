@@ -1,18 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { validate } from 'deep-email-validator';
 import { isEmpty } from 'ramda';
-import PasswordValidator from 'password-validator';
 import User from '../../models/User';
-
-const schema = new PasswordValidator();
-// prettier-ignore
-schema
-  .is().min(8) // Minimum length 8
-  .is().max(100) // Maximum length 100
-  .has().uppercase() // Must have uppercase letters
-  .has().lowercase() // Must have lowercase letters
-  .has().digits(2) // Must have at least 2 digits
-  .has().not().spaces() // Should not have spaces
+import { validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -44,19 +34,9 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
-        const validPassword: string[] = schema.validate(password, { list: true });
+        const message = await validatePassword(password);
 
-        if (!isEmpty(validPassword)) {
-          let message = [];
-          validPassword.forEach((item) => {
-            if (item === 'min') message.push('Minimum length 8.');
-            if (item === 'max') message.push('Maximum length 100.');
-            if (item === 'digits') message.push('Must have at least 2 digits.');
-            if (item === 'spaces') message.push('Should not have spaces.');
-            if (item === 'lowercase') message.push('Must have lowercase letters.');
-            if (item === 'uppercase') message.push('Must have uppercase letters.');
-          });
-
+        if (!isEmpty(message)) {
           reply.code(400).send({ success: false, message });
           return;
         }

@@ -14,9 +14,10 @@ export default function (server: FastifyInstance, options, done) {
           type: 'object',
           properties: {
             password: { type: 'string' },
-            resetToken: { type: 'string' },
+            email: { type: 'string', format: 'email' },
+            id: { type: 'string' },
           },
-          required: ['password', 'resetToken'],
+          required: ['password', 'email', 'id'],
         },
         response: {
           200: {
@@ -32,14 +33,16 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ body }, reply) => {
       // @ts-ignore
-      const { password, resetToken } = body;
+      const { password, email, id } = body;
 
       try {
-        await jwt.verify(resetToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
-
-        let user = await User.findOne({ resetPasswordToken: resetToken });
+        let user = await User.findOne({ email });
         if (!user || !user.resetPasswordToken) return reply.badRequest('Token expired!');
         if (user.banned) reply.notAcceptable('You banned!');
+
+        // @ts-ignore
+        const { jti } = await jwt.verify(user.resetPasswordToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
+        if (id !== jti) reply.badRequest('Token Expired!');
 
         user.password = password;
         user.resetPasswordToken = undefined;

@@ -47,14 +47,14 @@ export default function (server: FastifyInstance, options, done) {
         const validPassword: string[] = schema.validate(password, { list: true });
 
         if (!isEmpty(validPassword)) {
-          let message = {};
+          let message = [];
           validPassword.forEach((item) => {
-            if (item === 'min') message[item] = 'Minimum length 8.';
-            if (item === 'max') message[item] = 'Maximum length 100.';
-            if (item === 'digits') message[item] = 'Must have at least 2 digits.';
-            if (item === 'spaces') message[item] = 'Should not have spaces.';
-            if (item === 'lowercase') message[item] = 'Must have lowercase letters.';
-            if (item === 'uppercase') message[item] = 'Must have uppercase letters.';
+            if (item === 'min') message.push('Minimum length 8.');
+            if (item === 'max') message.push('Maximum length 100.');
+            if (item === 'digits') message.push('Must have at least 2 digits.');
+            if (item === 'spaces') message.push('Should not have spaces.');
+            if (item === 'lowercase') message.push('Must have lowercase letters.');
+            if (item === 'uppercase') message.push('Must have uppercase letters.');
           });
 
           reply.code(400).send({ success: false, message });

@@ -47,7 +47,14 @@ export default function (server: FastifyInstance, options, done) {
 
         const token = await reply.jwtSign({ user: { id, email, role, verified, auth: jti } }, { expiresIn: '10m', jwtid: uid(6) });
 
-        reply.send({ success: true, token });
+        reply
+          .setCookie('token', token, {
+            path: '/',
+            secure: !process.env.DEV_ENV, // send cookie over HTTPS only
+            httpOnly: true,
+            sameSite: true, // alternative CSRF protection
+          })
+          .send({ success: true, token });
       } catch ({ message }) {
         reply.badRequest(message);
       }

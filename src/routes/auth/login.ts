@@ -54,7 +54,7 @@ export default function (server: FastifyInstance, options, done) {
         await user.save();
 
         const token = await reply.jwtSign(
-          { user: { id: user.id, email: user.email, role: user.role, verified: user.verified, auth: refreshTokenId } },
+          { id: user.id, email: user.email, role: user.role, verified: user.verified, auth: refreshTokenId },
           { expiresIn: '10m', jwtid: uid(6) },
         );
 

@@ -2,13 +2,11 @@ import { FastifyInstance, FastifyRequest } from 'fastify';
 import fp from 'fastify-plugin';
 
 export interface iToken {
-  user: {
-    id: string;
-    email: string;
-    role: string;
-    auth: string;
-    verified?: boolean;
-  };
+  id: string;
+  email: string;
+  role: string;
+  auth: string;
+  verified?: boolean;
   jti: string;
 }
 

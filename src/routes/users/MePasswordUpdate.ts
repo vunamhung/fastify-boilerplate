@@ -3,6 +3,7 @@ import { isEmpty } from 'ramda';
 import { compare } from 'bcryptjs';
 import User from '../../models/User';
 import { validatePassword } from '../../utilities';
+import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -32,16 +33,16 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request, reply) => {
-      const { email } = server.decodedToken(request)?.user;
+    async ({ user, body }, reply) => {
+      const { email } = user as iToken;
 
       // @ts-ignore
-      const { oldPassword, newPassword } = request.body;
+      const { oldPassword, newPassword } = body;
 
-      const user = await User.findOne({ email });
+      const me = await User.findOne({ email });
 
       // compare password with db user password
-      const isMatch = await compare(oldPassword, user.password);
+      const isMatch = await compare(oldPassword, me.password);
       if (!isMatch) reply.badRequest('Invalid Credentials.');
       if (oldPassword === newPassword) reply.badRequest('New password must have not same as old one!');
 
@@ -51,8 +52,8 @@ export default function (server: FastifyInstance, options, done) {
         return;
       }
 
-      user.password = newPassword;
-      await user.save();
+      me.password = newPassword;
+      await me.save();
 
       reply.send({ success: true, message: `User '${email}' is updated password successful!` });
     },

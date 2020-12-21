@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
+import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -29,10 +30,10 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request, reply) => {
-      const { email } = server.decodedToken(request)?.user;
+    async ({ user, body }, reply) => {
+      const { email } = user as iToken;
 
-      await User.findOneAndUpdate({ email }, request.body).catch((err) => reply.send(err));
+      await User.findOneAndUpdate({ email }, body).catch((err) => reply.send(err));
 
       reply.send({ success: true, message: `User '${email}' is updated.` });
     },

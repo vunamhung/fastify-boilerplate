@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
+import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -25,12 +26,12 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async (request, reply) => {
-      const { id } = server.decodedToken(request)?.user;
+    async ({ user }, reply) => {
+      const { id } = user as iToken;
 
-      const user = await User.findById(id).catch((err) => reply.send(err));
+      const me = await User.findById(id).catch((err) => reply.send(err));
 
-      reply.send(user);
+      reply.send(me);
     },
   );
 

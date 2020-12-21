@@ -2,8 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { isEmpty } from 'ramda';
 import { compare } from 'bcryptjs';
 import User from '../../models/User';
-import { iBody, validatePassword } from '../../utilities';
-import { iToken } from '../../utilities/token';
+import { iBody, iToken, validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(

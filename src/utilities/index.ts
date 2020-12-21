@@ -48,6 +48,20 @@ export function isObjectId(id) {
   return Types.ObjectId.isValid(id);
 }
 
+export interface iToken {
+  id: string;
+  email: string;
+  role: string;
+  auth: string;
+  verified?: boolean;
+  jti: string;
+}
+
+export interface iQuery {
+  limit?: number;
+  skip?: number;
+}
+
 export interface iBody {
   code?: string;
   id?: string;
@@ -67,7 +81,3 @@ export interface iBody {
 }
 
 export interface iParams extends iBody {}
-export interface iQuery {
-  limit?: number;
-  skip?: number;
-}

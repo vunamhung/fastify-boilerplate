@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
-import { iToken } from '../../utilities/token';
+import { iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(

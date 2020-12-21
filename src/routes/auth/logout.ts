@@ -1,8 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { iToken } from '../../utilities/token';
-import { iBody } from '../../utilities';
+import { iBody, iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(

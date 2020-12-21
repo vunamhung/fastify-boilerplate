@@ -85,11 +85,11 @@ userSchema.methods = {
 
   async generateRefreshToken() {
     const { id, email, role, verified } = this;
-    const jti = uid(8);
-    const payload = { user: { id, email, role, verified, auth: jti } };
+    const jwtid = uid(8);
+    const payload = { user: { id, email, role, verified, auth: jwtid } };
 
     let user = await User.findOne({ email });
-    user.refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+    user.refreshToken = jwt.sign(payload, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid });
     await user.save();
 
     return payload;

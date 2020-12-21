@@ -49,12 +49,12 @@ export default function (server: FastifyInstance, options, done) {
         const isMatch = await compare(password, user.password);
         if (!isMatch) reply.badRequest('Invalid Credentials.');
 
-        const jwtid = uid(8);
-        user.refreshToken = jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid });
+        const refreshTokenId = uid(8);
+        user.refreshToken = jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: refreshTokenId });
         await user.save();
 
         const token = await reply.jwtSign(
-          { user: { id: user.id, email: user.email, role: user.role, verified: user.verified, auth: jwtid } },
+          { user: { id: user.id, email: user.email, role: user.role, verified: user.verified, auth: refreshTokenId } },
           { expiresIn: '10m', jwtid: uid(6) },
         );
 

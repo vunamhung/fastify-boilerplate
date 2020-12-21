@@ -47,10 +47,10 @@ export default function (server: FastifyInstance, options, done) {
         const { jti } = await jwt.verify(user.resetPasswordToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
         if (id !== jti) reply.badRequest('Token Expired!');
 
-        const message = await validatePassword(password);
+        const invalidPasswordMessage = await validatePassword(password);
 
-        if (!isEmpty(message)) {
-          reply.code(400).send({ success: false, message });
+        if (!isEmpty(invalidPasswordMessage)) {
+          reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
           return;
         }
 

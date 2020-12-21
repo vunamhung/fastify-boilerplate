@@ -1,4 +1,9 @@
 import { FastifyInstance } from 'fastify';
+import { isEmpty } from 'ramda';
+import { uid } from 'rand-token';
+import { validate } from 'deep-email-validator';
+import jwt from 'jsonwebtoken';
+import { validatePassword } from '../../utilities';
 import User from '../../models/User';
 
 export default function (server: FastifyInstance, options, done) {
@@ -15,6 +20,10 @@ export default function (server: FastifyInstance, options, done) {
           properties: {
             email: { type: 'string', format: 'email' },
             password: { type: 'string' },
+            firstName: { type: 'string' },
+            lastName: { type: 'string' },
+            verified: { type: 'boolean' },
+            role: { type: 'array' },
           },
           required: ['email', 'password'],
         },
@@ -22,16 +31,30 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       // @ts-ignore
-      const { email } = body;
+      const { email, password, verified } = body;
 
       try {
         let user = await User.findOne({ email });
 
-        if (user) reply.badRequest(`User '${email}' already exists.`);
+        if (user) return reply.badRequest('User already exists.');
 
-        await new User(body).save();
+        const { valid, reason, validators } = await validate(email);
 
-        reply.code(201).send({ success: true, message: `User '${email}' created.` });
+        if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
+
+        const invalidPasswordMessage = await validatePassword(password);
+
+        if (!isEmpty(invalidPasswordMessage)) {
+          reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
+          return;
+        }
+
+        let newUser = await new User(body);
+        const jwtid = uid(9);
+        if (!verified) newUser.verifyToken = jwt.sign({}, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '7d', jwtid });
+        await newUser.save();
+
+        reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {
         reply.send(err);
       }

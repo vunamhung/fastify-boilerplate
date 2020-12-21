@@ -18,6 +18,8 @@ export default function (server: FastifyInstance, options, done) {
           properties: {
             email: { type: 'string', format: 'email' },
             password: { type: 'string' },
+            firstName: { type: 'string' },
+            lastName: { type: 'string' },
           },
           required: ['email', 'password'],
         },
@@ -39,7 +41,7 @@ export default function (server: FastifyInstance, options, done) {
         const invalidPasswordMessage = await validatePassword(password);
 
         if (!isEmpty(invalidPasswordMessage)) {
-          reply.code(400).send({ success: false, message: invalidPasswordMessage });
+          reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
           return;
         }
 

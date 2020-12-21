@@ -47,7 +47,7 @@ export default function (server: FastifyInstance, options, done) {
 
       const invalidPasswordMessage = await validatePassword(newPassword);
       if (!isEmpty(invalidPasswordMessage)) {
-        reply.code(400).send({ success: false, message: invalidPasswordMessage });
+        reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
         return;
       }
 

@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Product from '../../models/Product';
+import { iBody } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -26,8 +27,7 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ body }, reply) => {
       try {
-        // @ts-ignore
-        const { sku } = body;
+        const { sku } = body as iBody;
 
         const checkSku = await Product.findOne({ sku });
 

@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import { isEmpty } from 'ramda';
 import { compare } from 'bcryptjs';
 import User from '../../models/User';
-import { validatePassword } from '../../utilities';
+import { iBody, validatePassword } from '../../utilities';
 import { iToken } from '../../utilities/token';
 
 export default function (server: FastifyInstance, options, done) {
@@ -36,8 +36,7 @@ export default function (server: FastifyInstance, options, done) {
     async ({ user, body }, reply) => {
       const { email } = user as iToken;
 
-      // @ts-ignore
-      const { oldPassword, newPassword } = body;
+      const { oldPassword, newPassword } = body as iBody;
 
       const me = await User.findOne({ email });
 

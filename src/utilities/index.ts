@@ -47,3 +47,27 @@ export async function hashPassword(password): Promise<string> {
 export function isObjectId(id) {
   return Types.ObjectId.isValid(id);
 }
+
+export interface iBody {
+  code?: string;
+  id?: string;
+  token?: string;
+  oldPassword?: string;
+  newPassword?: string;
+  email?: string;
+  password?: string;
+  verified?: string;
+  cartId?: string;
+  orderId?: string;
+  sku?: string;
+  productId?: string;
+  products?: string;
+  quantity?: number;
+  name?: string;
+}
+
+export interface iParams extends iBody {}
+export interface iQuery {
+  limit?: number;
+  skip?: number;
+}

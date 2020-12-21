@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Order from '../../models/Order';
-import { isObjectId } from '../../utilities';
+import { iParams, isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -20,8 +20,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params }, reply) => {
-      // @ts-ignore
-      const { orderId } = params;
+      const { orderId } = params as iParams;
 
       if (!isObjectId(orderId)) return reply.badRequest('Wrong order ID!');
 

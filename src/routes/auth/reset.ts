@@ -3,7 +3,7 @@ import { isEmpty } from 'ramda';
 import { uid } from 'rand-token';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { validatePassword } from '../../utilities';
+import { iBody, validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -35,8 +35,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ body }, reply) => {
-      // @ts-ignore
-      const { password, email, id } = body;
+      const { password, email, id } = body as iBody;
 
       try {
         let user = await User.findOne({ email });

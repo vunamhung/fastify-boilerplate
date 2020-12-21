@@ -4,6 +4,7 @@ import { compare } from 'bcryptjs';
 import validator from 'validator';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
+import { iBody } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -34,8 +35,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ body }, reply) => {
-      // @ts-ignore
-      const { email, password } = body;
+      const { email, password } = body as iBody;
 
       if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
 

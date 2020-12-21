@@ -11,8 +11,6 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async (request, reply) => {
-      // @ts-ignore
-
       const country = await Region.find().catch((err) => reply.send(err));
 
       reply.send(country);

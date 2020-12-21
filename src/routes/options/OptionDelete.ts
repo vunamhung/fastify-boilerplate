@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Option from '../../models/Option';
+import { iParams } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.delete(
@@ -22,8 +23,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params }, reply) => {
-      // @ts-ignore
-      const { name } = params;
+      const { name } = params as iParams;
 
       const result = await Option.findOneAndDelete({ name }).catch((err) => reply.send(err));
 

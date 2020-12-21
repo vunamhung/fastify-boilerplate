@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { uniq } from 'ramda';
 import Option from '../../models/Option';
+import { iParams } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -27,8 +28,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params, body }, reply) => {
-      // @ts-ignore
-      const { name } = params;
+      const { name } = params as iParams;
 
       const option = await Option.findOne({ name });
 

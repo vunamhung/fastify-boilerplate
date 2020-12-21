@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
+import { iBody } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -31,8 +32,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ body }, reply) => {
-      // @ts-ignore
-      const { email, id } = body;
+      const { email, id } = body as iBody;
 
       try {
         let user = await User.findOne({ email });

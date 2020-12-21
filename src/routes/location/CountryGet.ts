@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Country from '../../models/Country';
+import { iParams } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -17,8 +18,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params }, reply) => {
-      // @ts-ignore
-      const { code } = params;
+      const { code } = params as iParams;
 
       const country = await Country.findOne({ alpha2Code: code }).catch((err) => reply.send(err));
 

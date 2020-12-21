@@ -2,7 +2,7 @@ import { FastifyInstance } from 'fastify';
 import validator from 'validator';
 import { isEmpty } from 'ramda';
 import User from '../../models/User';
-import { validatePassword } from '../../utilities';
+import { iBody, iParams, validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -31,10 +31,8 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params, body }, reply) => {
-      // @ts-ignore
-      const { email } = params;
-      // @ts-ignore
-      const { password } = body;
+      const { email } = params as iParams;
+      const { password } = body as iBody;
 
       if (!validator.isEmail(email)) reply.badRequest('Please provide a valid email');
 

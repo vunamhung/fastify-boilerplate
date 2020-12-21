@@ -3,8 +3,8 @@ import { isEmpty } from 'ramda';
 import { uid } from 'rand-token';
 import { validate } from 'deep-email-validator';
 import jwt from 'jsonwebtoken';
-import { validatePassword } from '../../utilities';
 import User from '../../models/User';
+import { iBody, validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -30,8 +30,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params, body }, reply) => {
-      // @ts-ignore
-      const { email, password, verified } = body;
+      const { email, password, verified } = body as iBody;
 
       try {
         let user = await User.findOne({ email });

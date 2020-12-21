@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Cart from '../../models/Cart';
-import { isObjectId } from '../../utilities';
+import { iBody, iParams, isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -27,10 +27,8 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       try {
-        // @ts-ignore
-        const { cartId } = params;
-        // @ts-ignore
-        const { quantity, productId } = body;
+        const { cartId } = params as iParams;
+        const { quantity, productId } = body as iBody;
 
         if (!isObjectId(cartId)) return reply.badRequest('Wrong cart ID!');
 

@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import User from '../models/User';
+import { iParams } from '../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -19,8 +20,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params }, reply) => {
-      // @ts-ignore
-      const { email } = params;
+      const { email } = params as iParams;
 
       const user = await User.findOne({ email });
 

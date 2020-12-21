@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Order from '../../models/Order';
+import { iQuery } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -20,8 +21,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ query }, reply) => {
-      // @ts-ignore
-      const { limit = 20, skip = 0 } = query;
+      const { limit = 20, skip = 0 } = query as iQuery;
 
       const orders = await Order.find()
         .limit(limit)

@@ -3,6 +3,7 @@ import validator from 'validator';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import { uid } from 'rand-token';
+import { iBody } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -31,8 +32,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ body }, reply) => {
-      // @ts-ignore
-      const { email } = body;
+      const { email } = body as iBody;
 
       if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
 

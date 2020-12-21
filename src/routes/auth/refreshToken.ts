@@ -33,9 +33,9 @@ export default function (server: FastifyInstance, options, done) {
     async ({ body }, reply) => {
       try {
         // @ts-ignore
-        const { user: accessUser } = server.jwt.decode(body.token);
+        const { auth, email: accessEmail } = server.jwt.decode(body.token);
 
-        let { refreshToken, banned, id, email, role, verified } = await User.findOne({ email: accessUser.email });
+        let { refreshToken, banned, id, email, role, verified } = await User.findOne({ email: accessEmail });
 
         if (banned) reply.notAcceptable('You banned!');
         if (!refreshToken) return reply.badRequest('Token expired.'); // check refresh token exists
@@ -43,7 +43,7 @@ export default function (server: FastifyInstance, options, done) {
         // @ts-ignore
         const { jti } = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
-        if (accessUser.auth !== jti) return reply.badRequest('Token expired!');
+        if (auth !== jti) return reply.badRequest('Token expired!');
 
         const token = await reply.jwtSign({ id, email, role, verified, auth: jti }, { expiresIn: '10m', jwtid: uid(6) });
 

@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify';
 import Product from '../../models/Product';
-import { isObjectId } from '../../utilities';
+import { iParams, isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -18,8 +18,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params }, reply) => {
-      // @ts-ignore
-      const { productId } = params;
+      const { productId } = params as iParams;
 
       if (!isObjectId(productId)) return reply.badRequest('Wrong product ID!');
 

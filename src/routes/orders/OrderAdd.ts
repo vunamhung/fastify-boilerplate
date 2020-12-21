@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
-import Cart, { iCartModel } from '../../models/Cart';
+import Cart from '../../models/Cart';
 import Order from '../../models/Order';
-import { isObjectId } from '../../utilities';
+import { iParams, isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -19,8 +19,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ params }, reply) => {
-      // @ts-ignore
-      const { cartId } = params;
+      const { cartId } = params as iParams;
 
       if (!isObjectId(cartId)) return reply.badRequest('Wrong cart ID!');
 

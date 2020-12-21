@@ -8,7 +8,6 @@ import mailgun from './services/mailgun';
 import document from './utilities/document';
 import uploader from './utilities/uploader';
 import authenticate from './utilities/authenticate';
-import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
 
 export default class {
@@ -57,7 +56,6 @@ export default class {
 
     this.server.register(authenticate);
     this.server.register(mailgun);
-    this.server.register(token);
     this.server.register(document);
     this.server.register(uploader);
 

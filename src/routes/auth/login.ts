@@ -48,9 +48,13 @@ export default function (server: FastifyInstance, options, done) {
         const isMatch = await compare(password, user.password);
         if (!isMatch) reply.badRequest('Invalid Credentials.');
 
-        const payload = await user.generateRefreshToken();
+        const freshTokenId = await user.generateRefreshToken();
 
-        const token = await reply.jwtSign(payload, { expiresIn: '10m', jwtid: uid(6) });
+        const token = await reply.jwtSign(
+          { user: { id: user.id, email: user.email, role: user.role, verified: user.verified, auth: freshTokenId } },
+          { expiresIn: '10m', jwtid: uid(6) },
+        );
+
         reply
           .setCookie('token', token, {
             path: '/',

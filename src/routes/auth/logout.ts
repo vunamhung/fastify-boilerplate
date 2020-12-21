@@ -4,7 +4,7 @@ import User from '../../models/User';
 import { iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
-  server.put(
+  server.get(
     '/logout',
     {
       preValidation: [server.authenticate],

@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import validator from 'validator';
+import { isEmpty } from 'ramda';
 import User from '../../models/User';
+import { validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -31,8 +33,18 @@ export default function (server: FastifyInstance, options, done) {
     async ({ params, body }, reply) => {
       // @ts-ignore
       const { email } = params;
+      // @ts-ignore
+      const { password } = body;
 
       if (!validator.isEmail(email)) reply.badRequest('Please provide a valid email');
+
+      if (!isEmpty(password) && password != undefined) {
+        const invalidPasswordMessage = await validatePassword(password);
+        if (!isEmpty(invalidPasswordMessage)) {
+          reply.code(400).send({ success: false, message: invalidPasswordMessage });
+          return;
+        }
+      }
 
       const result = await User.findOneAndUpdate({ email }, body).catch((err) => reply.send(err));
 

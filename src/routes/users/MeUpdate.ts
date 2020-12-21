@@ -13,7 +13,6 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            password: { type: 'string' },
             firstName: { type: 'string' },
             lastName: { type: 'string' },
           },
@@ -24,7 +23,7 @@ export default function (server: FastifyInstance, options, done) {
             type: 'object',
             properties: {
               success: { type: 'boolean' },
-              token: { type: 'string' },
+              message: { type: 'string' },
             },
           },
         },

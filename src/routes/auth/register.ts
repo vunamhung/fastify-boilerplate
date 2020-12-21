@@ -36,10 +36,10 @@ export default function (server: FastifyInstance, options, done) {
 
         if (!valid) return reply.badRequest(validators[reason]?.reason ?? 'Please provide a valid email address.');
 
-        const message = await validatePassword(password);
+        const invalidPasswordMessage = await validatePassword(password);
 
-        if (!isEmpty(message)) {
-          reply.code(400).send({ success: false, message });
+        if (!isEmpty(invalidPasswordMessage)) {
+          reply.code(400).send({ success: false, message: invalidPasswordMessage });
           return;
         }
 

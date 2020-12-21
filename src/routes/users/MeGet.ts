@@ -10,12 +10,25 @@ export default function (server: FastifyInstance, options, done) {
         tags: ['users'],
         security: [{ apiKey: [] }],
         summary: 'Find me.',
+        response: {
+          200: {
+            description: 'Success',
+            type: 'object',
+            properties: {
+              email: { type: 'string' },
+              role: { type: 'string' },
+              firstName: { type: 'string' },
+              lastName: { type: 'string' },
+              avatar: { type: 'string' },
+            },
+          },
+        },
       },
     },
     async (request, reply) => {
       const { id } = server.decodedToken(request)?.user;
 
-      const user = await User.findById(id, { password: 0, refreshToken: 0 }).catch((err) => reply.send(err));
+      const user = await User.findById(id).catch((err) => reply.send(err));
 
       reply.send(user);
     },

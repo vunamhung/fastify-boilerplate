@@ -18,6 +18,16 @@ export default function (server: FastifyInstance, options, done) {
             lastName: { type: 'string' },
           },
         },
+        response: {
+          200: {
+            description: 'Success',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              token: { type: 'string' },
+            },
+          },
+        },
       },
     },
     async (request, reply) => {

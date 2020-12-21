@@ -100,10 +100,7 @@ export default class {
 
   private registerHooks() {
     this.server.addHook('onRequest', (request, reply, done) => {
-      if (request.cookies?.token) {
-        const { user } = this.server.jwt.decode(request.cookies.token) as iToken;
-        request.user = user;
-      } else if (request.headers.authorization?.split(' ')[1]) {
+      if (request.cookies?.token || request.headers.authorization?.split(' ')[1]) {
         request.user = this.server.decodedToken(request)?.user;
       }
 

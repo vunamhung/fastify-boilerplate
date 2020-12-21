@@ -36,7 +36,7 @@ export default function (server: FastifyInstance, options, done) {
 
       try {
         let user = await User.findOne({ email });
-        if (!user || !user.refreshToken) return reply.badRequest('Token expired.');
+        if (!user) return reply.badRequest('Token expired.');
         if (user.banned) reply.notAcceptable('You banned!');
         if (user.verified) reply.badRequest('User verified!');
 

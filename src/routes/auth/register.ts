@@ -1,6 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { validate } from 'deep-email-validator';
 import { isEmpty } from 'ramda';
+import { uid } from 'rand-token';
+import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import { validatePassword } from '../../utilities';
 
@@ -42,8 +44,9 @@ export default function (server: FastifyInstance, options, done) {
         }
 
         let newUser = await new User(body);
+        const jwtid = uid(8);
+        newUser.verifyToken = jwt.sign({}, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '7d', jwtid });
         await newUser.save();
-        const verifyId = await newUser.generateVerifyToken();
 
         reply.code(201).send({ success: true, message: 'User created.' });
       } catch (err) {

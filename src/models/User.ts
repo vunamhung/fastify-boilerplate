@@ -1,7 +1,5 @@
 import { Document, model, Schema } from 'mongoose';
 import { hashPassword } from '../utilities';
-import { uid } from 'rand-token';
-import jwt from 'jsonwebtoken';
 
 export interface iUserModel extends Document {
   email: string;
@@ -16,8 +14,6 @@ export interface iUserModel extends Document {
   info?: string;
   banned?: boolean;
   verified?: boolean;
-  generateVerifyToken(): Promise<string>;
-  generateRefreshToken(): Promise<string>;
 }
 
 const { String, Boolean } = Schema.Types;
@@ -71,30 +67,6 @@ const userSchema = new Schema<iUserModel>(
   },
 );
 
-userSchema.methods = {
-  async generateVerifyToken() {
-    const { email } = this;
-
-    let user = await User.findOne({ email });
-    const jwtid = uid(8);
-    user.verifyToken = jwt.sign({ user: { email } }, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '1d', jwtid });
-    await user.save();
-
-    return jwtid;
-  },
-
-  async generateRefreshToken() {
-    const { email } = this;
-    const jwtid = uid(8);
-
-    let user = await User.findOne({ email });
-    user.refreshToken = jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid });
-    await user.save();
-
-    return jwtid;
-  },
-};
-
 userSchema.pre('save', async function (next) {
   if (this.isModified('password')) {
     // @ts-ignore
@@ -111,6 +83,4 @@ userSchema.pre('findOneAndUpdate', async function (next) {
   next();
 });
 
-const User = model<iUserModel>('User', userSchema);
-
-export default User;
+export default model<iUserModel>('User', userSchema);

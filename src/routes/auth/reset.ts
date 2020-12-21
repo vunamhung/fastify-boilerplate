@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify';
-import jwt from 'jsonwebtoken';
 import { isEmpty } from 'ramda';
+import { uid } from 'rand-token';
+import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import { validatePassword } from '../../utilities';
 
@@ -55,9 +56,8 @@ export default function (server: FastifyInstance, options, done) {
 
         user.password = password;
         user.resetPasswordToken = undefined;
+        user.refreshToken = jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: uid(8) });
         await user.save();
-
-        await user.generateRefreshToken();
 
         reply.send({ success: true, message: 'Password changed successfully. Please login with your new password.' });
       } catch ({ message }) {

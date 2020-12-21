@@ -51,13 +51,14 @@ export default function (server: FastifyInstance, options, done) {
         const payload = await user.generateRefreshToken();
 
         const token = await reply.jwtSign(payload, { expiresIn: '10m', jwtid: uid(6) });
-        reply.setCookie('token', token, {
-          path: '/',
-          secure: !process.env.DEV_ENV, // send cookie over HTTPS only
-          httpOnly: true,
-          sameSite: true, // alternative CSRF protection
-        });
-        reply.send({ success: true, token });
+        reply
+          .setCookie('token', token, {
+            path: '/',
+            secure: !process.env.DEV_ENV, // send cookie over HTTPS only
+            httpOnly: true,
+            sameSite: true, // alternative CSRF protection
+          })
+          .send({ success: true, token });
       } catch (err) {
         reply.send(err);
       }

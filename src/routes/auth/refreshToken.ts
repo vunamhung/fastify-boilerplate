@@ -42,7 +42,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!refreshToken) return reply.badRequest('Token expired.'); // check refresh token exists
 
         // @ts-ignore
-        const { jti } = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET); // extract payload from refresh token
+        const { jti } = await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
 
         if (accessUser.auth !== jti) return reply.badRequest('Token expired!');
 

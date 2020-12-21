@@ -44,7 +44,7 @@ export default function (server: FastifyInstance, options, done) {
         }
 
         let newUser = await new User(body);
-        const jwtid = uid(8);
+        const jwtid = uid(9);
         newUser.verifyToken = jwt.sign({}, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '7d', jwtid });
         await newUser.save();
 

@@ -5,7 +5,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/unban/:email',
     {
-      preValidation: [server.guard.role('root', 'admin', 'ban'), server.authenticate],
+      preValidation: [server.authenticate, server.guard.role('root', 'admin', 'ban')],
       schema: {
         tags: ['ban'],
         security: [{ apiKey: [] }],

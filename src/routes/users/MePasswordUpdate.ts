@@ -9,7 +9,7 @@ export default function (server: FastifyInstance, options, done) {
   server.put(
     '/me/password',
     {
-      preValidation: [server.guard.role('root', 'admin', 'member', 'user:write'), server.authenticate],
+      preValidation: [server.authenticate, server.guard.role('root', 'admin', 'member', 'user:write')],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],

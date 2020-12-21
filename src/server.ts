@@ -22,7 +22,6 @@ export default class {
 
     this.initDb().catch((err) => this.server.log.error({ actor: 'MongoDB' }, err));
     this.registerPlugins();
-    this.registerHooks();
     this.registerRoutes();
   }
 
@@ -95,16 +94,6 @@ export default class {
       templates: join(__dirname, '../templates'),
       options: { filename: resolve(__dirname, '../templates') },
       includeViewExtension: true,
-    });
-  }
-
-  private registerHooks() {
-    this.server.addHook('onRequest', (request, reply, done) => {
-      if (request.cookies?.token || request.headers.authorization?.split(' ')[1]) {
-        request.user = this.server.decodedToken(request);
-      }
-
-      done();
     });
   }
 

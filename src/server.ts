@@ -8,7 +8,7 @@ import mailgun from './services/mailgun';
 import document from './utilities/document';
 import uploader from './utilities/uploader';
 import authenticate from './utilities/authenticate';
-import token from './utilities/token';
+import token, { iToken } from './utilities/token';
 import { MINUTE_IN_SECONDS } from './utilities';
 
 export default class {
@@ -62,6 +62,7 @@ export default class {
     this.server.register(document);
     this.server.register(uploader);
 
+    this.server.register(import('fastify-cookie'));
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), {
       contentSecurityPolicy: {
@@ -81,7 +82,10 @@ export default class {
     this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
     this.server.register(import('fastify-response-caching'), { ttl: 2000 });
     this.server.register(import('fastify-prettier'));
-    this.server.register(import('fastify-cors'), { preflight: true, credentials: true });
+    this.server.register(import('fastify-cors'), {
+      origin: ['http://localhost:3001'],
+      credentials: true,
+    });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
     this.server.register(import('fastify-qs'), { disabled: false });
@@ -96,7 +100,10 @@ export default class {
 
   private registerHooks() {
     this.server.addHook('onRequest', (request, reply, done) => {
-      if (request.headers.authorization?.split(' ')[1]) {
+      if (request.cookies?.token) {
+        const { user } = this.server.jwt.decode(request.cookies.token) as iToken;
+        request.user = user;
+      } else if (request.headers.authorization?.split(' ')[1]) {
         request.user = this.server.decodedToken(request)?.user;
       }
 

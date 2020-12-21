@@ -33,14 +33,16 @@ export default function (server: FastifyInstance, options, done) {
       try {
         // @ts-ignore
         const { token } = body;
-        const { user: accessUser } = server.jwt.decode(token);
+        const {
+          user: { email, auth },
+        } = server.jwt.decode(token);
 
-        let user = await User.findOne({ email: accessUser.email });
+        let user = await User.findOne({ email });
         if (!user || !user.refreshToken) reply.badRequest('Token expired.');
 
         const { jti } = (await jwt.verify(user.refreshToken, process.env.REFRESH_TOKEN_SECRET)) as iToken;
 
-        if (accessUser.auth !== jti) reply.badRequest('Token expired!');
+        if (auth !== jti) reply.badRequest('Token expired!');
 
         user.refreshToken = undefined;
         user.save();

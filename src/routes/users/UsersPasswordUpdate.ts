@@ -6,20 +6,20 @@ import { iBody, iToken, validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
-    '/me/password',
+    '/password',
     {
-      preValidation: [server.authenticate, server.guard.role('root', 'admin', 'member', 'user:write')],
+      preValidation: [server.authenticate, server.guard.role('root', 'admin')],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],
-        summary: 'User self update password.',
+        summary: 'Update password for user.',
         body: {
           type: 'object',
           properties: {
-            oldPassword: { type: 'string' },
-            newPassword: { type: 'string' },
+            email: { type: 'string', format: 'email' },
+            password: { type: 'string' },
           },
-          required: ['oldPassword', 'newPassword'],
+          required: ['email', 'password'],
         },
         response: {
           200: {
@@ -33,26 +33,20 @@ export default function (server: FastifyInstance, options, done) {
         },
       },
     },
-    async ({ user, body }, reply) => {
-      const { email } = user as iToken;
+    async ({ body }, reply) => {
+      const { email, password } = body as iBody;
 
-      const { oldPassword, newPassword } = body as iBody;
+      const user = await User.findOne({ email });
+      if (!user) reply.badRequest('User not found!');
 
-      const me = await User.findOne({ email });
-
-      // compare password with db user password
-      const isMatch = await compare(oldPassword, me.password);
-      if (!isMatch) reply.badRequest('Invalid Credentials.');
-      if (oldPassword === newPassword) reply.badRequest('New password must have not same as old one!');
-
-      const invalidPasswordMessage = await validatePassword(newPassword);
+      const invalidPasswordMessage = await validatePassword(password);
       if (!isEmpty(invalidPasswordMessage)) {
         reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
         return;
       }
 
-      me.password = newPassword;
-      await me.save();
+      user.password = password;
+      await user.save();
 
       reply.send({ success: true, message: `User '${email}' is updated password successful!` });
     },

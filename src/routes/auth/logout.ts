@@ -25,9 +25,9 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ user }, reply) => {
       try {
-        const { email, auth } = user as iToken;
+        const { id, auth } = user as iToken;
 
-        let checkUser = await User.findOne({ email });
+        let checkUser = await User.findById(id);
         if (!checkUser || !checkUser.refreshToken) reply.badRequest('Token expired.');
 
         const { jti } = (await jwt.verify(checkUser.refreshToken, process.env.REFRESH_TOKEN_SECRET)) as iToken;

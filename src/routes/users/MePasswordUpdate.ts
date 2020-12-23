@@ -34,11 +34,11 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ user, body }, reply) => {
-      const { email } = user as iToken;
+      const { email, id } = user as iToken;
 
       const { oldPassword, newPassword } = body as iBody;
 
-      const me = await User.findOne({ email });
+      const me = await User.findById(id);
 
       // compare password with db user password
       const isMatch = await compare(oldPassword, me.password);

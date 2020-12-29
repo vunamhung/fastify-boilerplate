@@ -45,7 +45,7 @@ export default function (server: FastifyInstance, options, done) {
 
         if (auth !== jti) return reply.badRequest('Token expired!');
 
-        const token = await reply.jwtSign({ id, email, role, verified, auth: jti }, { expiresIn: '10m', jwtid: uid(6) });
+        const token = await reply.jwtSign({ id, email, role, verified, auth }, { expiresIn: '10m', jwtid: uid(6) });
 
         reply
           .setCookie('token', token, {

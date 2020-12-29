@@ -14,7 +14,7 @@
     "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ ocean:/var/www/html/"
   },
   "dependencies": {
-    "aws-sdk": "2.817.0",
+    "aws-sdk": "2.818.0",
     "bcryptjs": "^2.4.3",
     "crypto": "^1.0.1",
     "deep-email-validator": "0.1.18",
@@ -24,7 +24,7 @@
     "fastify-autoload": "3.4.0",
     "fastify-blipp": "3.0.0",
     "fastify-compress": "3.4.1",
-    "fastify-cookie": "^5.0.2",
+    "fastify-cookie": "5.1.0",
     "fastify-cors": "5.1.0",
     "fastify-guard": "1.2.0",
     "fastify-helmet": "^5.0.3",
@@ -41,7 +41,7 @@
     "fastify-static": "3.3.0",
     "fastify-swagger": "3.5.0",
     "mailgun-js": "^0.22.0",
-    "mongoose": "5.11.8",
+    "mongoose": "5.11.9",
     "mongoose-deep-populate": "^3.2.0",
     "mongoose-slug-generator": "^1.0.4",
     "password-validator": "^5.1.1",

@@ -1,9 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { isEmpty } from 'ramda';
 import { uid } from 'rand-token';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { iBody, validatePassword } from '../../utilities';
+import { iBody, signRefreshToken, validatePassword, verifyResetPasswordToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -42,8 +41,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!user || !user.resetPasswordToken) return reply.badRequest('Token expired!');
         if (user.banned) reply.notAcceptable('You banned!');
 
-        // @ts-ignore
-        const { jti } = await jwt.verify(user.resetPasswordToken, process.env.RESET_PASSWORD_TOKEN_SECRET);
+        const { jti } = verifyResetPasswordToken(user.resetPasswordToken);
         if (id !== jti) reply.badRequest('Token Expired!');
 
         const invalidPasswordMessage = await validatePassword(password);
@@ -55,7 +53,7 @@ export default function (server: FastifyInstance, options, done) {
 
         user.password = password;
         user.resetPasswordToken = undefined;
-        user.refreshToken = jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: uid(8) });
+        user.refreshToken = signRefreshToken(uid(8));
         await user.save();
 
         reply.send({ success: true, message: 'Password changed successfully. Please login with your new password.' });

@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { iBody } from '../../utilities';
+import { iBody, verifySignupToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -40,8 +40,7 @@ export default function (server: FastifyInstance, options, done) {
         if (user.banned) reply.notAcceptable('You banned!');
         if (user.verified) reply.badRequest('User verified!');
 
-        // @ts-ignore
-        const { jti } = await jwt.verify(user.verifyToken, process.env.VERIFY_TOKEN_SECRET);
+        const { jti } = verifySignupToken(user.verifyToken);
         if (id !== jti) reply.badRequest('Token Expired!');
 
         user.verifyToken = undefined;

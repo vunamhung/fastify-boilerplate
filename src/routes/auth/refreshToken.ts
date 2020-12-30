@@ -1,8 +1,7 @@
 import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { iToken } from '../../utilities';
+import { verifyRefreshToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -41,7 +40,7 @@ export default function (server: FastifyInstance, options, done) {
         if (banned) reply.notAcceptable('You banned!');
         if (!refreshToken) return reply.badRequest('Token expired.'); // check refresh token exists
 
-        const { jti } = (await jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET)) as iToken;
+        const { jti } = verifyRefreshToken(refreshToken);
 
         if (auth !== jti) return reply.badRequest('Token expired!');
 

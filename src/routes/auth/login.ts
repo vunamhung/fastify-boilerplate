@@ -2,9 +2,8 @@ import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
 import { compare } from 'bcryptjs';
 import validator from 'validator';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { iBody } from '../../utilities';
+import { iBody, signRefreshToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -50,7 +49,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!isMatch) reply.badRequest('Invalid Credentials.');
 
         const refreshTokenId = uid(8);
-        user.refreshToken = jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: refreshTokenId });
+        user.refreshToken = signRefreshToken(refreshTokenId);
         await user.save();
 
         const token = await reply.jwtSign(

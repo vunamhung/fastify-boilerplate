@@ -1,9 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import validator from 'validator';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
 import { uid } from 'rand-token';
-import { iBody } from '../../utilities';
+import { iBody, signResetPasswordToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.post(
@@ -41,8 +40,7 @@ export default function (server: FastifyInstance, options, done) {
         if (!user) reply.badRequest('No user exist with this email.');
         if (user.banned) reply.notAcceptable('You banned!');
 
-        const jwtid = uid(7);
-        user.resetPasswordToken = await jwt.sign({ user: { email } }, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid });
+        user.resetPasswordToken = signResetPasswordToken(uid(7));
 
         await user.save();
 

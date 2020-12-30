@@ -1,7 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import jwt from 'jsonwebtoken';
 import User from '../../models/User';
-import { iToken } from '../../utilities';
+import { iToken, verifyRefreshToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.get(
@@ -30,7 +29,7 @@ export default function (server: FastifyInstance, options, done) {
         let checkUser = await User.findById(id);
         if (!checkUser || !checkUser.refreshToken) reply.badRequest('Token expired.');
 
-        const { jti } = (await jwt.verify(checkUser.refreshToken, process.env.REFRESH_TOKEN_SECRET)) as iToken;
+        const { jti } = verifyRefreshToken(checkUser.refreshToken);
 
         if (auth !== jti) reply.badRequest('Token expired!');
 

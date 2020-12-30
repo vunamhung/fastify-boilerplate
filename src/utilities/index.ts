@@ -2,6 +2,7 @@ import { genSalt, hash } from 'bcryptjs';
 import { Types } from 'mongoose';
 import PasswordValidator from 'password-validator';
 import { isEmpty } from 'ramda';
+import jwt from 'jsonwebtoken';
 
 export const NOW_IN_SECONDS = Date.now();
 export const MINUTE_IN_SECONDS = 60 * 1000;
@@ -81,3 +82,14 @@ export interface iBody {
 }
 
 export interface iParams extends iBody {}
+
+interface iJwtToken {
+  jti: string;
+}
+
+export const signRefreshToken = (jti: string) => jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+export const verifyRefreshToken = (token: string) => jwt.verify(token, process.env.REFRESH_TOKEN_SECRET) as iJwtToken;
+export const signSignupToken = (jti: string) => jwt.sign({}, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+export const verifySignupToken = (token: string) => jwt.verify(token, process.env.VERIFY_TOKEN_SECRET) as iJwtToken;
+export const signResetPasswordToken = (jti: string) => jwt.sign({}, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid: jti });
+export const verifyResetPasswordToken = (token: string) => jwt.verify(token, process.env.RESET_PASSWORD_TOKEN_SECRET) as iJwtToken;

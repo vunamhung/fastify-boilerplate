@@ -6,7 +6,7 @@ export interface iUserModel extends Document {
   password: string;
   role: Array<string>;
   refreshToken: string;
-  verifyToken?: string;
+  signupToken?: string;
   resetPasswordToken?: string;
   firstName?: string;
   lastName?: string;
@@ -37,7 +37,7 @@ const userSchema = new Schema<iUserModel>(
     refreshToken: {
       type: String,
     },
-    verifyToken: {
+    signupToken: {
       type: String,
     },
     resetPasswordToken: {

@@ -44,7 +44,7 @@ export default function (server: FastifyInstance, options, done) {
         }
 
         let newUser = await new User(body);
-        newUser.verifyToken = signSignupToken(uid(9));
+        newUser.signupToken = signSignupToken(uid(9));
         await newUser.save();
 
         reply.code(201).send({ success: true, message: 'User created.' });

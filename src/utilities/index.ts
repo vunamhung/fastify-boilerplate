@@ -89,7 +89,7 @@ interface iJwtToken {
 
 export const signRefreshToken = (jti: string) => jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
 export const verifyRefreshToken = (token: string) => jwt.verify(token, process.env.REFRESH_TOKEN_SECRET) as iJwtToken;
-export const signSignupToken = (jti: string) => jwt.sign({}, process.env.VERIFY_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
-export const verifySignupToken = (token: string) => jwt.verify(token, process.env.VERIFY_TOKEN_SECRET) as iJwtToken;
+export const signSignupToken = (jti: string) => jwt.sign({}, process.env.SIGNUP_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+export const verifySignupToken = (token: string) => jwt.verify(token, process.env.SIGNUP_TOKEN_SECRET) as iJwtToken;
 export const signResetPasswordToken = (jti: string) => jwt.sign({}, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid: jti });
 export const verifyResetPasswordToken = (token: string) => jwt.verify(token, process.env.RESET_PASSWORD_TOKEN_SECRET) as iJwtToken;

@@ -40,10 +40,10 @@ export default function (server: FastifyInstance, options, done) {
         if (user.banned) reply.notAcceptable('You banned!');
         if (user.verified) reply.badRequest('User verified!');
 
-        const { jti } = verifySignupToken(user.verifyToken);
+        const { jti } = verifySignupToken(user.signupToken);
         if (id !== jti) reply.badRequest('Token Expired!');
 
-        user.verifyToken = undefined;
+        user.signupToken = undefined;
         user.verified = true;
 
         await user.save();

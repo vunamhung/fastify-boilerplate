@@ -87,9 +87,9 @@ interface iJwtToken {
   jti: string;
 }
 
-export const signRefreshToken = (jti: string) => jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+export const signRefreshToken = (jwtid: string) => jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid });
 export const verifyRefreshToken = (token: string) => jwt.verify(token, process.env.REFRESH_TOKEN_SECRET) as iJwtToken;
-export const signSignupToken = (jti: string) => jwt.sign({}, process.env.SIGNUP_TOKEN_SECRET, { expiresIn: '7d', jwtid: jti });
+export const signSignupToken = (jwtid: string) => jwt.sign({}, process.env.SIGNUP_TOKEN_SECRET, { expiresIn: '7d', jwtid });
 export const verifySignupToken = (token: string) => jwt.verify(token, process.env.SIGNUP_TOKEN_SECRET) as iJwtToken;
-export const signResetPasswordToken = (jti: string) => jwt.sign({}, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid: jti });
+export const signResetPasswordToken = (jwtid: string) => jwt.sign({}, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid });
 export const verifyResetPasswordToken = (token: string) => jwt.verify(token, process.env.RESET_PASSWORD_TOKEN_SECRET) as iJwtToken;

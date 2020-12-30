@@ -1,8 +1,8 @@
 import { genSalt, hash } from 'bcryptjs';
 import { Types } from 'mongoose';
-import PasswordValidator from 'password-validator';
 import { isEmpty } from 'ramda';
-import jwt from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
+import PasswordValidator from 'password-validator';
 
 export const NOW_IN_SECONDS = Date.now();
 export const MINUTE_IN_SECONDS = 60 * 1000;
@@ -87,9 +87,9 @@ interface iJwtToken {
   jti: string;
 }
 
-export const signRefreshToken = (jwtid: string) => jwt.sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid });
-export const verifyRefreshToken = (token: string) => jwt.verify(token, process.env.REFRESH_TOKEN_SECRET) as iJwtToken;
-export const signSignupToken = (jwtid: string) => jwt.sign({}, process.env.SIGNUP_TOKEN_SECRET, { expiresIn: '7d', jwtid });
-export const verifySignupToken = (token: string) => jwt.verify(token, process.env.SIGNUP_TOKEN_SECRET) as iJwtToken;
-export const signResetPasswordToken = (jwtid: string) => jwt.sign({}, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid });
-export const verifyResetPasswordToken = (token: string) => jwt.verify(token, process.env.RESET_PASSWORD_TOKEN_SECRET) as iJwtToken;
+export const signRefreshToken = (jwtid: string) => sign({}, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '7d', jwtid });
+export const signSignupToken = (jwtid: string) => sign({}, process.env.SIGNUP_TOKEN_SECRET, { expiresIn: '7d', jwtid });
+export const signResetPasswordToken = (jwtid: string) => sign({}, process.env.RESET_PASSWORD_TOKEN_SECRET, { expiresIn: '4h', jwtid });
+export const verifyRefreshToken = (token: string) => verify(token, process.env.REFRESH_TOKEN_SECRET) as iJwtToken;
+export const verifySignupToken = (token: string) => verify(token, process.env.SIGNUP_TOKEN_SECRET) as iJwtToken;
+export const verifyResetPasswordToken = (token: string) => verify(token, process.env.RESET_PASSWORD_TOKEN_SECRET) as iJwtToken;

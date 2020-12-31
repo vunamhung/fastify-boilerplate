@@ -1,5 +1,7 @@
 import { Document, model, Schema } from 'mongoose';
 
+const { ObjectId, Number } = Schema.Types;
+
 interface iCartItemModel extends Document {
   product: string;
   quantity: number;
@@ -10,23 +12,21 @@ export interface iCartModel extends Document {
   total(): number;
 }
 
-const { ObjectId, Number } = Schema.Types;
-
-const cartItemSchema = new Schema<iCartItemModel>({
-  product: {
-    type: ObjectId,
-    ref: 'Product',
-    required: true,
-  },
-  quantity: {
-    type: Number,
-    required: true,
-  },
-});
-
 const cartSchema = new Schema<iCartModel>(
   {
-    products: [cartItemSchema],
+    products: [
+      {
+        product: {
+          type: ObjectId,
+          ref: 'Product',
+          required: true,
+        },
+        quantity: {
+          type: Number,
+          required: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

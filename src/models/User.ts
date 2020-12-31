@@ -3,7 +3,7 @@ import { hashPassword } from '../utilities';
 
 const { String, Boolean, Array } = Schema.Types;
 
-interface iAddressModel extends Document {
+export interface iAddressModel extends Document {
   address: string;
   address2: string;
   city: string;
@@ -22,7 +22,7 @@ export interface iUserModel extends Document {
   firstName?: string;
   lastName?: string;
   avatar?: string;
-  address?: iAddressModel;
+  address?: Array<iAddressModel>;
   banned?: boolean;
   verified?: boolean;
 }

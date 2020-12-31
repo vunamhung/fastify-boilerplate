@@ -20,6 +20,7 @@ export default function (server: FastifyInstance, options, done) {
               role: { type: 'string' },
               firstName: { type: 'string' },
               lastName: { type: 'string' },
+              address: { type: 'array' },
               avatar: { type: 'string' },
             },
           },

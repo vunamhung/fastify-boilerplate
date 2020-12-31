@@ -33,10 +33,8 @@ export default function (server: FastifyInstance, options, done) {
 
       const newAddress = me.address.filter(({ _id }) => _id != addressId);
 
-      if (isEmpty(newAddress)) {
-        reply.badRequest('Wrong address ID.');
-        return;
-      }
+      if (isEmpty(newAddress)) return reply.badRequest('Wrong address ID.');
+
       me.address = newAddress;
       await me.save();
 

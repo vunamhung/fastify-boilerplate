@@ -21,6 +21,7 @@ export default function (server: FastifyInstance, options, done) {
               firstName: { type: 'string' },
               lastName: { type: 'string' },
               address: { type: 'array' },
+              wishlistProducts: { type: 'array' },
               avatar: { type: 'string' },
             },
           },
@@ -30,7 +31,9 @@ export default function (server: FastifyInstance, options, done) {
     async ({ user }, reply) => {
       const { id } = user as iToken;
 
-      const me = await User.findById(id).catch((err) => reply.send(err));
+      const me = await User.findById(id)
+        .populate({ path: 'wishlistProducts.product' })
+        .catch((err) => reply.send(err));
 
       reply.send(me);
     },

@@ -9,9 +9,9 @@ export interface iAddressModel extends Document {
   address1: string;
   address2: string;
   city: string;
-  postalCode: string;
   state: string;
-  country: string;
+  postalCode: string;
+  countryCode: string;
   isPrimary: boolean;
   phoneNumber?: number;
 }
@@ -94,13 +94,15 @@ const userSchema = new Schema<iUserModel>(
           type: String,
           required: true,
         },
-        country: {
-          type: String,
-          required: true,
-        },
         postalCode: {
           type: Number,
           required: true,
+        },
+        countryCode: {
+          type: String,
+          required: true,
+          maxlength: 2,
+          uppercase: true,
         },
         phoneNumber: {
           type: Number,

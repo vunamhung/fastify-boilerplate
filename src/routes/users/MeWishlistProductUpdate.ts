@@ -1,8 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import { isEmpty } from 'ramda';
-import { compare } from 'bcryptjs';
 import User from '../../models/User';
-import { iBody, isObjectId, iToken, validatePassword } from '../../utilities';
+import { iBody, isObjectId, iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(

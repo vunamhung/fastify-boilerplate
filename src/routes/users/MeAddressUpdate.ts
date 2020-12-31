@@ -1,8 +1,6 @@
 import { FastifyInstance } from 'fastify';
-import { isEmpty } from 'ramda';
-import { compare } from 'bcryptjs';
-import User, { iAddressModel } from '../../models/User';
-import { iBody, iToken, validatePassword } from '../../utilities';
+import User from '../../models/User';
+import { iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -24,10 +22,10 @@ export default function (server: FastifyInstance, options, done) {
             postalCode: { type: 'string' },
             phoneNumber: { type: 'number' },
             state: { type: 'string' },
-            country: { type: 'string' },
+            countryCode: { type: 'string', maxLength: 2 },
             isPrimary: { type: 'boolean' },
           },
-          required: ['firstName', 'lastName', 'address1', 'city', 'postalCode', 'state', 'country', 'isPrimary'],
+          required: ['firstName', 'lastName', 'address1', 'city', 'postalCode', 'state', 'countryCode', 'isPrimary'],
         },
         response: {
           200: {

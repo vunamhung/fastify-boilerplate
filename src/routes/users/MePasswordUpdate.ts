@@ -18,8 +18,9 @@ export default function (server: FastifyInstance, options, done) {
           properties: {
             oldPassword: { type: 'string' },
             newPassword: { type: 'string' },
+            verifyNewPassword: { type: 'string' },
           },
-          required: ['oldPassword', 'newPassword'],
+          required: ['oldPassword', 'newPassword', 'verifyNewPassword'],
         },
         response: {
           200: {
@@ -36,7 +37,7 @@ export default function (server: FastifyInstance, options, done) {
     async ({ user, body }, reply) => {
       const { email, id } = user as iToken;
 
-      const { oldPassword, newPassword } = body as iBody;
+      const { oldPassword, newPassword, verifyNewPassword } = body as iBody;
 
       const me = await User.findById(id);
 
@@ -48,6 +49,11 @@ export default function (server: FastifyInstance, options, done) {
       const invalidPasswordMessage = await validatePassword(newPassword);
       if (!isEmpty(invalidPasswordMessage)) {
         reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
+        return;
+      }
+
+      if (newPassword !== verifyNewPassword) {
+        reply.badRequest("Passwords don't match");
         return;
       }
 

@@ -71,6 +71,8 @@ export interface iBody {
   newPassword?: string;
   email?: string;
   password?: string;
+  verifyPassword?: string;
+  verifyNewPassword?: string;
   verified?: string;
   cartId?: string;
   orderId?: string;

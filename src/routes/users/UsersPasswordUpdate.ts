@@ -18,8 +18,9 @@ export default function (server: FastifyInstance, options, done) {
           properties: {
             email: { type: 'string', format: 'email' },
             password: { type: 'string' },
+            verifyPassword: { type: 'string' },
           },
-          required: ['email', 'password'],
+          required: ['email', 'password', 'verifyPassword'],
         },
         response: {
           200: {
@@ -34,7 +35,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ body }, reply) => {
-      const { email, password } = body as iBody;
+      const { email, password, verifyPassword } = body as iBody;
 
       const user = await User.findOne({ email });
       if (!user) reply.badRequest('User not found!');
@@ -42,6 +43,11 @@ export default function (server: FastifyInstance, options, done) {
       const invalidPasswordMessage = await validatePassword(password);
       if (!isEmpty(invalidPasswordMessage)) {
         reply.code(400).send({ statusCode: 400, error: 'Bad Request', message: invalidPasswordMessage });
+        return;
+      }
+
+      if (password !== verifyPassword) {
+        reply.badRequest("Passwords don't match");
         return;
       }
 

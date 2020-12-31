@@ -1,15 +1,19 @@
 import { Document, model, Schema } from 'mongoose';
 import { hashPassword } from '../utilities';
 
-const { String, Boolean, Array, ObjectId } = Schema.Types;
+const { String, Boolean, Array, Number, ObjectId } = Schema.Types;
 
 export interface iAddressModel extends Document {
-  address: string;
+  firstName: string;
+  lastName: string;
+  address1: string;
   address2: string;
   city: string;
-  zipCode: string;
-  region: string;
+  postalCode: string;
+  state: string;
   country: string;
+  isPrimary: boolean;
+  phoneNumber?: number;
 }
 
 export interface iUserModel extends Document {
@@ -67,23 +71,43 @@ const userSchema = new Schema<iUserModel>(
     },
     address: [
       {
-        address: {
+        firstName: {
           type: String,
+          required: true,
+        },
+        lastName: {
+          type: String,
+          required: true,
+        },
+        address1: {
+          type: String,
+          required: true,
         },
         address2: {
           type: String,
         },
+        state: {
+          type: String,
+          required: true,
+        },
         city: {
           type: String,
-        },
-        zipCode: {
-          type: String,
-        },
-        region: {
-          type: String,
+          required: true,
         },
         country: {
           type: String,
+          required: true,
+        },
+        postalCode: {
+          type: Number,
+          required: true,
+        },
+        phoneNumber: {
+          type: Number,
+        },
+        isPrimary: {
+          type: Boolean,
+          required: true,
         },
       },
     ],

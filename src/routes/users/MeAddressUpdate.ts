@@ -16,14 +16,18 @@ export default function (server: FastifyInstance, options, done) {
         body: {
           type: 'object',
           properties: {
-            address: { type: 'string' },
+            firstName: { type: 'string' },
+            lastName: { type: 'string' },
+            address1: { type: 'string' },
             address2: { type: 'string' },
             city: { type: 'string' },
-            zipCode: { type: 'string' },
-            region: { type: 'string' },
+            postalCode: { type: 'string' },
+            phoneNumber: { type: 'number' },
+            state: { type: 'string' },
             country: { type: 'string' },
+            isPrimary: { type: 'boolean' },
           },
-          required: ['address', 'city', 'zipCode', 'region', 'country'],
+          required: ['firstName', 'lastName', 'address1', 'city', 'postalCode', 'state', 'country', 'isPrimary'],
         },
         response: {
           200: {

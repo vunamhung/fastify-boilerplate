@@ -31,13 +31,13 @@ export default function (server: FastifyInstance, options, done) {
 
       const me = await User.findById(id);
 
-      const address = me.address.filter(({ _id }) => _id != addressId);
+      const newAddress = me.address.filter(({ _id }) => _id != addressId);
 
-      if (isEmpty(address)) {
+      if (isEmpty(newAddress)) {
         reply.badRequest('Wrong address ID.');
         return;
       }
-      me.address = address;
+      me.address = newAddress;
       await me.save();
 
       reply.notFound(`Address deleted!`);

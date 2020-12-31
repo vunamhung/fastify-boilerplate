@@ -1,6 +1,17 @@
 import { Document, model, Schema } from 'mongoose';
 import { hashPassword } from '../utilities';
 
+const { String, Boolean, Array } = Schema.Types;
+
+interface iAddressModel extends Document {
+  address: string;
+  address2: string;
+  city: string;
+  zipCode: string;
+  region: string;
+  country: string;
+}
+
 export interface iUserModel extends Document {
   email: string;
   password: string;
@@ -11,12 +22,10 @@ export interface iUserModel extends Document {
   firstName?: string;
   lastName?: string;
   avatar?: string;
-  info?: string;
+  address?: iAddressModel;
   banned?: boolean;
   verified?: boolean;
 }
-
-const { String, Boolean } = Schema.Types;
 
 const userSchema = new Schema<iUserModel>(
   {
@@ -43,23 +52,42 @@ const userSchema = new Schema<iUserModel>(
     resetPasswordToken: {
       type: String,
     },
+    banned: {
+      type: Boolean,
+    },
+    verified: {
+      type: Boolean,
+    },
     firstName: {
       type: String,
     },
     lastName: {
       type: String,
     },
+    address: [
+      {
+        address: {
+          type: String,
+        },
+        address2: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        zipCode: {
+          type: String,
+        },
+        region: {
+          type: String,
+        },
+        country: {
+          type: String,
+        },
+      },
+    ],
     avatar: {
       type: String,
-    },
-    info: {
-      type: String,
-    },
-    banned: {
-      type: Boolean,
-    },
-    verified: {
-      type: Boolean,
     },
   },
   {

@@ -20,6 +20,7 @@ const productSchema = new Schema<iProductModel>(
     sku: {
       type: String,
       required: true,
+      unique: true,
     },
     price: {
       type: Number,

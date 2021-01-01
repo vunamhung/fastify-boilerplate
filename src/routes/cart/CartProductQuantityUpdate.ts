@@ -4,7 +4,7 @@ import { iBody, iParams, isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
-    '/:cartId/product/quantity',
+    '/:id/product/quantity',
     {
       schema: {
         tags: ['cart'],
@@ -12,7 +12,7 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            cartId: { type: 'string' },
+            id: { type: 'string' },
           },
         },
         body: {
@@ -27,14 +27,14 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       try {
-        const { cartId } = params as iParams;
+        const { id } = params as iParams;
         const { quantity, productId } = body as iBody;
 
-        if (!isObjectId(cartId)) return reply.badRequest('Wrong cart ID!');
+        if (!isObjectId(id)) return reply.badRequest('Wrong cart ID!');
 
         if (!isObjectId(productId)) return reply.badRequest('Wrong product ID!');
 
-        await Cart.findOneAndUpdate({ _id: cartId, 'products.product': productId }, { $inc: { 'products.$.quantity': quantity } });
+        await Cart.findOneAndUpdate({ id, 'products.product': productId }, { $inc: { 'products.$.quantity': quantity } });
         reply.send({ success: true, message: 'Product quantity updated.' });
       } catch (err) {
         reply.send(err);

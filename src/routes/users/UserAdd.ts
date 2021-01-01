@@ -26,6 +26,16 @@ export default function (server: FastifyInstance, options, done) {
           },
           required: ['email', 'password'],
         },
+        response: {
+          201: {
+            description: 'Success created user',
+            type: 'object',
+            properties: {
+              success: { type: 'boolean' },
+              message: { type: 'string' },
+            },
+          },
+        },
       },
     },
     async ({ params, body }, reply) => {

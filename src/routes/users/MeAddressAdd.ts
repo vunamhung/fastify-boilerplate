@@ -29,7 +29,7 @@ export default function (server: FastifyInstance, options, done) {
         },
         response: {
           201: {
-            description: 'Success',
+            description: 'Success created address',
             type: 'object',
             properties: {
               success: { type: 'boolean' },

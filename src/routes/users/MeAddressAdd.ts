@@ -28,7 +28,7 @@ export default function (server: FastifyInstance, options, done) {
           required: ['firstName', 'lastName', 'address1', 'city', 'postalCode', 'state', 'countryCode', 'isPrimary'],
         },
         response: {
-          200: {
+          201: {
             description: 'Success',
             type: 'object',
             properties: {
@@ -40,7 +40,7 @@ export default function (server: FastifyInstance, options, done) {
       },
     },
     async ({ user, body }, reply) => {
-      const { email, id } = user as iToken;
+      const { id } = user as iToken;
       const { isPrimary } = body as iBody;
 
       const me = await User.findById(id);
@@ -52,7 +52,7 @@ export default function (server: FastifyInstance, options, done) {
       me.address.push(body);
       await me.save();
 
-      reply.send({ success: true, message: `User '${email}' is updated address successful!` });
+      reply.code(201).send({ success: true, message: `New address added!` });
     },
   );
 

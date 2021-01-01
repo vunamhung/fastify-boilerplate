@@ -3,14 +3,14 @@ import User from '../../models/User';
 import { iBody, isObjectId, iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
-  server.put(
+  server.post(
     '/me/wishlist',
     {
       preValidation: [server.authenticate, server.guard.role('root', 'admin', 'member', 'user:write')],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],
-        summary: 'User self update wishlist products.',
+        summary: 'User self add wishlist products.',
         body: {
           type: 'object',
           properties: {
@@ -19,7 +19,7 @@ export default function (server: FastifyInstance, options, done) {
           required: ['productId'],
         },
         response: {
-          200: {
+          201: {
             description: 'Success',
             type: 'object',
             properties: {
@@ -45,7 +45,7 @@ export default function (server: FastifyInstance, options, done) {
 
       await me.save();
 
-      reply.send({ success: true, message: `Added to wish List` });
+      reply.code(201).send({ success: true, message: `Product added to wish List` });
     },
   );
 

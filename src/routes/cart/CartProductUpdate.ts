@@ -4,7 +4,7 @@ import { iBody, iParams, isObjectId } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
-    '/:cartId/product',
+    '/:id/product',
     {
       schema: {
         tags: ['cart'],
@@ -12,7 +12,7 @@ export default function (server: FastifyInstance, options, done) {
         params: {
           type: 'object',
           properties: {
-            cartId: { type: 'string' },
+            id: { type: 'string' },
           },
         },
         body: {
@@ -27,23 +27,23 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ params, body }, reply) => {
       try {
-        const { cartId } = params as iParams;
+        const { id } = params as iParams;
         const { quantity, productId } = body as iBody;
 
-        if (!isObjectId(cartId)) return reply.badRequest('Wrong cart ID!');
+        if (!isObjectId(id)) return reply.badRequest('Wrong cart ID!');
 
         if (!isObjectId(productId)) return reply.badRequest('Wrong product ID!');
 
-        const cart = await Cart.findById(cartId);
+        const cart = await Cart.findById(id);
 
         const productExists = cart.products.some((item) => productId == item.product);
 
         if (productExists) {
-          await Cart.findOneAndUpdate({ _id: cartId, 'products.product': productId }, { $inc: { 'products.$.quantity': quantity } });
+          await Cart.findOneAndUpdate({ id, 'products.product': productId }, { $inc: { 'products.$.quantity': quantity } });
           reply.send({ success: true, message: 'Product quantity updated.' });
         } else {
           // @ts-ignore
-          await Cart.findOneAndUpdate({ _id: cartId }, { $addToSet: { products: { product: productId, quantity } } });
+          await Cart.findOneAndUpdate({ id }, { $addToSet: { products: { product: productId, quantity } } });
           reply.send({ success: true, message: 'Product added.' });
         }
       } catch (err) {

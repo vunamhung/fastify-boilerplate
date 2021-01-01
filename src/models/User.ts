@@ -48,27 +48,13 @@ const userSchema = new Schema<iUserModel>(
       type: Array,
       default: ['member'],
     },
-    refreshToken: {
-      type: String,
-    },
-    signupToken: {
-      type: String,
-    },
-    resetPasswordToken: {
-      type: String,
-    },
-    banned: {
-      type: Boolean,
-    },
-    verified: {
-      type: Boolean,
-    },
-    firstName: {
-      type: String,
-    },
-    lastName: {
-      type: String,
-    },
+    refreshToken: String,
+    signupToken: String,
+    resetPasswordToken: String,
+    banned: Boolean,
+    verified: Boolean,
+    firstName: String,
+    lastName: String,
     address: [
       {
         firstName: {
@@ -104,9 +90,7 @@ const userSchema = new Schema<iUserModel>(
           maxlength: 2,
           uppercase: true,
         },
-        phoneNumber: {
-          type: Number,
-        },
+        phoneNumber: Number,
         isPrimary: {
           type: Boolean,
           required: true,
@@ -121,9 +105,7 @@ const userSchema = new Schema<iUserModel>(
         },
       },
     ],
-    avatar: {
-      type: String,
-    },
+    avatar: String,
   },
   {
     timestamps: true,

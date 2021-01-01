@@ -15,30 +15,14 @@ const { String } = Schema.Types;
 
 const optionSchema = new Schema<iFileModel>(
   {
-    fieldname: {
-      type: String,
-    },
-    originalname: {
-      type: String,
-    },
-    encoding: {
-      type: String,
-    },
-    mimetype: {
-      type: String,
-    },
-    destination: {
-      type: String,
-    },
-    filename: {
-      type: String,
-    },
-    path: {
-      type: String,
-    },
-    size: {
-      type: String,
-    },
+    fieldname: String,
+    originalname: String,
+    encoding: String,
+    mimetype: String,
+    destination: String,
+    filename: String,
+    path: String,
+    size: String,
   },
   {
     timestamps: true,

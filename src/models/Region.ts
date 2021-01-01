@@ -10,15 +10,9 @@ const { String, Array } = Schema.Types;
 
 const countrySchema = new Schema<iRegionModel>(
   {
-    countryName: {
-      type: String,
-    },
-    countryShortCode: {
-      type: String,
-    },
-    regions: {
-      type: Array,
-    },
+    countryName: String,
+    countryShortCode: String,
+    regions: Array,
   },
   {
     timestamps: true,

@@ -66,6 +66,7 @@ export interface iQuery {
 export interface iBody {
   code?: string;
   addressId?: string;
+  isPrimary?: string;
   id?: string;
   token?: string;
   oldPassword?: string;

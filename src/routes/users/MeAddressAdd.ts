@@ -1,16 +1,16 @@
 import { FastifyInstance } from 'fastify';
 import User from '../../models/User';
-import { iToken } from '../../utilities';
+import { iBody, iToken } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
-  server.put(
+  server.post(
     '/me/address',
     {
       preValidation: [server.authenticate, server.guard.role('root', 'admin', 'member', 'user:write')],
       schema: {
         tags: ['users'],
         security: [{ apiKey: [] }],
-        summary: 'User self update address.',
+        summary: 'User self add a new address.',
         body: {
           type: 'object',
           properties: {
@@ -41,8 +41,13 @@ export default function (server: FastifyInstance, options, done) {
     },
     async ({ user, body }, reply) => {
       const { email, id } = user as iToken;
+      const { isPrimary } = body as iBody;
 
       const me = await User.findById(id);
+      if (me.banned) reply.notAcceptable('You banned!');
+
+      if (isPrimary) me.update({ $set: { 'address.$.isPrimary': false } });
+
       // @ts-ignore
       me.address.push(body);
       await me.save();

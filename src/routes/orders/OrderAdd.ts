@@ -25,9 +25,7 @@ export default function (server: FastifyInstance, options, done) {
 
       const cart = await Cart.findById(cartId).populate({ path: 'products.product' });
 
-      const total = cart.total();
-
-      const order = await Order.create({ cart, total }).catch((err) => reply.send(err));
+      const order = await Order.create({ cart }).catch((err) => reply.send(err));
 
       reply.code(201).send(order);
     },

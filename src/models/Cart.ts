@@ -1,15 +1,36 @@
 import { Document, model, Schema } from 'mongoose';
 
-const { ObjectId, Number } = Schema.Types;
+const { ObjectId, Number, String, Array } = Schema.Types;
 
-interface iCartItemModel extends Document {
-  product: string;
-  quantity: number;
+export interface iCartTotalModel extends Document {
+  currencyCode: string;
+  currencyDecimalSeparator: string;
+  currencyMinorUnit: string;
+  currencyPrefix: string;
+  currencySuffix: string;
+  currencySymbol: string;
+  currencyThousandSeparator: string;
+  taxLines: Array<string>;
+  totalDiscount: number;
+  totalDiscountTax: number;
+  totalFees: number;
+  totalFeesTax: number;
+  totalItems: number;
+  totalItemsTax: number;
+  totalPrice: number;
+  totalShipping: number;
+  totalShippingTax: number;
+  totalTax: number;
 }
-
 export interface iCartModel extends Document {
-  products: [iCartItemModel];
-  total(): number;
+  products: [
+    {
+      product: string;
+      quantity: number;
+    },
+  ];
+  totals: iCartTotalModel;
+  calculateTotal(): Function;
 }
 
 const cartSchema = new Schema<iCartModel>(
@@ -27,13 +48,83 @@ const cartSchema = new Schema<iCartModel>(
         },
       },
     ],
+    totals: {
+      currencyCode: {
+        type: String,
+        uppercase: true,
+        maxlength: 3,
+        default: 'USD',
+      },
+      currencyDecimalSeparator: {
+        type: String,
+        default: '.',
+      },
+      currencyMinorUnit: {
+        type: Number,
+        default: 2,
+      },
+      currencyPrefix: {
+        type: String,
+        default: '$',
+      },
+      currencySuffix: String,
+      currencySymbol: {
+        type: String,
+        default: '$',
+      },
+      currencyThousandSeparator: {
+        type: String,
+        default: ',',
+      },
+      taxLines: Array,
+      totalDiscount: {
+        type: Number,
+        default: 0,
+      },
+      totalDiscountTax: {
+        type: Number,
+        default: 0,
+      },
+      totalFees: {
+        type: Number,
+        default: 0,
+      },
+      totalFeesTax: {
+        type: Number,
+        default: 0,
+      },
+      totalItems: {
+        type: Number,
+        default: 0,
+      },
+      totalItemsTax: {
+        type: Number,
+        default: 0,
+      },
+      totalPrice: {
+        type: Number,
+        default: 0,
+      },
+      totalShipping: {
+        type: Number,
+        default: 0,
+      },
+      totalShippingTax: {
+        type: Number,
+        default: 0,
+      },
+      totalTax: {
+        type: Number,
+        default: 0,
+      },
+    },
   },
   {
     timestamps: true,
   },
 );
 
-cartSchema.methods.total = function () {
+cartSchema.methods.calculateTotal = function () {
   return this.products.reduce((acc, el) => {
     acc += el.product?.price * el.quantity;
     return acc;

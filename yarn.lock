@@ -976,10 +976,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.821.0:
-  version "2.821.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.821.0.tgz#42ac111c24933e18a1f665f31121f6c4e7acd86d"
-  integrity sha512-UtUlURMzmns1Wq8uAdJcyKsm/nW7iRYgTQEONQIpud0xwtjpPPR1pBFB0RSNZuYnZxcWboo807+jxq+LjaBEKA==
+aws-sdk@2.823.0:
+  version "2.823.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.823.0.tgz#bbf7feaeb63959a451ec964b19cef6ea7128097a"
+  integrity sha512-djrTmGu9MqsoUoaVRXjIjNPCfHBsrBBGFyZtgRhUGz9toa1ubZb2W2buUnT3ncws/bhOj5+7nO+qxAf/JzH9NA==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2304,7 +2304,17 @@ fastify-sensible@3.1.0:
     type-is "^1.6.18"
     vary "^1.1.2"
 
-fastify-static@3.3.0, fastify-static@^3.3.0:
+fastify-static@3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-3.3.1.tgz#e2e83849374dea1e0a037b6dcc1c50a2452bd51a"
+  integrity sha512-PpQ1ejqXgWNjzrj7i9xvveEm/j+beKt6AHJ2LB8223mfCKBCEhUuRvb+WkgyArLZBeiL+EjOzBqIBTSlYQ3J2A==
+  dependencies:
+    fastify-plugin "^3.0.0"
+    glob "^7.1.4"
+    readable-stream "^3.4.0"
+    send "^0.17.1"
+
+fastify-static@^3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/fastify-static/-/fastify-static-3.3.0.tgz#33b639f1fa6fde703326a9ef353d6b1469146f46"
   integrity sha512-NaaeGWz25TmCYTGR8z90rhpfCuQqxDJauMC7fUTaswtxkM5CUmGGpwInm5/A55qfn9MbUQbPOWtWwSvhY73xHg==

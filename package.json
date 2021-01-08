@@ -8,10 +8,10 @@
     "test": "NODE_ENV=test npx jest --runInBand",
     "build": "rm -rf dist && tsc --sourceMap -p ./",
     "dev": "ts-node-dev --respawn --transpile-only ./src/index.ts",
-    "docker:up": "docker-compose -f docker-compose.production.yaml up",
+    "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
     "predeploy": "yarn run build",
-    "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ cheap:/root/fastify/"
+    "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ test:/root/fastify/"
   },
   "dependencies": {
     "aws-sdk": "2.823.0",

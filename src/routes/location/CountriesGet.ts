@@ -8,6 +8,19 @@ export default function (server: FastifyInstance, options, done) {
       schema: {
         tags: ['location'],
         summary: 'Get all countries.',
+        response: {
+          200: {
+            description: 'Success',
+            type: 'array',
+            items: {
+              properties: {
+                name: { type: 'string' },
+                alpha2Code: { type: 'string' },
+                // alpha3Code: { type: 'string' },
+              },
+            },
+          },
+        },
       },
     },
     async (request, reply) => {

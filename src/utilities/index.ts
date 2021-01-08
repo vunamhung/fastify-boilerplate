@@ -65,6 +65,7 @@ export interface iQuery {
 
 export interface iBody {
   code?: string;
+  preValidate?: boolean;
   addressId?: string;
   isPrimary?: string;
   id?: string;

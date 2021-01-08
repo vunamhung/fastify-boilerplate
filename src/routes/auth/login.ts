@@ -36,7 +36,7 @@ export default function (server: FastifyInstance, options, done) {
     async ({ body }, reply) => {
       const { email, password } = body as iBody;
 
-      if (!validator.isEmail(email)) reply.badRequest('You must enter an email address.');
+      if (!validator.isEmail(email)) return reply.badRequest('You must enter an email address.');
 
       try {
         // check user exists

@@ -34,7 +34,7 @@ export default function (server: FastifyInstance, options, done) {
       const { email } = params as iParams;
       const { password } = body as iBody;
 
-      if (!validator.isEmail(email)) reply.badRequest('Please provide a valid email');
+      if (!validator.isEmail(email)) return reply.badRequest('Please provide a valid email');
 
       if (!isEmpty(password) && password != undefined) {
         const invalidPasswordMessage = await validatePassword(password);

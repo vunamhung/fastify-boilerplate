@@ -11,7 +11,7 @@
     "docker:up": "docker-compose up",
     "docker:down": "docker-compose down",
     "predeploy": "yarn run build",
-    "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ test:/root/fastify/"
+    "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ cheap:/root/fastify/"
   },
   "dependencies": {
     "aws-sdk": "2.823.0",

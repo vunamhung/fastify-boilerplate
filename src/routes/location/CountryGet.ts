@@ -15,6 +15,17 @@ export default function (server: FastifyInstance, options, done) {
             code: { type: 'string' },
           },
         },
+        response: {
+          200: {
+            description: 'Success',
+            type: 'object',
+            properties: {
+              name: { type: 'string' },
+              alpha2Code: { type: 'string' },
+              // alpha3Code: { type: 'string' },
+            },
+          },
+        },
       },
     },
     async ({ params }, reply) => {

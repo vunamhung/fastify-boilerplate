@@ -612,10 +612,10 @@
   dependencies:
     "@types/istanbul-lib-report" "*"
 
-"@types/jest@26.0.19":
-  version "26.0.19"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.19.tgz#e6fa1e3def5842ec85045bd5210e9bb8289de790"
-  integrity sha512-jqHoirTG61fee6v6rwbnEuKhpSKih0tuhqeFbCmMmErhtu3BYlOZaXWjffgOstMM4S/3iQD31lI5bGLTrs97yQ==
+"@types/jest@26.0.20":
+  version "26.0.20"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-26.0.20.tgz#cd2f2702ecf69e86b586e1f5223a60e454056307"
+  integrity sha512-9zi2Y+5USJRxd0FsahERhBwlcvFh6D2GLQnY2FH2BzK8J9s9omvNHIbvABwIluXa0fD8XVKMLTO0aOEuUfACAA==
   dependencies:
     jest-diff "^26.0.0"
     pretty-format "^26.0.0"
@@ -976,10 +976,10 @@ avvio@^7.1.2:
     fastq "^1.6.1"
     queue-microtask "^1.1.2"
 
-aws-sdk@2.823.0:
-  version "2.823.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.823.0.tgz#bbf7feaeb63959a451ec964b19cef6ea7128097a"
-  integrity sha512-djrTmGu9MqsoUoaVRXjIjNPCfHBsrBBGFyZtgRhUGz9toa1ubZb2W2buUnT3ncws/bhOj5+7nO+qxAf/JzH9NA==
+aws-sdk@2.824.0:
+  version "2.824.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.824.0.tgz#a67747d4d0b53d09c6c121e93f44d8f6e76fc44b"
+  integrity sha512-9KNRQBkIMPn+6DWb4gR+RzqTMNyGLEwOgXbE4dDehOIAflfLnv3IFwLnzrhxJnleB4guYrILIsBroJFBzjiekg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2199,12 +2199,12 @@ fastify-guard@1.2.0:
     http-errors "^1.8.0"
     lodash.get "^4.4.2"
 
-fastify-helmet@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.yarnpkg.com/fastify-helmet/-/fastify-helmet-5.0.3.tgz#6f72b998d0bc9f6acb6546f1a5bfb631a9429ed3"
-  integrity sha512-PLrmcRKMATmR/u613CSKsWyKy9n+Cnpr/uqv4uRTAkPdYGyE8yByZwE0E5cLJzIQHpfM0ba6aGPeYJMrGg5VnQ==
+fastify-helmet@5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/fastify-helmet/-/fastify-helmet-5.1.0.tgz#ceea57e345260efc5338932d6d25343fd7aa9f2f"
+  integrity sha512-1srEve9iKxF7BBetau/PfTK6vnIujtdmshEfsbZFjNRkyb74x96jNhbUH0sYP2cPCjK9OhhyngjKWa3JaGHT3w==
   dependencies:
-    fastify-plugin "^2.1.1"
+    fastify-plugin "^3.0.0"
     helmet "^4.0.0"
 
 fastify-jwt@2.2.0:
@@ -2251,7 +2251,7 @@ fastify-plugin@3.0.0, fastify-plugin@^3.0.0:
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-3.0.0.tgz#cf1b8c8098e3b5a7c8c30e6aeb06903370c054ca"
   integrity sha512-ZdCvKEEd92DNLps5n0v231Bha8bkz1DjnPP/aEz37rz/q42Z5JVLmgnqR4DYuNn3NXAO3IDCPyRvgvxtJ4Ym4w==
 
-fastify-plugin@^2.0.1, fastify-plugin@^2.1.1, fastify-plugin@^2.3.0, fastify-plugin@^2.3.4:
+fastify-plugin@^2.0.1, fastify-plugin@^2.3.0, fastify-plugin@^2.3.4:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/fastify-plugin/-/fastify-plugin-2.3.4.tgz#b17abdc36a97877d88101fb86ad8a07f2c07de87"
   integrity sha512-I+Oaj6p9oiRozbam30sh39BiuiqBda7yK2nmSPVwDCfIBlKnT8YB3MY+pRQc2Fcd07bf6KPGklHJaQ2Qu81TYQ==
@@ -2275,10 +2275,10 @@ fastify-qs@3.0.0:
     fastify-plugin "^3.0.0"
     qs "^6.9.4"
 
-fastify-rate-limit@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/fastify-rate-limit/-/fastify-rate-limit-5.0.0.tgz#700e5931f5da2c7b2e4e85b2305a2780231966c2"
-  integrity sha512-ue4u5dCmIbB2o/9Hs6RCBZ2jmBpxRAhgQzoRSA4pznOpP+q5vQzudtGXKtpAimH0sEq3JkrOp2KIwLcrf9ZunQ==
+fastify-rate-limit@5.0.1:
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/fastify-rate-limit/-/fastify-rate-limit-5.0.1.tgz#c312c4136c7d79ca97c661ee294acf47d840bcea"
+  integrity sha512-GHnJ0jAlbfckWLgMIdSPt+/C+N6WL53R92l7vjsd87aQR6Ad8CJogvV8ov8Omr4RXcmA4e8d0qr3pDwJC2A4jA==
   dependencies:
     fastify-plugin "^3.0.0"
     ms "^2.1.1"
@@ -4660,10 +4660,10 @@ pkg-up@^3.1.0:
   dependencies:
     find-up "^3.0.0"
 
-point-of-view@4.7.0:
-  version "4.7.0"
-  resolved "https://registry.yarnpkg.com/point-of-view/-/point-of-view-4.7.0.tgz#2220c9355417e73b478595fb7b73558678cacc28"
-  integrity sha512-nXkJOjUjbLzEJHMllxKZboEu6hNXfmU4/VoLMU7qZU5/zBxXjUClSr5fZZWaWFeY5mDNpPHPpa28cub5MzITXQ==
+point-of-view@4.8.0:
+  version "4.8.0"
+  resolved "https://registry.yarnpkg.com/point-of-view/-/point-of-view-4.8.0.tgz#37d14ebe3a39159e756520d24bdd944b3dc3d05d"
+  integrity sha512-/WF9QpILGu9bRBaNfblL+N/9zfSAp8XmlH4BlzMLjGeKJj6Y7HvwctsC36D/0jHneSv2PR5c37RAIJn886ECDQ==
   dependencies:
     fastify-plugin "^3.0.0"
     hashlru "^2.3.0"

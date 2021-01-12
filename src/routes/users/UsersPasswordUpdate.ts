@@ -1,8 +1,8 @@
 import { FastifyInstance } from 'fastify';
 import { isEmpty } from 'ramda';
-import { compare } from 'bcryptjs';
+import { uid } from 'rand-token';
 import User from '../../models/User';
-import { iBody, iToken, validatePassword } from '../../utilities';
+import { iBody, signRefreshToken, validatePassword } from '../../utilities';
 
 export default function (server: FastifyInstance, options, done) {
   server.put(
@@ -50,6 +50,7 @@ export default function (server: FastifyInstance, options, done) {
       }
 
       user.password = password;
+      user.refreshToken = signRefreshToken(uid(8));
       await user.save();
 
       reply.send({ success: true, message: `User '${email}' is updated password successful!` });

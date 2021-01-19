@@ -3,6 +3,7 @@ import { join, resolve } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import { connection, connect } from 'mongoose';
 import camelcaseKeys from 'camelcase-keys';
+import omitEmpty from 'omit-empty';
 import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
@@ -55,6 +56,11 @@ export default class {
       request.body = camelcaseKeys(request.body, { deep: true });
       request.params = camelcaseKeys(request.params);
       request.query = camelcaseKeys(request.query);
+
+      //remove empty properties
+      request.body = omitEmpty(request.body);
+      request.params = omitEmpty(request.params);
+      request.query = omitEmpty(request.query);
       done();
     });
   }

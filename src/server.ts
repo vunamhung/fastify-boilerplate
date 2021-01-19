@@ -2,6 +2,7 @@ import { Server, IncomingMessage, ServerResponse } from 'http';
 import { join, resolve } from 'path';
 import { fastify, FastifyInstance } from 'fastify';
 import { connection, connect } from 'mongoose';
+import camelcaseKeys from 'camelcase-keys';
 import ejs from 'ejs';
 
 import mailgun from './services/mailgun';
@@ -20,6 +21,7 @@ export default class {
     });
 
     this.initDb().catch((err) => this.server.log.error({ actor: 'MongoDB' }, err));
+    this.registerHooks();
     this.registerPlugins();
     this.registerRoutes();
   }
@@ -45,6 +47,15 @@ export default class {
       keepAlive: true,
       useCreateIndex: true,
       useFindAndModify: false,
+    });
+  }
+
+  private registerHooks() {
+    this.server.addHook('onRequest', (request, reply, done) => {
+      request.body = camelcaseKeys(request.body, { deep: true });
+      request.params = camelcaseKeys(request.params);
+      request.query = camelcaseKeys(request.query);
+      done();
     });
   }
 

@@ -45,6 +45,8 @@
     "mongoose": "5.11.11",
     "mongoose-bcrypt": "^1.9.0",
     "mongoose-deep-populate": "^3.2.0",
+    "mongoose-delete": "^0.5.3",
+    "mongoose-paginate": "^5.0.3",
     "mongoose-slug-generator": "^1.0.4",
     "omit-empty": "^1.0.0",
     "password-validator": "^5.1.1",

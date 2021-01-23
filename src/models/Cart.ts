@@ -33,7 +33,7 @@ export interface iCartModel extends Document {
   calculateTotal(): Function;
 }
 
-const cartSchema = new Schema<iCartModel>(
+const schema = new Schema<iCartModel>(
   {
     products: [
       {
@@ -124,11 +124,13 @@ const cartSchema = new Schema<iCartModel>(
   },
 );
 
-cartSchema.methods.calculateTotal = function () {
+schema.methods.calculateTotal = function () {
   return this.products.reduce((acc, el) => {
     acc += el.product?.price * el.quantity;
     return acc;
   }, 0);
 };
 
-export default model<iCartModel>('Cart', cartSchema);
+schema.plugin(require('mongoose-paginate'));
+
+export default model<iCartModel>('Cart', schema);

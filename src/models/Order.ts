@@ -7,7 +7,7 @@ export interface iOrderModel extends Document {
 
 const { Number, String, ObjectId } = Schema.Types;
 
-const orderSchema = new Schema<iOrderModel>(
+const schema = new Schema<iOrderModel>(
   {
     cart: {
       products: [
@@ -114,4 +114,6 @@ const orderSchema = new Schema<iOrderModel>(
   },
 );
 
-export default model<iOrderModel>('Order', orderSchema);
+schema.plugin(require('mongoose-paginate'));
+
+export default model<iOrderModel>('Order', schema);

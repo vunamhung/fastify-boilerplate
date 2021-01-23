@@ -114,5 +114,7 @@ const schema = new Schema<iUserModel>(
 );
 
 schema.plugin(require('mongoose-bcrypt'));
+schema.plugin(require('mongoose-paginate'));
+schema.plugin(require('mongoose-delete'), { deletedAt: true, deletedBy: true });
 
 export default model<iUserModel>('User', schema);

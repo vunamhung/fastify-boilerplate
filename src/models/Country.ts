@@ -29,7 +29,7 @@ interface iCountryModel extends Document {
 
 const { String, Array, Number } = Schema.Types;
 
-const countrySchema = new Schema<iCountryModel>(
+const schema = new Schema<iCountryModel>(
   {
     name: {
       type: String,
@@ -64,4 +64,6 @@ const countrySchema = new Schema<iCountryModel>(
   },
 );
 
-export default model<iCountryModel>('Country', countrySchema);
+schema.plugin(require('mongoose-paginate'));
+
+export default model<iCountryModel>('Country', schema);

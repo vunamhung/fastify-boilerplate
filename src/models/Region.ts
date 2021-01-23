@@ -8,7 +8,7 @@ interface iRegionModel extends Document {
 
 const { String, Array } = Schema.Types;
 
-const countrySchema = new Schema<iRegionModel>(
+const schema = new Schema<iRegionModel>(
   {
     countryName: String,
     countryShortCode: String,
@@ -19,4 +19,6 @@ const countrySchema = new Schema<iRegionModel>(
   },
 );
 
-export default model<iRegionModel>('Region', countrySchema);
+schema.plugin(require('mongoose-paginate'));
+
+export default model<iRegionModel>('Region', schema);

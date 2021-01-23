@@ -13,7 +13,7 @@ interface iFileModel extends Document {
 
 const { String } = Schema.Types;
 
-const optionSchema = new Schema<iFileModel>(
+const schema = new Schema<iFileModel>(
   {
     fieldname: String,
     originalname: String,
@@ -29,4 +29,6 @@ const optionSchema = new Schema<iFileModel>(
   },
 );
 
-export default model<iFileModel>('File', optionSchema);
+schema.plugin(require('mongoose-paginate'));
+
+export default model<iFileModel>('File', schema);

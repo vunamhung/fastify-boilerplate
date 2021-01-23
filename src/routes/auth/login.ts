@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify';
 import { uid } from 'rand-token';
-import { compare } from 'bcryptjs';
 import validator from 'validator';
 import User from '../../models/User';
 import { iBody, signRefreshToken } from '../../utilities';
@@ -45,7 +44,7 @@ export default function (server: FastifyInstance, options, done) {
         if (user.banned) reply.notAcceptable('You banned!');
 
         // compare password with db user password
-        const isMatch = await compare(password, user.password);
+        const isMatch = await user.verifyPassword(password);
         if (!isMatch) reply.badRequest('Invalid Credentials.');
 
         const refreshTokenId = uid(8);

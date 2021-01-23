@@ -1,6 +1,6 @@
 version: '3'
 services:
-  my-project-ts:
+  fastify-server:
     build: .
     depends_on:
       - mongodb
@@ -9,7 +9,7 @@ services:
     environment:
       - NODE_ENV=production
   mongodb:
-    image: mongo:3.6.0
+    image: mongo
     ports:
     - "27017:27017"
     volumes:

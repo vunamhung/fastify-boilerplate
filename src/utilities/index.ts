@@ -1,4 +1,3 @@
-import { genSalt, hash } from 'bcryptjs';
 import { Types } from 'mongoose';
 import { isEmpty } from 'ramda';
 import { sign, verify } from 'jsonwebtoken';
@@ -38,11 +37,6 @@ export async function validatePassword(password): Promise<string[]> {
   }
 
   return message;
-}
-
-export async function hashPassword(password): Promise<string> {
-  const salt = await genSalt();
-  return await hash(password, salt);
 }
 
 export function isObjectId(id) {

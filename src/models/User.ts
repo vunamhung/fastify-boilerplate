@@ -1,5 +1,4 @@
 import { Document, model, Schema } from 'mongoose';
-import { hashPassword } from '../utilities';
 
 const { String, Boolean, Array, Number, ObjectId } = Schema.Types;
 
@@ -30,9 +29,10 @@ export interface iUserModel extends Document {
   wishlistProducts?: Array<string>;
   banned?: boolean;
   verified?: boolean;
+  verifyPassword(password: string): Function;
 }
 
-const userSchema = new Schema<iUserModel>(
+const schema = new Schema<iUserModel>(
   {
     email: {
       type: String,
@@ -41,8 +41,9 @@ const userSchema = new Schema<iUserModel>(
     },
     password: {
       type: String,
-      minlength: [6, 'Too short, min is 6 characters'],
-      required: 'Password is required',
+      required: true,
+      bcrypt: true,
+      rounds: 8,
     },
     role: {
       type: Array,
@@ -112,23 +113,6 @@ const userSchema = new Schema<iUserModel>(
   },
 );
 
-userSchema.pre('save', async function (next) {
-  if (this.isModified('password')) {
-    // @ts-ignore
-    this.password = await hashPassword(this.password);
-  }
-  next();
-});
+schema.plugin(require('mongoose-bcrypt'));
 
-userSchema.pre('findOneAndUpdate', async function (next) {
-  // @ts-ignore
-  if (this._update.password) {
-    // @ts-ignore
-    this._update.password = await hashPassword(this._update.password);
-  }
-
-  // @ts-ignore
-  next();
-});
-
-export default model<iUserModel>('User', userSchema);
+export default model<iUserModel>('User', schema);

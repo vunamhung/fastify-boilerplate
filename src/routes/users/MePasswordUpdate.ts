@@ -1,6 +1,5 @@
 import { FastifyInstance } from 'fastify';
 import { isEmpty } from 'ramda';
-import { compare } from 'bcryptjs';
 import { uid } from 'rand-token';
 import User from '../../models/User';
 import { iBody, iToken, signRefreshToken, validatePassword } from '../../utilities';
@@ -43,7 +42,7 @@ export default function (server: FastifyInstance, options, done) {
       const me = await User.findById(id);
 
       // compare password with db user password
-      const isMatch = await compare(oldPassword, me.password);
+      const isMatch = await me.verifyPassword(oldPassword);
       if (!isMatch) reply.badRequest('Invalid Credentials.');
       if (oldPassword === newPassword) reply.badRequest('New password must have not same as old one!');
 

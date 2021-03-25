@@ -102,7 +102,6 @@ export default class {
     });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
-    this.server.register(import('fastify-qs'), { disabled: false });
     this.server.register(import('fastify-static'), { root: join(__dirname, '../public'), prefix: '/public/' });
     this.server.register(import('point-of-view'), {
       engine: { ejs },

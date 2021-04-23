@@ -83,7 +83,7 @@ export default class {
         directives: {
           defaultSrc: ["'self'"], // default source is mandatory
           imgSrc: ["'self'", 'data:', 'validator.swagger.io'],
-          scriptSrc: ["'self'", "'sha256-iV83EgAQc1+Q++O7L1ZemfWFbYYPNv2syB2HreE5S/8='"],
+          scriptSrc: ["'self'", "'sha256-2yQBTLGLI1sDcBILfj/o6b5ufMv6CEwPYOk3RZI/WjE='"],
           styleSrc: ["'self'", "'unsafe-inline'"],
         },
       },

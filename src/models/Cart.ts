@@ -126,6 +126,7 @@ const schema = new Schema<iCartModel>(
 
 schema.methods.calculateTotal = function () {
   return this.products.reduce((acc, el) => {
+    // @ts-ignore
     acc += el.product?.price * el.quantity;
     return acc;
   }, 0);

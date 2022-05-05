@@ -76,7 +76,7 @@ export default class {
     this.server.register(document);
     this.server.register(uploader);
 
-    this.server.register(import('fastify-cookie'));
+    this.server.register(import('@fastify/cookie'));
     this.server.register(import('under-pressure'), { maxEventLoopDelay: 1000, message: 'Under pressure!', retryAfter: 50 });
     this.server.register(import('fastify-helmet'), {
       contentSecurityPolicy: {
@@ -88,21 +88,27 @@ export default class {
         },
       },
     });
-    this.server.register(import('fastify-sensible'));
+    this.server.register(import('@fastify/sensible'));
     this.server.register(import('fastify-guard'), {
       errorHandler: (result, req, reply) => reply.forbidden('You are not allowed to make this request.'),
     });
     this.server.register(import('fastify-compress'));
-    this.server.register(import('fastify-rate-limit'), { max: 100, timeWindow: MINUTE_IN_SECONDS, cache: 10000 });
-    this.server.register(import('fastify-response-caching'), { ttl: 2000 });
+    this.server.register(import('@fastify/rate-limit'), {
+      max: 100,
+      timeWindow: MINUTE_IN_SECONDS,
+      cache: 10000,
+    });
     this.server.register(import('fastify-prettier'));
-    this.server.register(import('fastify-cors'), {
+    this.server.register(import('@fastify/cors'), {
       origin: ['http://localhost:3001'],
       credentials: true,
     });
     this.server.register(import('fastify-blipp'));
     this.server.register(import('fastify-no-icon'));
-    this.server.register(import('fastify-static'), { root: join(__dirname, '../public'), prefix: '/public/' });
+    this.server.register(import('fastify-static'), {
+      root: join(__dirname, '../public'),
+      prefix: '/public/',
+    });
     this.server.register(import('point-of-view'), {
       engine: { ejs },
       templates: join(__dirname, '../templates'),
@@ -112,7 +118,7 @@ export default class {
   }
 
   private registerRoutes() {
-    this.server.register(import('fastify-autoload'), {
+    this.server.register(import('@fastify/autoload'), {
       dir: join(__dirname, 'routes'),
     });
   }

@@ -1,19 +1,17 @@
+import type { preValidationHookHandler } from 'fastify';
+import { containsAny, env, isNilOrEmpty } from '~/utilities';
 import fp from 'fastify-plugin';
-import { preValidationHookHandler } from 'fastify';
-import { containsAny, isNilOrEmpty } from '../utilities';
 
-export default fp((fastify, options, done) => {
-  const guard = (permissions) => async (request, reply) => {
-    await request.jwtVerify();
+export default fp((fastify, _, done) => {
+  fastify.decorate('guard', function (permissions) {
+    return async (request, reply) => {
+      await request.jwtVerify();
+      const allow = containsAny(request.user.permissions, permissions);
 
-    if (request.user.permissions.includes('root') || isNilOrEmpty(permissions) || process.env.DEV_ENV === 'true') return true;
-
-    if (!containsAny(request.user.permissions, permissions)) {
-      reply.forbidden('You are not allowed access here.');
-    }
-  };
-
-  fastify.decorate('guard', guard);
+      if (!allow) return reply.forbidden('You are not allowed access here.');
+      if (isNilOrEmpty(permissions) || env.isDev || request.user.permissions.includes('root') || allow) return true;
+    };
+  });
 
   done();
 });

@@ -2,7 +2,9 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 declare module '@fastify/jwt' {
   interface FastifyJWT {
-    payload: { id?: string }; // payload type is used for signing and verifying
+    payload: {
+      permissions?: string[];
+    };
   }
 }
 

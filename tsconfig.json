@@ -9,7 +9,11 @@
     "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "~/*": ["./src/*"],
+      "~/models/*": ["./src/plugins/models/*"]
+    }
   },
   "include": ["./src/**/*.ts"],
   "exclude": ["node_modules", "__tests__/*.ts"]

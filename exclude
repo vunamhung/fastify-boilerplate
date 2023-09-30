@@ -1,13 +1,11 @@
 .DS_Store
-node_modules
 __tests__
 .idea
 .git
-docker*
-Dockerfile
 jest.config.js
 LICENSE
-.env.local
+.env*
+node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

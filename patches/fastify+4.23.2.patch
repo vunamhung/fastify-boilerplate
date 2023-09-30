@@ -1,0 +1,21 @@
+diff --git a/node_modules/fastify/types/type-provider.d.ts b/node_modules/fastify/types/type-provider.d.ts
+index 04447e8..4f13470 100644
+--- a/node_modules/fastify/types/type-provider.d.ts
++++ b/node_modules/fastify/types/type-provider.d.ts
+@@ -1,6 +1,7 @@
+ import { RouteGenericInterface } from './route'
+ import { FastifySchema } from './schema'
+ import { RecordKeysToLowercase } from './utils'
++import type { z, ZodTypeAny } from 'zod';
+ 
+ // -----------------------------------------------------------------------------------------------
+ // TypeProvider
+@@ -8,7 +9,7 @@ import { RecordKeysToLowercase } from './utils'
+ 
+ export interface FastifyTypeProvider {
+   readonly input: unknown,
+-  readonly output: unknown,
++  readonly output: this['input'] extends ZodTypeAny ? z.infer<this['input']> : never;
+ }
+ 
+ // eslint-disable-next-line @typescript-eslint/no-empty-interface

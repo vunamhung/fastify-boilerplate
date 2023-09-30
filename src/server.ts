@@ -1,4 +1,3 @@
-import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { join } from 'path';
 import Fastify from 'fastify';
 import autoload from '@fastify/autoload';
@@ -16,7 +15,7 @@ export const app = Fastify({
     customOptions: { removeAdditional: 'all' },
     plugins: [ajvKeywords],
   },
-}).withTypeProvider<ZodTypeProvider>();
+});
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);

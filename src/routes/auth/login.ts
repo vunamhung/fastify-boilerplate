@@ -1,7 +1,7 @@
-import type { ZFastify } from '~/@types';
+import type { FastifyInstance } from 'fastify';
 import { z } from 'zod';
 
-export default function (fastify: ZFastify, _: any, done: () => void) {
+export default function (fastify: FastifyInstance, _: any, done: () => void) {
   fastify.route({
     method: 'POST',
     url: '/login',

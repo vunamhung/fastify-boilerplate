@@ -24,7 +24,12 @@ app.setSerializerCompiler(serializerCompiler);
 app.register(import('@fastify/swagger'), {
   openapi: {
     info: { title: 'Fastify', description: 'Fastify api', version: '1.0.0' },
-    servers: [{ url: 'http://127.0.0.1:3000', description: 'localhost' }],
+    servers: [
+      {
+        url: 'http://127.0.0.1:3000',
+        description: 'localhost',
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: { type: 'http', scheme: 'bearer', bearerFormat: 'JWT' },
@@ -33,7 +38,9 @@ app.register(import('@fastify/swagger'), {
   },
   transform: jsonSchemaTransform,
 });
-app.register(import('@fastify/swagger-ui'), { routePrefix: '/doc' });
+app.register(import('@fastify/swagger-ui'), {
+  routePrefix: '/doc',
+});
 app.register(import('@fastify/under-pressure'), {
   maxEventLoopDelay: 1000,
   message: 'Under pressure!',
@@ -41,7 +48,10 @@ app.register(import('@fastify/under-pressure'), {
 });
 app.register(import('@fastify/cookie'));
 app.register(import('@fastify/helmet'));
-app.register(import('@fastify/cors'), { origin: env.CORS_ORIGIN.split(','), credentials: true });
+app.register(import('@fastify/cors'), {
+  origin: env.CORS_ORIGIN.split(','),
+  credentials: true,
+});
 app.register(import('@fastify/sensible'));
 app.register(import('@fastify/jwt'), {
   secret: env.ACCESS_TOKEN_SECRET,

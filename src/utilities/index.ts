@@ -1,2 +1,11 @@
+import { env } from '~/utilities/env';
+
 export * from './env';
-export { containsAny, containsAll, isNilOrEmpty, between, groupByProp, groupByPath } from 'ramda-extension';
+export * from './ramda-extension';
+
+export const cookieOptions = {
+  path: '/',
+  secure: !env.isDev, // send cookie over HTTPS only
+  httpOnly: true,
+  sameSite: true, // alternative CSRF protection
+};

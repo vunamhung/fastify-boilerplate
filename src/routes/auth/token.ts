@@ -1,8 +1,7 @@
 import type { FastifyInstance } from 'fastify';
-import type { iToken } from './users';
 import validator from 'validator';
 
-export default function (fastify: FastifyInstance, options, done) {
+export default function (fastify: FastifyInstance, _, done) {
   fastify.get(
     '/token',
     {
@@ -17,23 +16,23 @@ export default function (fastify: FastifyInstance, options, done) {
 
       if (!validator.isJWT(accessToken)) return reply.badRequest('Wrong token format.');
 
-      const decoded: iToken = this.jwt.decode(accessToken);
+      const decoded = fastify.jwt.decode(accessToken) as iToken;
 
       if (!decoded) return reply.badRequest('Wrong token format!');
       if (!decoded?.auth) return reply.badRequest('Wrong token auth!');
 
-      const user = await this.user.get({ id: decoded.id });
+      const user = await fastify.user.get({ id: decoded.id });
 
       if (!user?.refreshToken) return reply.notAcceptable('Token expired.');
 
-      const { jti } = this.jwt.decode(user.refreshToken);
+      const { jti } = fastify.jwt.decode(user.refreshToken) as iRefreshToken;
 
       if (decoded.auth !== jti) return reply.notAcceptable('Token expired!');
 
-      const { id, email, fullName, permissions, verified, store } = user;
+      const { id, email, fullName, permissions } = user;
 
-      const payload = { id, email, fullName, permissions, verified, store, auth: decoded.auth };
-      const token = await reply.jwtSign(payload, { expiresIn: '10m', jwtid: this.nano.id(6) });
+      const payload = { id, email, fullName, permissions, auth: decoded.auth };
+      const token = await reply.jwtSign(payload, { expiresIn: '10m', jti: fastify.nano.id(6) });
 
       reply.send({ success: true, token });
     },

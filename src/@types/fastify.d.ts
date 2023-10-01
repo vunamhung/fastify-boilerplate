@@ -6,6 +6,8 @@ declare module '@fastify/jwt' {
       id?: string;
       permissions?: string[];
       auth?: string;
+      email?: string;
+      fullName?: string;
     };
   }
 }

@@ -1,4 +1,4 @@
-export default {
+export const permissions = {
   property: { write: 'property:write', read: 'property:read' },
   article: { write: 'article:write', read: 'article:read' },
   option: { write: 'option:write', read: 'option:read' },

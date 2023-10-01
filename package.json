@@ -23,6 +23,7 @@
     "@fastify/under-pressure": "8.3.0",
     "ajv-keywords": "5.1.0",
     "axios": "1.5.1",
+    "bcryptjs": "^2.4.3",
     "dotenv-flow": "4.0.0",
     "envalid": "8.0.0",
     "fastify": "4.23.2",

@@ -16,6 +16,7 @@ export default function (fastify: FastifyInstance, _, done) {
         email: z.string().email(),
         password: z.string().min(8).max(32),
         fullName: z.string(),
+        permissions: z.string().array(),
         verified: z.boolean().default(true),
       }),
     },

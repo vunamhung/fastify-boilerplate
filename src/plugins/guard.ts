@@ -1,4 +1,4 @@
-import type { FastifyReply, FastifyRequest, preValidationHookHandler } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import { containsAny, env } from '~/utilities';
 import fp from 'fastify-plugin';
 import { isNilOrEmpty } from 'ramda-adjunct';

@@ -9,6 +9,8 @@ export default function (fastify: FastifyInstance, _, done) {
     url: '/',
     preValidation: fastify.guard([permissions.user.write]),
     schema: {
+      tags: ['users'],
+      security: [{ bearerAuth: [] }],
       body: z.object({
         id: z.string().max(32).toLowerCase(),
         email: z.string().email(),

@@ -7,7 +7,7 @@
     "start": "node ./dist/index.js",
     "prebuild": "rimraf dist",
     "build": "etsc && tsc-alias",
-    "dev": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register ./src/index.ts",
+    "dev": "tsx watch ./src/index.ts",
     "predeploy": "npm run build",
     "deploy": "rsync -avzhe ssh --delete -L --exclude-from=exclude ./ fastify:/root/api/"
   },
@@ -48,9 +48,8 @@
     "fastify-type-provider-zod": "^1.1.9",
     "prettier": "3.0.3",
     "rimraf": "5.0.5",
-    "ts-node-dev": "2.0.0",
     "tsc-alias": "1.8.8",
-    "tsconfig-paths": "4.2.0",
+    "tsx": "^3.13.0",
     "typescript": "5.2.2"
   }
 }

@@ -1,14 +1,17 @@
+import type { RedisClientType } from 'redis';
+import { env } from '~/utilities';
 import fp from 'fastify-plugin';
-import type { FastifyInstance } from 'fastify';
-import { Redis } from 'redis-modules-sdk';
+import { createClient } from 'redis';
 
-export default fp((fastify: FastifyInstance, options, done) => {
-  const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
-  const redis = new Redis({ host: REDIS_HOST, port: REDIS_PORT, password: REDIS_PASSWORD }, { showDebugLogs: false, returnRawResponse: true });
-  fastify.decorate('redis', redis);
+export default fp((fastify, _, done) => {
+  const client = createClient({ url: env.REDIS_URL }).on('error', (err) => {
+    console.log('Redis Client Error', err);
+  }) as RedisClientType;
 
-  fastify.addHook('onClose', async ({ redis }, done) => {
-    await redis.disconnect();
+  fastify.decorate('redis', client);
+
+  fastify.addHook('onClose', ({ redis }, done) => {
+    redis.quit();
     done();
   });
 
@@ -17,6 +20,6 @@ export default fp((fastify: FastifyInstance, options, done) => {
 
 declare module 'fastify' {
   export interface FastifyInstance {
-    redis: Redis;
+    redis: RedisClientType;
   }
 }

@@ -28,7 +28,7 @@
     "fastify": "4.23.2",
     "fastify-axios": "1.2.6",
     "fastify-plugin": "4.5.1",
-    "nanoid": "^3.3.4",
+    "nanoid": "5.0.1",
     "patch-package": "^8.0.0",
     "pino-pretty": "^10.2.0",
     "ramda": "0.29.0",
@@ -50,5 +50,9 @@
     "tsc-alias": "1.8.8",
     "tsx": "^3.13.0",
     "typescript": "5.2.2"
+  },
+  "engines": {
+    "npm": ">=9.8.1",
+    "node": ">=18.18"
   }
 }

@@ -10,6 +10,7 @@ export default function (fastify: FastifyInstance, _, done) {
     preValidation: fastify.guard([permissions.user.write]),
     schema: {
       tags: ['users'],
+      summary: 'Add new user',
       security: [{ bearerAuth: [] }],
       body: z.object({
         id: z.string().max(32).toLowerCase(),

@@ -7,8 +7,8 @@ export default fp((fastify, _, done) => {
 declare module 'fastify' {
   export interface FastifyInstance {
     user: {
-      get(options: { id: string }): Promise<iToken>;
-      set(options: { id: string; data: iToken | string }): Promise<'OK'>;
+      get(options: { id: string }): Promise<iUser>;
+      set(options: { id: string; data: iUser | string }): Promise<'OK'>;
     };
   }
 }

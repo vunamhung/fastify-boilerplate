@@ -1,4 +1,4 @@
-interface iToken {
+interface iUser {
   id: string;
   password: string;
   email: string;
@@ -6,8 +6,4 @@ interface iToken {
   permissions: string[];
   auth: string;
   refreshToken: string;
-}
-
-interface iRefreshToken {
-  jti: string;
 }

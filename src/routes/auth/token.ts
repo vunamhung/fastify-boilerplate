@@ -30,8 +30,10 @@ export default function (fastify: FastifyInstance, _, done) {
 
       const { id, email, fullName, permissions } = user;
 
-      const payload = { id, email, fullName, permissions, auth: decodedAccessToken.auth };
-      const token = await reply.jwtSign(payload, { expiresIn: '10m', jti: fastify.nano.id(6) });
+      const token = await reply.jwtSign(
+        { id, email, fullName, permissions, auth: decodedAccessToken.auth },
+        { expiresIn: '10m', jti: fastify.nano.id(6) },
+      );
 
       reply.send({ success: true, token });
     },

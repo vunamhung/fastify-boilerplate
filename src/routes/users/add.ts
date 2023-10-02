@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply } from 'fastify';
 import { permissions } from '~/utilities';
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { z } from 'zod';
@@ -9,7 +9,7 @@ export default function (fastify: FastifyInstance, _, done) {
     url: '/',
     preValidation: fastify.guard([permissions.user.write]),
     schema,
-    handler: async ({ body }, reply) => {
+    handler: async ({ body }, reply: FastifyReply) => {
       const { id, password = fastify.nano.id(12), verified } = body;
 
       let existUser = await fastify.user.get({ id });

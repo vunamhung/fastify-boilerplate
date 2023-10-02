@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply } from 'fastify';
 import { permissions } from '~/utilities';
 import { z } from 'zod';
 
@@ -8,7 +8,7 @@ export default function (fastify: FastifyInstance, _, done) {
     url: '/',
     preValidation: fastify.guard([permissions.user.read]),
     schema,
-    handler: async ({ query: { keyword, page, limit } }, reply) => {
+    handler: async ({ query: { keyword, page, limit } }, reply: FastifyReply) => {
       const users = await fastify.user.search({ query: keyword || '*', options: { LIMIT: { from: page, size: limit } } });
 
       reply.send(users);

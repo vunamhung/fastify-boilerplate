@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply } from 'fastify';
 import { cookieOptions, env } from '~/utilities';
 import { compareSync } from 'bcryptjs';
 import { z } from 'zod';
@@ -8,7 +8,7 @@ export default function (fastify: FastifyInstance, _, done) {
     method: 'POST',
     url: '/login',
     schema,
-    handler: async ({ body: { id, password } }, reply) => {
+    handler: async ({ body: { id, password } }, reply: FastifyReply) => {
       let user = await fastify.user.get({ id });
       if (!user) return reply.badRequest('Invalid Credentials');
 
@@ -23,7 +23,7 @@ export default function (fastify: FastifyInstance, _, done) {
       const token = await reply.jwtSign(payload, { expiresIn: env.isDev ? '60d' : '10m', jti: fastify.nano.id(6) });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });
-      await fastify.user.set({ id, data: refreshToken, path: '$.refreshToken' });
+      await fastify.user.set({ id, path: '$.refreshToken', data: refreshToken });
     },
   });
 

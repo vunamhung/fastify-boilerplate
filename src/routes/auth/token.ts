@@ -1,4 +1,4 @@
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply } from 'fastify';
 import validator from 'validator';
 
 export default function (fastify: FastifyInstance, _, done) {
@@ -10,7 +10,7 @@ export default function (fastify: FastifyInstance, _, done) {
       description: 'Generate access token',
       summary: 'Generate access token',
     },
-    handler: async function ({ cookies, headers: { authorization } }, reply) {
+    handler: async function ({ cookies, headers: { authorization } }, reply: FastifyReply) {
       const accessToken = authorization?.split(' ')[1] ?? cookies?.token;
 
       if (!validator.isJWT(accessToken)) return reply.badRequest('Wrong token format.');

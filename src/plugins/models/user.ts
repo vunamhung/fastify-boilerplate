@@ -1,3 +1,4 @@
+import type { SearchOptions } from 'redis';
 import { model } from '~/models/helper';
 import fp from 'fastify-plugin';
 
@@ -11,6 +12,7 @@ declare module 'fastify' {
     user: {
       get(options: { id: string; path?: string }): Promise<iUser>;
       set(options: { id: string; data: any; path?: string; timestamp?: boolean }): Promise<'OK'>;
+      search(options: { query: string; parameters?: SearchOptions }): Promise<iSearch<iUser>>;
     };
   }
 }

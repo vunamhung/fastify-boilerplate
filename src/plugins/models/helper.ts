@@ -1,4 +1,5 @@
 import { app } from '~/server';
+import { SearchOptions } from 'redis';
 import slugify from 'slugify';
 
 export function model<T>(prefix: string) {
@@ -26,7 +27,10 @@ export function model<T>(prefix: string) {
 
   const get: Get<T> = async ({ id, path = '.' }) => redis.json.get(key(id), { path, NOESCAPE: true }) as T;
 
-  return { set, get };
+  const search: Search<T> = async ({ query, parameters }) => redis.ft.search(`idx:${prefix}`, query, parameters) as unknown as iSearch<T>;
+
+  return { set, get, search };
 }
 
 type Get<T> = (options: { id: string; path?: string }) => Promise<T>;
+type Search<T> = (options: { query?: string; parameters?: SearchOptions }) => Promise<iSearch<T>>;

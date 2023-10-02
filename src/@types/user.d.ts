@@ -7,3 +7,11 @@ interface iUser {
   auth: string;
   refreshToken: string;
 }
+
+interface iSearch<T> {
+  total: number;
+  documents: {
+    id: string;
+    value: T;
+  }[];
+}

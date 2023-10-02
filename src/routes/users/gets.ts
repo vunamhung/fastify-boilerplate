@@ -9,7 +9,7 @@ export default function (fastify: FastifyInstance, _, done) {
     preValidation: fastify.guard([permissions.user.read]),
     schema,
     handler: async ({ query: { keyword, page, limit } }, reply) => {
-      const users = await fastify.user.search({ query: keyword || '*' });
+      const users = await fastify.user.search({ query: keyword || '*', options: { LIMIT: { from: page, size: limit } } });
 
       reply.send(users);
     },
@@ -22,7 +22,7 @@ const schema = {
   security: [{ bearerAuth: [] }],
   querystring: z.object({
     keyword: z.string().optional(),
-    page: z.number().default(1),
-    limit: z.number().default(10),
+    page: z.string().default('1'),
+    limit: z.string().default('10'),
   }),
 };

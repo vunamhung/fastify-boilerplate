@@ -13,7 +13,7 @@ declare module 'fastify' {
     user: {
       get(options: { id: string; path?: string }): Promise<iUser>;
       set(options: { id: string; data: any; path?: string; timestamp?: boolean }): Promise<'OK'>;
-      search(options: { query: string; parameters?: SearchOptions }): Promise<iSearch<iUser>>;
+      search(options: { query: string; options?: SearchOptions }): Promise<iSearch<iUser>>;
     };
   }
 }

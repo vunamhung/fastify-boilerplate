@@ -6,22 +6,7 @@ export default function (fastify: FastifyInstance, _, done) {
     method: 'GET',
     url: '/:id',
     preValidation: fastify.guard(['user:read']),
-    schema: {
-      tags: ['users'],
-      summary: 'Get an user info',
-      security: [{ bearerAuth: [] }],
-      params: z.object({
-        id: z.string().max(32).toLowerCase(),
-      }),
-      response: {
-        200: z.object({
-          id: z.string(),
-          email: z.string(),
-          fullName: z.string(),
-          permissions: z.string().array(),
-        }),
-      },
-    },
+    schema,
     handler: async ({ params: { id } }, reply) => {
       const user = await fastify.user.get({ id });
       if (!user) return reply.notFound(`This user '${id}' is not found.`);
@@ -32,3 +17,20 @@ export default function (fastify: FastifyInstance, _, done) {
 
   done();
 }
+
+const schema = {
+  tags: ['users'],
+  summary: 'Get an user info',
+  security: [{ bearerAuth: [] }],
+  params: z.object({
+    id: z.string().max(32).toLowerCase(),
+  }),
+  response: {
+    200: z.object({
+      id: z.string(),
+      email: z.string(),
+      fullName: z.string(),
+      permissions: z.string().array(),
+    }),
+  },
+};

@@ -7,15 +7,7 @@ export default function (fastify: FastifyInstance, _, done) {
   fastify.route({
     method: 'POST',
     url: '/login',
-    schema: {
-      tags: ['auth'],
-      description: 'Authentication endpoint, for all the users, to allow access to protected resources',
-      summary: 'Sign in to access protected resources',
-      body: z.object({
-        id: z.string().max(32).toLowerCase().describe('Some description for username'),
-        password: z.string().max(32).describe('Some description for password'),
-      }),
-    },
+    schema,
     handler: async ({ body: { id, password } }, reply) => {
       let user = await fastify.user.get({ id });
 
@@ -37,3 +29,13 @@ export default function (fastify: FastifyInstance, _, done) {
 
   done();
 }
+
+const schema = {
+  tags: ['auth'],
+  description: 'Authentication endpoint, for all the users, to allow access to protected resources',
+  summary: 'Sign in to access protected resources',
+  body: z.object({
+    id: z.string().max(32).toLowerCase().describe('Some description for username'),
+    password: z.string().max(32).describe('Some description for password'),
+  }),
+};

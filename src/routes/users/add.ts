@@ -8,19 +8,7 @@ export default function (fastify: FastifyInstance, _, done) {
     method: 'POST',
     url: '/',
     preValidation: fastify.guard([permissions.user.write]),
-    schema: {
-      tags: ['users'],
-      summary: 'Add new user',
-      security: [{ bearerAuth: [] }],
-      body: z.object({
-        id: z.string().max(32).toLowerCase(),
-        email: z.string().email(),
-        password: z.string().min(8).max(32),
-        fullName: z.string(),
-        permissions: z.string().array(),
-        verified: z.boolean().default(true),
-      }),
-    },
+    schema,
     handler: async ({ body }, reply) => {
       const { id, password = fastify.nano.id(12), verified } = body;
 
@@ -36,3 +24,17 @@ export default function (fastify: FastifyInstance, _, done) {
   });
   done();
 }
+
+const schema = {
+  tags: ['users'],
+  summary: 'Add new user',
+  security: [{ bearerAuth: [] }],
+  body: z.object({
+    id: z.string().max(32).toLowerCase(),
+    email: z.string().email(),
+    password: z.string().min(8).max(32),
+    fullName: z.string(),
+    permissions: z.string().array(),
+    verified: z.boolean().default(true),
+  }),
+};

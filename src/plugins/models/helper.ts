@@ -1,7 +1,7 @@
 import { app } from '~/server';
 import slugify from 'slugify';
 
-export function model(prefix: string) {
+export function model<T>(prefix: string) {
   const { redis } = app;
 
   const key = (rawId: string) => {
@@ -24,7 +24,9 @@ export function model(prefix: string) {
     return redis.json.set(key(id), path, finalData);
   };
 
-  const get = async ({ id, path = '.' }) => redis.json.get(key(id), { path, NOESCAPE: true });
+  const get: Get<T> = async ({ id, path = '.' }) => redis.json.get(key(id), { path, NOESCAPE: true }) as T;
 
   return { set, get };
 }
+
+type Get<T> = (options: { id: string; path?: string }) => Promise<T>;

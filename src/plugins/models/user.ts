@@ -2,7 +2,7 @@ import { model } from '~/models/helper';
 import fp from 'fastify-plugin';
 
 export default fp((fastify, _, done) => {
-  fastify.decorate('user', model('user'));
+  fastify.decorate('user', model<iUser>('user'));
   done();
 });
 

@@ -1,4 +1,3 @@
-import type { RedisClientType } from 'redis';
 import { env } from '~/utilities';
 import fp from 'fastify-plugin';
 import { createClient } from 'redis';
@@ -6,7 +5,7 @@ import { createClient } from 'redis';
 export default fp((fastify, _, done) => {
   const client = createClient({ url: env.REDIS_URL }).on('error', (err) => {
     console.log('Redis Client Error', err);
-  }) as RedisClientType;
+  });
 
   fastify.decorate('redis', client);
 
@@ -20,6 +19,6 @@ export default fp((fastify, _, done) => {
 
 declare module 'fastify' {
   export interface FastifyInstance {
-    redis: RedisClientType;
+    redis: ReturnType<typeof createClient>;
   }
 }

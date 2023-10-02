@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify';
 import { cookieOptions, env } from '~/utilities';
-import { compare } from 'bcryptjs';
+import { compareSync } from 'bcryptjs';
 import { z } from 'zod';
 
 export default function (fastify: FastifyInstance, _, done) {
@@ -10,9 +10,9 @@ export default function (fastify: FastifyInstance, _, done) {
     schema,
     handler: async ({ body: { id, password } }, reply) => {
       let user = await fastify.user.get({ id });
-
       if (!user) return reply.badRequest('Invalid Credentials');
-      const isMatch = await compare(password, user.password);
+
+      const isMatch = compareSync(password, user.password);
       if (!isMatch) return reply.badRequest('Invalid Credentials!');
 
       const { email, fullName, permissions } = user;

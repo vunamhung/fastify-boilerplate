@@ -42,6 +42,7 @@
   "devDependencies": {
     "@babel/runtime": "^7.23.1",
     "@ianvs/prettier-plugin-sort-imports": "^4.1.0",
+    "@types/bcryptjs": "^2.4.4",
     "@types/node": "20.8.0",
     "@types/ramda": "0.29.3",
     "@types/validator": "^13.11.2",

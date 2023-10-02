@@ -23,7 +23,7 @@ export default function (fastify: FastifyInstance, _, done) {
       const token = await reply.jwtSign(payload, { expiresIn: env.isDev ? '60d' : '10m', jti: fastify.nano.id(6) });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });
-      await fastify.user.set({ id, data: refreshToken, path: '.refreshToken' });
+      await fastify.user.set({ id, data: refreshToken, path: '$.refreshToken' });
     },
   });
 

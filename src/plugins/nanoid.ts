@@ -1,7 +1,8 @@
+import type { FastifyInstance } from 'fastify';
 import fp from 'fastify-plugin';
 import { customAlphabet } from 'nanoid';
 
-export default fp((fastify, _, done) => {
+export default fp((fastify: FastifyInstance, _, done) => {
   let id = (size = 10) => customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', size)();
   let coupon = (size = 6) => customAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ', size)();
   fastify.decorate('nano', { id, coupon });

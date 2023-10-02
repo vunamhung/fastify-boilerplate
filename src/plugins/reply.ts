@@ -1,7 +1,7 @@
-import type { FastifyReply } from 'fastify';
+import type { FastifyInstance, FastifyReply } from 'fastify';
 import fp from 'fastify-plugin';
 
-export default fp((fastify, _, done) => {
+export default fp((fastify: FastifyInstance, _, done) => {
   fastify.decorateReply('success', function (message) {
     const reply: FastifyReply = this;
     return reply.send({ success: true, message });

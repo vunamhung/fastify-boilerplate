@@ -1,9 +1,9 @@
-import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { containsAny, env } from '~/utilities';
 import fp from 'fastify-plugin';
 import { isNilOrEmpty } from 'ramda-adjunct';
 
-export default fp((fastify, _, done) => {
+export default fp((fastify: FastifyInstance, _, done) => {
   fastify.decorate('guard', (permissions) => async (request: FastifyRequest, reply: FastifyReply) => {
     await request.jwtVerify();
     if (isNilOrEmpty(permissions) || env.isDev) return true;

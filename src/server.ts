@@ -39,6 +39,11 @@ app.register(import('@fastify/under-pressure'), {
 app.register(import('@fastify/cookie'));
 app.register(import('@fastify/helmet'));
 app.register(import('@fastify/websocket'));
+app.register(import('fastify-ip'), {
+  order: ['x-my-ip-header'],
+  strict: false,
+  isAWS: false,
+});
 app.register(import('@fastify/cors'), {
   origin: env.CORS_ORIGIN.split(','),
   credentials: true,

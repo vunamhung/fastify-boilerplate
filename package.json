@@ -29,6 +29,7 @@
     "envalid": "8.0.0",
     "fastify": "^4.24.1",
     "fastify-axios": "1.2.6",
+    "fastify-ip": "^0.2.0",
     "fastify-plugin": "4.5.1",
     "nanoid": "5.0.1",
     "patch-package": "^8.0.0",

@@ -10,3 +10,7 @@ export const cookieOptions = {
   httpOnly: true,
   sameSite: true, // alternative CSRF protection
 };
+
+export function randomDigit(min: number, max: number) {
+  return Math.floor(Math.random() * (max - min) + min);
+}

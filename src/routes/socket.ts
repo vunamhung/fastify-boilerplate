@@ -1,17 +1,18 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { z } from 'zod';
 
 export default function (fastify: FastifyInstance, _, done) {
   fastify.route({
     method: 'GET',
-    url: '/stream',
+    url: '/socket',
     schema: {
-      tags: ['stream'],
-      summary: 'Get an user info',
+      tags: ['socket'],
     },
-    handler: (_, reply: FastifyReply) => {
-      reply.header('Content-Type', 'application/octet-stream');
-      reply.send(new Uint16Array(10));
+    websocket: true,
+    handler: (_, reply: FastifyReply) => {},
+    wsHandler: (connection, request) => {
+      connection.socket.on('message', (message) => {
+        connection.socket.send('Hello Fastify WebSockets');
+      });
     },
   });
 

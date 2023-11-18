@@ -27,11 +27,11 @@ export default function (fastify: FastifyInstance, _, done) {
 
       const { jti } = fastify.jwt.decode<iRefreshToken>(user.refreshToken);
 
-      if (decodedAccessToken.jti !== jti) return reply.notAcceptable('Token expired!');
+      if (!jti || decodedAccessToken.jti !== jti) return reply.notAcceptable('Token expired!');
 
       const { id, email, fullName, permissions } = user;
 
-      const token = await reply.jwtSign({ id, email, fullName, permissions }, { expiresIn: env.isDev ? '60d' : '10m', jti: decodedAccessToken.jti });
+      const token = await reply.jwtSign({ id, email, fullName, permissions }, { expiresIn: env.isDev ? '60d' : '10m', jti });
 
       reply.send({ success: true, token });
     },

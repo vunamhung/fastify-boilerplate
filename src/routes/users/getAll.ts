@@ -15,12 +15,6 @@ export default function (fastify: FastifyInstance, _, done) {
     },
   });
 
-  fastify.route({
-    method: ['HEAD', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    url: '/',
-    handler: (_, reply) => reply.code(405).header('allow', 'GET, POST').send(),
-  });
-
   done();
 }
 

@@ -1,9 +1,9 @@
 import type { RedisClientType, SearchOptions } from 'redis';
-import { app } from '~/server';
+import { server } from '~/server';
 import slugify from 'slugify';
 
 export function model<T>(prefix: string) {
-  const redis: RedisClientType = app.redis;
+  const redis: RedisClientType = server.redis;
 
   const key = (rawId: string) => {
     const id = slugify(rawId.toString(), { strict: true });

@@ -6,7 +6,7 @@ import ajvKeywords from 'ajv-keywords';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import serverHealth from 'server-health';
 
-export const app = Fastify({
+export const server = Fastify({
   ignoreTrailingSlash: true,
   logger: {
     level: 'error',
@@ -18,12 +18,12 @@ export const app = Fastify({
   },
 });
 
-app.setValidatorCompiler(validatorCompiler);
-app.setSerializerCompiler(serializerCompiler);
+server.setValidatorCompiler(validatorCompiler);
+server.setSerializerCompiler(serializerCompiler);
 
-serverHealth.exposeHealthEndpoint(app, '/health', 'fastify');
+serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
 
-app.register(import('@fastify/swagger'), {
+server.register(import('@fastify/swagger'), {
   openapi: {
     info: { title: 'Fastify', description: 'Fastify api', version: '1.0.0' },
     servers: [{ url: 'http://127.0.0.1:3000', description: 'localhost' }],
@@ -33,38 +33,38 @@ app.register(import('@fastify/swagger'), {
   },
   transform: jsonSchemaTransform,
 });
-app.register(import('@fastify/swagger-ui'));
-app.register(import('@fastify/under-pressure'), {
+server.register(import('@fastify/swagger-ui'));
+server.register(import('@fastify/under-pressure'), {
   maxEventLoopDelay: 1000,
   message: 'Under pressure!',
   retryAfter: 50,
 });
-app.register(import('@fastify/cookie'));
-app.register(import('@fastify/helmet'));
-app.register(import('@fastify/websocket'));
-app.register(import('fastify-ip'), {
+server.register(import('@fastify/cookie'));
+server.register(import('@fastify/helmet'));
+server.register(import('@fastify/websocket'));
+server.register(import('fastify-ip'), {
   order: ['x-my-ip-header'],
   strict: false,
   isAWS: false,
 });
-app.register(import('@fastify/cors'), {
+server.register(import('@fastify/cors'), {
   origin: env.CORS_ORIGIN.split(','),
   credentials: true,
 });
-app.register(import('@fastify/sensible'));
-app.register(import('@fastify/jwt'), {
+server.register(import('@fastify/sensible'));
+server.register(import('@fastify/jwt'), {
   secret: env.ACCESS_TOKEN_SECRET,
   cookie: { cookieName: 'token', signed: false },
 });
-app.register(autoload, { dir: join(__dirname, 'plugins'), ignorePattern: /(helper).(ts|js)/ });
-app.register(autoload, { dir: join(__dirname, 'routes'), ignorePattern: /(helper).(ts|js)/ });
+server.register(autoload, { dir: join(__dirname, 'plugins'), ignorePattern: /(helper).(ts|js)/ });
+server.register(autoload, { dir: join(__dirname, 'routes'), ignorePattern: /(helper).(ts|js)/ });
 
-app.listen({ port: env.PORT, host: '127.0.0.1' }, function (err, address) {
+server.listen({ port: env.PORT, host: '127.0.0.1' }, function (err, address) {
   if (err) {
-    app.log.error(err);
+    server.log.error(err);
     process.exit(1);
   }
-  app.redis.connect().then(() => {
+  server.redis.connect().then(() => {
     console.log('Redis connected successfully!');
     serverHealth.addConnectionCheck('db', () => true);
   });

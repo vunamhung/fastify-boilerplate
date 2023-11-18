@@ -29,7 +29,7 @@ const schema = {
   security: [{ bearerAuth: [] }],
   querystring: z.object({
     keyword: z.string().optional(),
-    page: z.string().default('1'),
+    page: z.string().default('0'),
     limit: z.string().default('10'),
   }),
 };

@@ -4,11 +4,11 @@ import fp from 'fastify-plugin';
 import { isNilOrEmpty } from 'ramda-adjunct';
 
 export default fp((fastify: FastifyInstance, _, done) => {
-  fastify.decorate('guard', (permissions) => async ({ jwtVerify, user }: FastifyRequest, reply: FastifyReply) => {
-    await jwtVerify();
+  fastify.decorate('guard', (permissions) => async (request: FastifyRequest, reply: FastifyReply) => {
+    await request.jwtVerify();
     if (isNilOrEmpty(permissions) || env.isDev) return true;
-    const allow = containsAny(user.permissions, permissions);
-    if (allow || user.permissions.includes('root')) return true;
+    const allow = containsAny(request.user.permissions, permissions);
+    if (allow || request.user.permissions.includes('root')) return true;
     return reply.forbidden('You are not allowed access here.');
   });
 

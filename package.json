@@ -37,6 +37,7 @@
     "ramda": "^0.29.1",
     "ramda-adjunct": "4.1.1",
     "redis": "^4.6.10",
+    "server-health": "^5.2.0",
     "slugify": "^1.6.6",
     "validator": "^13.11.0"
   },

@@ -4,6 +4,7 @@ import autoload from '@fastify/autoload';
 import { env } from '~/utilities';
 import ajvKeywords from 'ajv-keywords';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
+import serverHealth from 'server-health';
 
 export const app = Fastify({
   ignoreTrailingSlash: true,
@@ -19,6 +20,8 @@ export const app = Fastify({
 
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
+
+serverHealth.exposeHealthEndpoint(app, '/health', 'fastify');
 
 app.register(import('@fastify/swagger'), {
   openapi: {
@@ -61,6 +64,9 @@ app.listen({ port: env.PORT, host: '127.0.0.1' }, function (err, address) {
     app.log.error(err);
     process.exit(1);
   }
-  app.redis.connect().then(() => console.log('Redis connected successfully!'));
+  app.redis.connect().then(() => {
+    console.log('Redis connected successfully!');
+    serverHealth.addConnectionCheck('db', () => true);
+  });
   console.log(`Server is now listening on ${address}`);
 });

@@ -14,3 +14,8 @@ export const cookieOptions = {
 export function randomDigit(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
+
+export function convertType(value: string) {
+  const maps: { [index: string]: any } = { NaN, null: null, undefined, Infinity, '-Infinity': -Infinity };
+  return value in maps ? maps[value] : value;
+}

@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { env } from '~/utilities';
+import { cookieOptions, env } from '~/utilities';
 import validator from 'validator';
 
 export default function (fastify: FastifyInstance, _, done) {
@@ -33,7 +33,7 @@ export default function (fastify: FastifyInstance, _, done) {
 
       const token = await reply.jwtSign({ id, email, fullName, permissions }, { expiresIn: env.isDev ? '60d' : '10m', jti });
 
-      reply.send({ success: true, token });
+      reply.setCookie('token', token, cookieOptions).send({ success: true, token });
     },
   });
 

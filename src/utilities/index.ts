@@ -2,7 +2,7 @@ import { env } from '~/utilities/env';
 
 export * from './env';
 export * from './permissions';
-export * from './ramda-extension';
+export * from './ramdaExtension';
 
 export const cookieOptions = {
   path: '/',

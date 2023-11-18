@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { cookieOptions, env } from '~/utilities';
 import { compareSync } from 'bcryptjs';
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
 export default function (fastify: FastifyInstance, _, done) {
@@ -17,10 +18,10 @@ export default function (fastify: FastifyInstance, _, done) {
 
       const { email, fullName, permissions } = user;
 
-      const refreshTokenId = fastify.nano.id(5);
+      const refreshTokenId = nanoid(15);
       const refreshToken = await reply.jwtSign({}, { expiresIn: '30d', jti: refreshTokenId });
-      const payload = { id, email, fullName, permissions, auth: refreshTokenId };
-      const token = await reply.jwtSign(payload, { expiresIn: env.isDev ? '60d' : '10m', jti: fastify.nano.id(6) });
+      const payload = { id, email, fullName, permissions };
+      const token = await reply.jwtSign(payload, { expiresIn: env.isDev ? '60d' : '10m', jti: refreshTokenId });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });
       await fastify.user.set({ id, path: '$.refreshToken', data: refreshToken });

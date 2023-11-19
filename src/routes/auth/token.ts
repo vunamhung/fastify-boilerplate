@@ -1,36 +1,26 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { cookieOptions, expiresIn } from '~/utilities';
-import validator from 'validator';
 
 export default function (fastify: FastifyInstance, _, done) {
   fastify.route({
     method: 'GET',
     url: '/token',
+    preValidation: fastify.guard(),
     schema: {
       tags: ['auth'],
       description: 'Generate access token',
       summary: 'Generate access token',
     },
-    handler: async function ({ cookies, headers: { authorization } }, reply: FastifyReply) {
-      const accessToken = authorization?.split(' ')[1] ?? cookies?.token;
+    handler: async function ({ user }, reply: FastifyReply) {
+      const dbUser = await fastify.user.get({ id: user.id });
 
-      if (!validator.isJWT(accessToken)) return reply.badRequest('Wrong token format.');
+      if (!dbUser?.refreshToken) return reply.notAcceptable('Token expired.');
 
-      const decodedAccessToken = fastify.jwt.decode<iUserToken>(accessToken);
+      const { jti } = fastify.jwt.decode<iRefreshToken>(dbUser.refreshToken);
 
-      if (!decodedAccessToken) return reply.badRequest('Wrong token format!');
-      if (!decodedAccessToken?.jti) return reply.badRequest('Wrong token auth!');
+      if (jti !== user.jti) return reply.notAcceptable('Token expired!');
 
-      const user = await fastify.user.get({ id: decodedAccessToken.id });
-
-      if (!user?.refreshToken) return reply.notAcceptable('Token expired.');
-
-      const { jti } = fastify.jwt.decode<iRefreshToken>(user.refreshToken);
-
-      if (!jti || decodedAccessToken.jti !== jti) return reply.notAcceptable('Token expired!');
-
-      const { id, email, fullName, role } = user;
-
+      const { id, email, fullName, role } = dbUser;
       const token = await reply.jwtSign({ id, email, fullName, role }, { expiresIn, jti });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });

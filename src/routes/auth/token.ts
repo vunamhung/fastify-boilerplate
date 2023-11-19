@@ -14,10 +14,11 @@ export default function (fastify: FastifyInstance, _, done) {
     handler: async function ({ user: { id, jti: accessJti } }, reply: FastifyReply) {
       const dbUser = await fastify.user.get({ id });
 
-      if (!dbUser?.refreshToken) return reply.notAcceptable('Token expired.');
+      if (!dbUser?.refreshToken) return reply.notAcceptable('Token expired');
 
-      const { jti } = fastify.jwt.decode<iRefreshToken>(dbUser.refreshToken);
+      const { jti, exp } = fastify.jwt.decode<iRefreshToken>(dbUser.refreshToken);
 
+      if (exp < Date.now() / 1000) return reply.notAcceptable('Token expired.');
       if (jti !== accessJti) return reply.notAcceptable('Token expired!');
 
       const { email, fullName, role } = dbUser;

@@ -8,4 +8,5 @@ interface iUserToken {
 
 interface iRefreshToken {
   jti: string;
+  exp: number;
 }

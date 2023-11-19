@@ -27,7 +27,7 @@ export function model<T>(prefix: string) {
 
   const get: Get<T> = async ({ id, path = '.' }) => (await redis.json.get(key(id), { path, NOESCAPE: true })) as T;
 
-  const search: Search<T> = async ({ query, options }) => (await redis.ft.search(`idx:${prefix}`, query, options)) as iSearch<T>;
+  const search: Search<T> = async ({ query = '*', options }) => (await redis.ft.search(`idx:${prefix}`, query, options)) as iSearch<T>;
 
   return { set, get, search };
 }

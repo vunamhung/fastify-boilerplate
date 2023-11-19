@@ -1,6 +1,7 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
 import { CREATE } from '~/utilities';
 import { genSaltSync, hashSync } from 'bcryptjs';
+import { nanoid } from 'nanoid';
 import { z } from 'zod';
 
 export default function (fastify: FastifyInstance, _, done) {
@@ -10,13 +11,13 @@ export default function (fastify: FastifyInstance, _, done) {
     preValidation: fastify.guard('user', CREATE),
     schema,
     handler: async ({ body }, reply: FastifyReply) => {
-      const { id, password = fastify.nano.id(12), verified } = body;
+      const { id, password = nanoid(12), verified } = body;
 
       let existUser = await fastify.user.get({ id });
       if (existUser) return reply.conflict(`User ID '${id}' already in use.`);
 
       const hashPassword = hashSync(password, genSaltSync(10));
-      const signupToken = !verified && (await reply.jwtSign({}, { expiresIn: '7d', jti: fastify.nano.id(4) }));
+      const signupToken = !verified && (await reply.jwtSign({}, { expiresIn: '7d', jti: nanoid(8) }));
       await fastify.user.set({ id, data: { ...body, password: hashPassword, signupToken }, timestamp: true });
 
       reply.code(201).success('User created.');

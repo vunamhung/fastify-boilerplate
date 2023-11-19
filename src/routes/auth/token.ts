@@ -11,16 +11,16 @@ export default function (fastify: FastifyInstance, _, done) {
       description: 'Generate access token',
       summary: 'Generate access token',
     },
-    handler: async function ({ user }, reply: FastifyReply) {
-      const dbUser = await fastify.user.get({ id: user.id });
+    handler: async function ({ user: { id, jti: accessJti } }, reply: FastifyReply) {
+      const dbUser = await fastify.user.get({ id });
 
       if (!dbUser?.refreshToken) return reply.notAcceptable('Token expired.');
 
       const { jti } = fastify.jwt.decode<iRefreshToken>(dbUser.refreshToken);
 
-      if (jti !== user.jti) return reply.notAcceptable('Token expired!');
+      if (jti !== accessJti) return reply.notAcceptable('Token expired!');
 
-      const { id, email, fullName, role } = dbUser;
+      const { email, fullName, role } = dbUser;
       const token = await reply.jwtSign({ id, email, fullName, role }, { expiresIn, jti });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });

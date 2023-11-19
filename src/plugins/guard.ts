@@ -1,14 +1,10 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { containsAny, env } from '~/utilities';
 import fp from 'fastify-plugin';
-import { isNilOrEmpty } from 'ramda-adjunct';
 
 export default fp((fastify: FastifyInstance, _, done) => {
-  fastify.decorate('guard', (permissions) => async (request: FastifyRequest, reply: FastifyReply) => {
+  fastify.decorate('guard', (resource, operation) => async (request: FastifyRequest, reply: FastifyReply) => {
     await request.jwtVerify();
-    if (isNilOrEmpty(permissions) || env.isDev) return true;
-    const allow = containsAny(request.user.permissions, permissions);
-    if (allow || request.user.permissions.includes('root')) return true;
+    if (fastify.rbac.can(request.user.role, resource, operation)) return true;
     return reply.forbidden('You are not allowed access here.');
   });
 
@@ -17,6 +13,6 @@ export default fp((fastify: FastifyInstance, _, done) => {
 
 declare module 'fastify' {
   export interface FastifyInstance {
-    guard(permissions?: string[]): any;
+    guard(resource: string, operation?: string): any;
   }
 }

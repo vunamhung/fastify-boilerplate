@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { permissions } from '~/utilities';
+import { CREATE } from '~/utilities';
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { z } from 'zod';
 
@@ -7,7 +7,7 @@ export default function (fastify: FastifyInstance, _, done) {
   fastify.route({
     method: 'POST',
     url: '/',
-    preValidation: fastify.guard([permissions.user.write]),
+    preValidation: fastify.guard('user', CREATE),
     schema,
     handler: async ({ body }, reply: FastifyReply) => {
       const { id, password = fastify.nano.id(12), verified } = body;
@@ -34,7 +34,7 @@ const schema = {
     email: z.string().email(),
     password: z.string().min(8).max(32),
     fullName: z.string(),
-    permissions: z.string().array(),
+    role: z.string(),
     verified: z.boolean().default(true),
   }),
 };

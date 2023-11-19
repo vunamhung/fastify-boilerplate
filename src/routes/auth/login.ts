@@ -16,11 +16,11 @@ export default function (fastify: FastifyInstance, _, done) {
       const isMatch = compareSync(password, user.password);
       if (!isMatch) return reply.badRequest('Invalid Credentials!');
 
-      const { email, fullName, permissions } = user;
+      const { email, fullName, role } = user;
 
       const refreshTokenId = nanoid(15);
       const refreshToken = await reply.jwtSign({}, { expiresIn: '30d', jti: refreshTokenId });
-      const payload = { id, email, fullName, permissions };
+      const payload = { id, email, fullName, role };
       const token = await reply.jwtSign(payload, { expiresIn: env.isDev ? '60d' : '10m', jti: refreshTokenId });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });

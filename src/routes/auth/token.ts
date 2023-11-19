@@ -29,9 +29,9 @@ export default function (fastify: FastifyInstance, _, done) {
 
       if (!jti || decodedAccessToken.jti !== jti) return reply.notAcceptable('Token expired!');
 
-      const { id, email, fullName, permissions } = user;
+      const { id, email, fullName, role } = user;
 
-      const token = await reply.jwtSign({ id, email, fullName, permissions }, { expiresIn: env.isDev ? '60d' : '10m', jti });
+      const token = await reply.jwtSign({ id, email, fullName, role }, { expiresIn: env.isDev ? '60d' : '10m', jti });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });
     },

@@ -1,7 +1,7 @@
 import { env } from '~/utilities/env';
 
 export * from './env';
-export * from './permissions';
+export * from './constants';
 export * from './ramdaExtension';
 
 export const cookieOptions = {
@@ -13,6 +13,10 @@ export const cookieOptions = {
 
 export function randomDigit(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
+}
+
+export function getLimit(page: string, size: string) {
+  return { from: (Number(page) - 1) * Number(size), size };
 }
 
 export function convertType(value: string) {

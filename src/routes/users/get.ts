@@ -1,11 +1,12 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
+import { READ } from '~/utilities';
 import { z } from 'zod';
 
 export default function (fastify: FastifyInstance, _, done) {
   fastify.route({
     method: 'GET',
     url: '/:id',
-    preValidation: fastify.guard(['user:read']),
+    preValidation: fastify.guard('user', READ),
     schema,
     handler: async ({ params: { id } }, reply: FastifyReply) => {
       const user = await fastify.user.get({ id });
@@ -30,7 +31,7 @@ const schema = {
       id: z.string(),
       email: z.string(),
       fullName: z.string(),
-      permissions: z.string().array(),
+      role: z.string(),
     }),
   },
 };

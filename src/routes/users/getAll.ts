@@ -1,15 +1,15 @@
 import type { FastifyInstance, FastifyReply } from 'fastify';
-import { permissions } from '~/utilities';
+import { getLimit, READ } from '~/utilities';
 import { z } from 'zod';
 
 export default function (fastify: FastifyInstance, _, done) {
   fastify.route({
     method: 'GET',
     url: '/',
-    preValidation: fastify.guard([permissions.user.read]),
+    preValidation: fastify.guard('user', READ),
     schema,
-    handler: async ({ query: { keyword, page, limit } }, reply: FastifyReply) => {
-      const users = await fastify.user.search({ query: keyword || '*', options: { LIMIT: { from: page, size: limit } } });
+    handler: async ({ query: { keyword, page, size } }, reply: FastifyReply) => {
+      const users = await fastify.user.search({ query: keyword || '*', options: { LIMIT: getLimit(page, size) } });
 
       reply.send(users);
     },
@@ -23,7 +23,7 @@ const schema = {
   security: [{ bearerAuth: [] }],
   querystring: z.object({
     keyword: z.string().optional(),
-    page: z.string().default('0'),
-    limit: z.string().default('10'),
+    page: z.string().default('1'),
+    size: z.string().default('10'),
   }),
 };

@@ -1,0 +1,28 @@
+### Add user
+POST {{host}}/users
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "id": "editor",
+  "email": "user@example.com",
+  "password": "12345678",
+  "fullName": "Hung Vu",
+  "role": "editor",
+  "verified": true
+}
+
+### Get all users
+GET {{host}}/users
+Authorization: Bearer {{accessToken}}
+
+### Login
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "id": "admin",
+  "password": "12345678"
+}
+
+> {% client.global.set("accessToken", response.body.token); %}

@@ -1,7 +1,8 @@
-import type { FastifyInstance, FastifyReply } from 'fastify';
+import type { FastifyReply } from 'fastify';
+import type { ZFastify } from '~/@types';
 import fp from 'fastify-plugin';
 
-export default fp((fastify: FastifyInstance, _, done) => {
+export default fp((fastify: ZFastify, _, done) => {
   fastify.decorateReply('success', function (message) {
     const reply: FastifyReply = this;
     return reply.send({ success: true, message });

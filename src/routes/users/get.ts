@@ -1,8 +1,9 @@
-import type { FastifyInstance, FastifyReply } from 'fastify';
+import type { FastifyReply } from 'fastify';
+import type { ZFastify } from '~/@types';
 import { READ } from '~/utilities';
 import { z } from 'zod';
 
-export default function (fastify: FastifyInstance, _, done) {
+export default function (fastify: ZFastify, _, done) {
   fastify.route({
     method: 'GET',
     url: '/:id',

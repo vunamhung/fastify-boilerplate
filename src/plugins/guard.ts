@@ -1,8 +1,9 @@
-import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import type { ZFastify } from '~/@types';
 import fp from 'fastify-plugin';
 import { isBlank } from 'ramda-adjunct';
 
-export default fp((fastify: FastifyInstance, _, done) => {
+export default fp((fastify: ZFastify, _, done) => {
   fastify.decorate('guard', (resource, operation) => async (request: FastifyRequest, reply: FastifyReply) => {
     await request.jwtVerify();
     if (isBlank(resource)) return true;

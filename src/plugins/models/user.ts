@@ -1,9 +1,9 @@
-import type { FastifyInstance } from 'fastify';
+import type { ZFastify } from '~/@types';
 import type { SearchOptions } from 'redis';
 import { model } from '~/models/helper';
 import fp from 'fastify-plugin';
 
-export default fp((fastify: FastifyInstance, _, done) => {
+export default fp((fastify: ZFastify, _, done) => {
   fastify.decorate('user', model<iUser>('user'));
   done();
 });

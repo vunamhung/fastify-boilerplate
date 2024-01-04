@@ -1,9 +1,9 @@
-import type { FastifyInstance } from 'fastify';
+import type { ZFastify } from '~/@types';
 import { roles } from '~/utilities';
 import RBAC from 'fast-rbac';
 import fp from 'fastify-plugin';
 
-export default fp((fastify: FastifyInstance, _, done) => {
+export default fp((fastify: ZFastify, _, done) => {
   fastify.decorate('rbac', new RBAC({ roles }));
   done();
 });

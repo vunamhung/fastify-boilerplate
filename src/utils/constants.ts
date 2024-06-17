@@ -1,5 +1,7 @@
 import { env } from '.';
 
+export const EXCLUDE_DATA = '-password -refreshToken -signupToken -path -children -deleted';
+
 export const CREATE = 'create';
 export const READ = 'read';
 export const UPDATE = 'update';

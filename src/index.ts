@@ -1,2 +1,2 @@
-require('dotenv-flow').config();
-require('./server');
+import('dotenv-flow/config');
+import('./server');

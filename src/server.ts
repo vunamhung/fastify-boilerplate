@@ -64,9 +64,9 @@ server.listen({ port: env.PORT, host: '127.0.0.1' }, function (err, address) {
     server.log.error(err);
     process.exit(1);
   }
-  server.redis.connect().then(() => {
-    console.log('Redis connected successfully!');
-    serverHealth.addConnectionCheck('db', () => true);
-  });
+  // server.redis.connect().then(() => {
+  //   console.log('Redis connected successfully!');
+  //   serverHealth.addConnectionCheck('db', () => true);
+  // });
   console.log(`Server is now listening on ${address}`);
 });

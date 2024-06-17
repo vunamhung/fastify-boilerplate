@@ -13,10 +13,10 @@ export default function (fastify: ZFastify, _, done) {
     preValidation: fastify.guard('user', CREATE),
     schema,
     handler: async ({ body }, reply: FastifyReply) => {
-      const { _id, password = nanoid(12), verified } = body;
+      const { username, password = nanoid(12), verified } = body;
 
-      let existUser = await User.findById(_id);
-      if (existUser) return reply.badRequest(`ID '${_id}' already exists.`);
+      let existUser = await User.findOne({ username });
+      if (existUser) return reply.badRequest(`User '${username}' already exists.`);
 
       const invalidPasswordMessage = await validatePassword(password);
 
@@ -38,7 +38,7 @@ const schema = {
   summary: 'Add new user',
   security: [{ bearerAuth: [] }],
   body: z.object({
-    _id: z.string().max(32).toLowerCase(),
+    username: z.string().max(32).toLowerCase(),
     email: z.string().email(),
     password: z.string().min(8).max(32).optional(),
     fullName: z.string(),

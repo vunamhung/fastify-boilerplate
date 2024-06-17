@@ -7,12 +7,13 @@ import { z } from 'zod';
 export default function (fastify: ZFastify, _, done) {
   fastify.route({
     method: 'GET',
-    url: '/:id',
+    url: '/:username',
     preValidation: fastify.guard('user', READ),
     schema,
-    handler: async ({ params: { id } }, reply: FastifyReply) => {
-      const user = await User.findById(id);
-      if (!user) return reply.notFound(`This user '${id}' is not found.`);
+    handler: async ({ params: { username } }, reply: FastifyReply) => {
+      console.log(username);
+      const user = await User.findOne({ username });
+      if (!user) return reply.notFound(`This user '${username}' is not found.`);
 
       reply.send(user);
     },
@@ -26,11 +27,11 @@ const schema = {
   summary: 'Get an user info',
   security: [{ bearerAuth: [] }],
   params: z.object({
-    id: z.string().max(32).toLowerCase(),
+    username: z.string().max(32).toLowerCase(),
   }),
   response: {
     200: z.object({
-      id: z.string(),
+      username: z.string(),
       email: z.string(),
       fullName: z.string(),
       role: z.string(),

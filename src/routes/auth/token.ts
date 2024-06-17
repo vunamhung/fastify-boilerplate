@@ -13,8 +13,8 @@ export default function (fastify: ZFastify, _, done) {
       description: 'Generate access token',
       summary: 'Generate access token',
     },
-    handler: async function ({ user: { id, jti: accessJti } }, reply: FastifyReply) {
-      const user = await User.findById(id);
+    handler: async function ({ user: { username, jti: accessJti } }, reply: FastifyReply) {
+      const user = await User.findOne({ username });
 
       if (!user?.refreshToken) return reply.notAcceptable('Token expired');
 
@@ -24,7 +24,7 @@ export default function (fastify: ZFastify, _, done) {
       if (jti !== accessJti) return reply.notAcceptable('Token expired!');
 
       const { email, fullName, role } = user;
-      const token = await reply.jwtSign({ id, email, fullName, role }, { expiresIn, jti });
+      const token = await reply.jwtSign({ username, email, fullName, role }, { expiresIn, jti });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });
     },

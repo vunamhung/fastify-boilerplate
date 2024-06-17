@@ -3,7 +3,7 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 declare module '@fastify/jwt' {
   interface FastifyJWT {
     payload: {
-      id?: string;
+      username?: string;
       email?: string;
       fullName?: string;
       role?: string;

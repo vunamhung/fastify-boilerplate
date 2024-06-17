@@ -1,7 +1,7 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
 import User from '~/models/User';
-import { EXCLUDE_DATA, getLimit, READ } from '~/utils';
+import { READ } from '~/utils';
 import { z } from 'zod';
 
 export default function (fastify: ZFastify, _, done) {

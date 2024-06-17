@@ -1,32 +1,29 @@
 import type { Document } from 'mongoose';
-import mongoose, { model, Schema } from 'mongoose';
-import bcrypt from 'mongoose-bcrypt';
+import { model, PaginateModel, Schema } from 'mongoose';
+import mongooseBcrypt from 'mongoose-bcrypt';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const { String, Boolean } = Schema.Types;
 
-export interface iUserModel extends Document {
-  _id: iUser['id'];
-  email: iUser['email'];
+export interface iUserModel extends Document, iUser {
   password: string;
-  role: iUser['role'];
   refreshToken: string;
   signupToken?: string;
   resetPasswordToken?: string;
-  fullName?: iUser['fullName'];
   about?: string;
-  gender?: iUser['gender'];
   avatar?: string;
   banned?: boolean;
   deleted?: boolean;
-  verified?: iUser['verified'];
   verifyPassword(password: string): Function;
 }
 
 const schema = new Schema<iUserModel>(
   {
-    _id: String,
+    username: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -55,8 +52,8 @@ const schema = new Schema<iUserModel>(
   },
 );
 
-schema.plugin(bcrypt);
+schema.plugin(mongooseBcrypt);
 schema.plugin(mongoosePaginate);
 schema.plugin(mongooseDelete, { deletedAt: true, deletedBy: true });
 
-export default model<iUserModel, mongoose.PaginateModel<iUserModel>>('User', schema);
+export default model<iUserModel, PaginateModel<iUserModel>>('User', schema);

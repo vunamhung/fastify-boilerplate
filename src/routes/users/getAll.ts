@@ -1,7 +1,7 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
 import User from '~/models/User';
-import { READ } from '~/utils';
+import { EXCLUDE_DATA, READ } from '~/utils';
 import { z } from 'zod';
 
 export default function (fastify: ZFastify, _, done) {
@@ -11,7 +11,7 @@ export default function (fastify: ZFastify, _, done) {
     preValidation: fastify.guard('user', READ),
     schema,
     handler: async ({ query: { keyword, page, limit } }, reply: FastifyReply) => {
-      const users = await User.paginate({}, { limit: Number(limit), page: Number(page), lean: true });
+      const users = await User.paginate({}, { projection: EXCLUDE_DATA, limit: Number(limit), page: Number(page), lean: true });
 
       reply.send(users);
     },

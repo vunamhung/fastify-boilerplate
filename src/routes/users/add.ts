@@ -1,7 +1,7 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
+import { CREATE, validatePassword } from '../../utils';
 import User from '~/models/User';
-import { CREATE, validatePassword } from '~/utilities';
 import { nanoid } from 'nanoid';
 import { isBlank } from 'ramda-adjunct';
 import { z } from 'zod';

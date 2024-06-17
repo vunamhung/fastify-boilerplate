@@ -1,11 +1,11 @@
 import { join } from 'path';
 import Fastify from 'fastify';
 import autoload from '@fastify/autoload';
-import { env } from '~/utilities';
 import ajvKeywords from 'ajv-keywords';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import { connect, connection } from 'mongoose';
 import serverHealth from 'server-health';
+import { env } from 'utils';
 
 export const server = Fastify({
   ignoreTrailingSlash: true,

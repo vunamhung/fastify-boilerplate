@@ -41,7 +41,6 @@ server.register(import('@fastify/under-pressure'), {
 });
 server.register(import('@fastify/cookie'));
 server.register(import('@fastify/helmet'));
-server.register(import('@fastify/websocket'));
 server.register(import('fastify-ip'), {
   order: ['x-my-ip-header'],
   strict: false,
@@ -64,9 +63,5 @@ server.listen({ port: env.PORT, host: '127.0.0.1' }, function (err, address) {
     server.log.error(err);
     process.exit(1);
   }
-  // server.redis.connect().then(() => {
-  //   console.log('Redis connected successfully!');
-  //   serverHealth.addConnectionCheck('db', () => true);
-  // });
   console.log(`Server is now listening on ${address}`);
 });

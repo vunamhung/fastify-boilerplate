@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "postinstall": "patch-package",
     "start": "node ./dist/index.js",
     "prebuild": "rimraf dist",
     "build": "etsc && tsc-alias",
@@ -23,7 +22,7 @@
     "@fastify/under-pressure": "^8.5.0",
     "@fastify/websocket": "^10.0.1",
     "ajv-keywords": "5.1.0",
-    "axios": "^1.6.4",
+    "axios": "^1.7.2",
     "bcryptjs": "^2.4.3",
     "dotenv-flow": "^4.1.0",
     "envalid": "8.0.0",
@@ -37,7 +36,6 @@
     "pino-pretty": "^11.2.1",
     "ramda": "^0.30.1",
     "ramda-adjunct": "^5.0.1",
-    "redis": "^4.6.12",
     "server-health": "^5.3.0",
     "slugify": "^1.6.6",
     "validator": "^13.12.0"

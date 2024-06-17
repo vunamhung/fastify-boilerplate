@@ -10,10 +10,8 @@ export default function (fastify: ZFastify, _, done) {
     url: '/',
     preValidation: fastify.guard('user', READ),
     schema,
-    handler: async ({ query: { keyword, page, size } }, reply: FastifyReply) => {
-      const users = await User.find({}, EXCLUDE_DATA)
-        .lean()
-        .catch((err) => reply.send(err));
+    handler: async ({ query: { keyword, page, limit } }, reply: FastifyReply) => {
+      const users = await User.paginate({}, { limit: Number(limit), page: Number(page), lean: true });
 
       reply.send(users);
     },
@@ -28,6 +26,6 @@ const schema = {
   querystring: z.object({
     keyword: z.string().optional(),
     page: z.string().default('1'),
-    size: z.string().default('10'),
+    limit: z.string().default('10'),
   }),
 };

@@ -1,5 +1,8 @@
 import type { Document } from 'mongoose';
-import { model, Schema } from 'mongoose';
+import mongoose, { model, Schema } from 'mongoose';
+import bcrypt from 'mongoose-bcrypt';
+import mongooseDelete from 'mongoose-delete';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
 const { String, Boolean } = Schema.Types;
 
@@ -52,8 +55,8 @@ const schema = new Schema<iUserModel>(
   },
 );
 
-schema.plugin(require('mongoose-bcrypt'));
-schema.plugin(require('mongoose-paginate-v2'));
-schema.plugin(require('mongoose-delete'), { deletedAt: true, deletedBy: true });
+schema.plugin(bcrypt);
+schema.plugin(mongoosePaginate);
+schema.plugin(mongooseDelete, { deletedAt: true, deletedBy: true });
 
-export default model<iUserModel>('User', schema);
+export default model<iUserModel, mongoose.PaginateModel<iUserModel>>('User', schema);

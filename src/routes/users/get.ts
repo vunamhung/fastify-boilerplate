@@ -1,5 +1,6 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
+import User from '~/models/User';
 import { READ } from '~/utils';
 import { z } from 'zod';
 
@@ -10,7 +11,7 @@ export default function (fastify: ZFastify, _, done) {
     preValidation: fastify.guard('user', READ),
     schema,
     handler: async ({ params: { id } }, reply: FastifyReply) => {
-      const user = await fastify.user.get({ id });
+      const user = await User.findById(id);
       if (!user) return reply.notFound(`This user '${id}' is not found.`);
 
       reply.send(user);

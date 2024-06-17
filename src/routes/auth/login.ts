@@ -1,5 +1,6 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
+import User from '~/models/User';
 import { cookieOptions, expiresIn } from '~/utilities';
 import { compareSync } from 'bcryptjs';
 import { nanoid } from 'nanoid';
@@ -11,7 +12,7 @@ export default function (fastify: ZFastify, _, done) {
     url: '/login',
     schema,
     handler: async ({ body: { id, password } }, reply: FastifyReply) => {
-      let user = await fastify.user.get({ id });
+      const user = await User.findById(id);
       if (!user) return reply.badRequest('Invalid Credentials');
 
       const isMatch = compareSync(password, user.password);
@@ -20,12 +21,12 @@ export default function (fastify: ZFastify, _, done) {
       const { email, fullName, role } = user;
 
       const jti = nanoid(15);
-      const refreshToken = await reply.jwtSign({}, { expiresIn: '30d', jti });
+      user.refreshToken = await reply.jwtSign({}, { expiresIn: '30d', jti });
       const token = await reply.jwtSign({ id, email, fullName, role }, { expiresIn, jti });
 
       reply.setCookie('token', token, cookieOptions).send({ success: true, token });
 
-      await fastify.user.set({ id, path: '$.refreshToken', data: refreshToken });
+      await user.save();
     },
   });
 

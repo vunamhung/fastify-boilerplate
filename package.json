@@ -32,6 +32,7 @@
     "fastify-ip": "^1.0.0",
     "fastify-plugin": "4.5.1",
     "mongoose": "^8.4.1",
+    "mongoose-aggregate-paginate-v2": "^1.0.7",
     "mongoose-bcrypt": "^1.11.0",
     "mongoose-delete": "^1.0.2",
     "mongoose-paginate-v2": "^1.8.2",

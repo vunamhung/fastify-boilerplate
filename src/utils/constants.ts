@@ -1,4 +1,4 @@
-import { env } from '';
+import { env } from '.';
 
 export const CREATE = 'create';
 export const READ = 'read';

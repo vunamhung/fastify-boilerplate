@@ -1,6 +1,6 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
-import { READ } from '../../utils';
+import { READ } from '~/utils';
 import { z } from 'zod';
 
 export default function (fastify: ZFastify, _, done) {

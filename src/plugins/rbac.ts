@@ -1,5 +1,5 @@
 import type { ZFastify } from '~/@types';
-import { roles } from '../utils';
+import { roles } from '~/utils';
 import RBAC from 'fast-rbac';
 import fp from 'fastify-plugin';
 

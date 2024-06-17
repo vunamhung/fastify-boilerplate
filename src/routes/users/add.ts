@@ -1,7 +1,7 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
-import { CREATE, validatePassword } from '../../utils';
 import User from '~/models/User';
+import { CREATE, validatePassword } from '~/utils';
 import { nanoid } from 'nanoid';
 import { isBlank } from 'ramda-adjunct';
 import { z } from 'zod';
@@ -20,7 +20,7 @@ export default function (fastify: ZFastify, _, done) {
 
       const invalidPasswordMessage = await validatePassword(password);
 
-      if (!isBlank(invalidPasswordMessage)) return reply.badRequest(invalidPasswordMessage.join(','));
+      if (!isBlank(invalidPasswordMessage)) return reply.badRequest(invalidPasswordMessage);
 
       let newUser = new User({ ...body, password });
       if (!verified) newUser.signupToken = await reply.jwtSign({}, { expiresIn: '7d', jti: nanoid(8) });

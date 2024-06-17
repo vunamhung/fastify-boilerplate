@@ -1,9 +1,9 @@
 import PasswordValidator from 'password-validator';
 import { isArray } from 'ramda-adjunct';
 
-export * from './env';
+export { env } from './env';
 export * from './constants';
-export * from './ramdaExtension';
+export { between, containsAny } from './ramdaExtension';
 
 export function randomDigit(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -18,7 +18,7 @@ export function convertType(value: string) {
   return value in maps ? maps[value] : value;
 }
 
-export async function validatePassword(password: string): Promise<string[]> {
+export async function validatePassword(password: string) {
   const schema = new PasswordValidator();
   // prettier-ignore
   schema
@@ -41,5 +41,5 @@ export async function validatePassword(password: string): Promise<string[]> {
     });
   }
 
-  return message;
+  return message.join(',');
 }

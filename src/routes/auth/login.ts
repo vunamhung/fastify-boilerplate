@@ -1,7 +1,7 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
-import { cookieOptions, expiresIn } from '../../utils';
 import User from '~/models/User';
+import { cookieOptions, expiresIn } from '~/utils';
 import { compareSync } from 'bcryptjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';

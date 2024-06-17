@@ -4,7 +4,7 @@ Authorization: Bearer {{accessToken}}
 Content-Type: application/json
 
 {
-  "id": "editor",
+  "_id": "editor",
   "email": "user@example.com",
   "password": "12345678",
   "fullName": "Hung Vu",

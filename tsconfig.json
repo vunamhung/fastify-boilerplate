@@ -12,7 +12,6 @@
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "~/*": ["./src/*"],
-      "~/models/*": ["./src/plugins/models/*"]
     }
   },
   "include": ["./src/**/*.ts"],

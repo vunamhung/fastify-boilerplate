@@ -9,18 +9,16 @@ export default fp((fastify: ZFastify, _, done) => {
   fastify.decorate('i18n', new Polyglot());
 
   fastify.addHook('preParsing', async (req) => {
-    const { i18n } = fastify;
-
     const acceptLanguage = req.headers['accept-language']?.split(',')[0];
     const lang = acceptLanguage || 'en';
     const messages = { en, vi };
     const languages = keys(messages);
     const currentLang = languages.find((item) => item.startsWith(lang) || lang.startsWith(item));
 
-    i18n.locale(currentLang);
-    i18n.extend(messages[currentLang || 'en']);
+    fastify.i18n.locale(currentLang);
+    fastify.i18n.extend(messages[currentLang || 'en']);
 
-    req.i18n = i18n;
+    req.i18n = fastify.i18n;
   });
 
   done();

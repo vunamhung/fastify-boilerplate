@@ -11,7 +11,6 @@ export default function (fastify: ZFastify, _, done) {
     preValidation: fastify.guard('user', READ),
     schema,
     handler: async ({ params: { username } }, reply: FastifyReply) => {
-      console.log(username);
       const user = await User.findOne({ username });
       if (!user) return reply.notFound(`This user '${username}' is not found.`);
 

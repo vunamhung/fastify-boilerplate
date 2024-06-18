@@ -14,7 +14,7 @@ export default function (fastify: ZFastify, _, done) {
       summary: 'Generate access token',
     },
     handler: async function ({ user: { username, jti: accessJti } }, reply: FastifyReply) {
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ username, removed: false });
 
       if (!user?.refreshToken) return reply.notAcceptable('Token expired');
 

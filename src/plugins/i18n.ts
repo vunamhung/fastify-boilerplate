@@ -8,7 +8,7 @@ import { keys } from 'ramda';
 export default fp((fastify: ZFastify, _, done) => {
   fastify.decorate('i18n', new Polyglot());
 
-  fastify.addHook('preParsing', async (req, reply) => {
+  fastify.addHook('preParsing', async (req) => {
     const { i18n } = fastify;
 
     const acceptLanguage = req.headers['accept-language']?.split(',')[0];

@@ -1,12 +1,13 @@
 import type { Document } from 'mongoose';
 import { model, PaginateModel, Schema } from 'mongoose';
+import mongooseAutopopulate from 'mongoose-autopopulate';
 import mongooseBcrypt from 'mongoose-bcrypt';
 import mongooseDelete from 'mongoose-delete';
 import mongoosePaginate from 'mongoose-paginate-v2';
 
 const { String, Boolean } = Schema.Types;
 
-export interface iUserModel extends Document, iUser {
+export interface iUserDocument extends Document, iUser {
   password: string;
   refreshToken: string;
   signupToken?: string;
@@ -18,11 +19,12 @@ export interface iUserModel extends Document, iUser {
   verifyPassword(password: string): Function;
 }
 
-const schema = new Schema<iUserModel>(
+const schema = new Schema<iUserDocument>(
   {
     username: {
       type: String,
       required: true,
+      index: true,
     },
     email: {
       type: String,
@@ -53,7 +55,8 @@ const schema = new Schema<iUserModel>(
 );
 
 schema.plugin(mongooseBcrypt);
+schema.plugin(mongooseAutopopulate);
 schema.plugin(mongoosePaginate);
 schema.plugin(mongooseDelete, { deletedAt: true, deletedBy: true });
 
-export default model<iUserModel, PaginateModel<iUserModel>>('User', schema);
+export default model<iUserDocument, PaginateModel<iUserDocument>>('User', schema);

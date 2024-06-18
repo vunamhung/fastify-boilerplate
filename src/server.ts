@@ -5,7 +5,6 @@ import { env } from '~/utils';
 import ajvKeywords from 'ajv-keywords';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 import { connect, connection } from 'mongoose';
-import serverHealth from 'server-health';
 
 export const server = Fastify({
   ignoreTrailingSlash: true,
@@ -21,8 +20,6 @@ export const server = Fastify({
 
 server.setValidatorCompiler(validatorCompiler);
 server.setSerializerCompiler(serializerCompiler);
-
-serverHealth.exposeHealthEndpoint(server, '/health', 'fastify');
 
 server.register(import('@fastify/swagger'), {
   openapi: {

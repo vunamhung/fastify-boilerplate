@@ -10,7 +10,7 @@ export default function (fastify: ZFastify, _, done) {
   fastify.route({
     method: 'POST',
     url: '/',
-    preValidation: fastify.guard('user', CREATE),
+    // preValidation: fastify.guard('user', CREATE),
     schema,
     handler: async ({ body }, reply: FastifyReply) => {
       const { username, password = nanoid(12), verified } = body;
@@ -20,7 +20,7 @@ export default function (fastify: ZFastify, _, done) {
 
       const invalidPasswordMessage = await validatePassword(password);
 
-      if (!isBlank(invalidPasswordMessage)) return reply.badRequest(invalidPasswordMessage);
+      // if (!isBlank(invalidPasswordMessage)) return reply.badRequest(invalidPasswordMessage);
 
       let newUser = new User({ ...body, password });
       if (!verified) newUser.signupToken = await reply.jwtSign({}, { expiresIn: '7d', jti: nanoid(8) });

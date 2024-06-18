@@ -12,7 +12,7 @@ export default function (fastify: ZFastify, _, done) {
     url: '/login',
     schema,
     handler: async ({ body: { username, password } }, reply: FastifyReply) => {
-      const user = await User.findOne({ username });
+      const user = await User.findOne({ username, removed: false });
       if (!user) return reply.badRequest('Invalid Credentials');
 
       const isMatch = compareSync(password, user.password);

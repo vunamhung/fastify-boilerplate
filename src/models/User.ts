@@ -40,6 +40,14 @@ const schema = new Schema<iUserDocument>(
       type: String,
       default: 'staff',
     },
+    removed: {
+      type: Boolean,
+      default: false,
+    },
+    enabled: {
+      type: Boolean,
+      default: false,
+    },
     refreshToken: String,
     signupToken: String,
     resetPasswordToken: String,

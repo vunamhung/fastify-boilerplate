@@ -63,18 +63,10 @@ const schema = new Schema<iLeadDocument>(
       type: ObjectId,
       ref: 'User',
     },
-    subTotal: {
-      type: Number,
-    },
-    taxTotal: {
-      type: Number,
-    },
-    total: {
-      type: Number,
-    },
-    discount: {
-      type: Number,
-    },
+    subTotal: Number,
+    taxTotal: Number,
+    total: Number,
+    discount: Number,
     images: [
       {
         id: String,

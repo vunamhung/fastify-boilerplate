@@ -16,8 +16,6 @@ const schema = new Schema<iClientDocument>(
       required: true,
       index: true,
     },
-    source: String,
-    category: String,
     removed: {
       type: Boolean,
       default: false,
@@ -26,6 +24,8 @@ const schema = new Schema<iClientDocument>(
       type: Boolean,
       default: true,
     },
+    source: String,
+    category: String,
     type: {
       type: String,
       default: 'company',

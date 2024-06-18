@@ -11,6 +11,11 @@ export interface iCompanyDocument extends Document, iCompany {}
 
 const schema = new Schema<iCompanyDocument>(
   {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
     removed: {
       type: Boolean,
       default: false,
@@ -18,12 +23,6 @@ const schema = new Schema<iCompanyDocument>(
     enabled: {
       type: Boolean,
       default: true,
-    },
-
-    name: {
-      type: String,
-      trim: true,
-      required: true,
     },
     legalName: {
       type: String,
@@ -122,18 +121,10 @@ const schema = new Schema<iCompanyDocument>(
       latitude: Number,
       longitude: Number,
     },
-    address: {
-      type: String,
-    },
-    city: {
-      type: String,
-    },
-    state: {
-      type: String,
-    },
-    postalCode: {
-      type: Number,
-    },
+    address: String,
+    city: String,
+    state: String,
+    postalCode: Number,
     country: {
       type: String,
       trim: true,

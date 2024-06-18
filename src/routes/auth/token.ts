@@ -1,7 +1,7 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
 import User from '~/models/User';
-import { cookieOptions, expiresIn } from '~/utils';
+import { cookieOptions, expiresIn, isExpired } from '~/utils';
 
 export default function (fastify: ZFastify, _, done) {
   fastify.route({
@@ -20,7 +20,7 @@ export default function (fastify: ZFastify, _, done) {
 
       const { jti, exp } = fastify.jwt.decode<iRefreshToken>(user.refreshToken);
 
-      if (exp < Date.now() / 1000) return reply.notAcceptable('Token expired.');
+      if (isExpired(exp)) return reply.notAcceptable('Token expired.');
       if (jti !== accessJti) return reply.notAcceptable('Token expired!');
 
       const { email, fullName, role } = user;

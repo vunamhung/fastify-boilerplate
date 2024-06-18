@@ -9,8 +9,8 @@ export function randomDigit(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-export function getLimit(page: string, size: string) {
-  return { from: (Number(page) - 1) * Number(size), size };
+export function isExpired(exp: number) {
+  return exp > Date.now() / 1000;
 }
 
 export function convertType(value: string) {

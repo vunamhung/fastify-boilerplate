@@ -1,6 +1,6 @@
 import type { ZFastify } from '~/@types';
 import type { RedisClientType } from 'redis';
-import { env } from '~/utilities';
+import { env } from '~/utils';
 import fp from 'fastify-plugin';
 import { createClient } from 'redis';
 

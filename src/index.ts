@@ -1,2 +1,2 @@
-require('dotenv-flow').config();
+require('dotenv-flow/config');
 require('./server');

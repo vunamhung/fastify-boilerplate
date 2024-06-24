@@ -1,6 +1,6 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
-import { cookieOptions, expiresIn } from '~/utilities';
+import { cookieOptions, expiresIn } from '~/utils';
 
 export default function (fastify: ZFastify, _, done) {
   fastify.route({

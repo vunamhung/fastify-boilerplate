@@ -1,6 +1,6 @@
 import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
-import { CREATE } from '~/utilities';
+import { CREATE } from '~/utils';
 import { genSaltSync, hashSync } from 'bcryptjs';
 import { nanoid } from 'nanoid';
 import { z } from 'zod';

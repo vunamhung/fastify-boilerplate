@@ -22,6 +22,7 @@
     "@fastify/swagger-ui": "^4.0.0",
     "@fastify/under-pressure": "^8.5.0",
     "@fastify/websocket": "^10.0.1",
+    "@scalar/fastify-api-reference": "^1.24.16",
     "ajv-keywords": "5.1.0",
     "axios": "^1.6.4",
     "bcryptjs": "^2.4.3",

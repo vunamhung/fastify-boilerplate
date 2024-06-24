@@ -4,7 +4,7 @@ export const CREATE = 'create';
 export const READ = 'read';
 export const UPDATE = 'update';
 
-export const expiresIn = env.isDev ? '60d' : '10m';
+export const expiresIn = env.isDev ? 60 * 60 * 24 * 60 : 60 * 60; //60d || 60m
 
 export const cookieOptions = {
   path: '/',

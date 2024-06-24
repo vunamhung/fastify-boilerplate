@@ -1,8 +1,10 @@
 import https from 'https';
+import PasswordValidator from 'password-validator';
+import { isArray } from 'ramda-adjunct';
 
-export * from './env';
+export { env } from './env';
 export * from './constants';
-export * from './ramdaExtension';
+export { between, containsAny } from './ramdaExtension';
 
 export function randomDigit(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -20,3 +22,29 @@ export function convertType(value: string) {
 export const sendToTelegram = (chatID: string, text: string) => {
   return https.get(`https://api.telegram.org/bot${process.env.TELEGRAM_BOT_API_KEY}/sendMessage?chat_id=${chatID}&text=${text}`);
 };
+
+export async function validatePassword(password: string) {
+  const schema = new PasswordValidator();
+  // prettier-ignore
+  schema
+    .is().min(8) // Minimum length 8
+    .is().max(50) // Maximum length 50
+    .has().uppercase() // Must have uppercase letters
+    .has().lowercase() // Must have lowercase letters
+    .has().digits(1) // Must have at least 1 digits
+
+  const validPassword = schema.validate(password, { list: true });
+
+  let message = [];
+  if (isArray(validPassword)) {
+    validPassword.forEach((item) => {
+      if (item === 'min') message.push('Minimum length 8.');
+      if (item === 'max') message.push('Maximum length 50.');
+      if (item === 'digits') message.push('Must have at least 1 digits.');
+      if (item === 'lowercase') message.push('Must have lowercase letters.');
+      if (item === 'uppercase') message.push('Must have uppercase letters.');
+    });
+  }
+
+  return message;
+}

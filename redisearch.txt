@@ -1,3 +1,0 @@
-FT.dropIndex idx:user
-
-FT.CREATE idx:user ON JSON PREFIX 1 user: SCHEMA $.id AS id TEXT $.fullName AS fullName TEXT SORTABLE $.createdAt as createdAt NUMERIC SORTABLE

@@ -1,4 +1,3 @@
-import type { FastifyReply } from 'fastify';
 import type { ZFastify } from '~/@types';
 import { z } from 'zod';
 
@@ -14,8 +13,8 @@ export default function (fastify: ZFastify, _: any, done: () => void) {
         name: z.string().min(4),
       }),
     },
-    handler: async ({ body: { name } }, reply: FastifyReply) => {
-      return {};
+    handler: async ({ body: { name } }, reply) => {
+      reply.send({});
     },
   });
 

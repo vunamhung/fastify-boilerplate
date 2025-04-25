@@ -1,5 +1,7 @@
 import { env } from '.';
 
+const IS_GOOGLE_CLOUD_RUN = process.env.K_SERVICE !== undefined;
+
 export const CREATE = 'create';
 export const READ = 'read';
 export const UPDATE = 'update';

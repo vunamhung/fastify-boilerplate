@@ -5,6 +5,7 @@ import { env } from '~/utils';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
 export const server = Fastify({
+  trustProxy: true,
   ignoreTrailingSlash: true,
   ajv: {
     customOptions: {
@@ -55,10 +56,16 @@ server.ready((err) => {
   if (err) throw err;
 });
 
-server.listen({ port: env.PORT, host: env.HOST }, function (err, address) {
-  if (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
-  console.log(`Server is now listening on ${address}`);
-});
+server.listen(
+  {
+    port: 8080,
+    host: '0.0.0.0',
+  },
+  function (err, address) {
+    if (err) {
+      server.log.error(err);
+      process.exit(1);
+    }
+    console.log(`Server is now listening on ${address}`);
+  },
+);

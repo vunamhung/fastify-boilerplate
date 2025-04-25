@@ -36,6 +36,7 @@
     "esbuild-node-tsc": "^2.0.5",
     "fastify-type-provider-zod": "^4.0.2",
     "prettier": "^3.5.3",
+    "rimraf": "^6.0.1",
     "tsc-alias": "^1.8.15",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"

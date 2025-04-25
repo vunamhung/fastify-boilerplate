@@ -56,16 +56,17 @@ server.ready((err) => {
   if (err) throw err;
 });
 
-server.listen(
-  {
-    port: 8080,
-    host: '0.0.0.0',
-  },
-  function (err, address) {
-    if (err) {
-      server.log.error(err);
-      process.exit(1);
-    }
-    console.log(`Server is now listening on ${address}`);
-  },
-);
+const start = async () => {
+  try {
+    await server.listen({
+      port: 8080,
+      host: '0.0.0.0'
+    });
+    console.log(`Server is now listening on port 8080`);
+  } catch (err) {
+    server.log.error(err);
+    process.exit(1);
+  }
+};
+
+start();

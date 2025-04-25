@@ -56,45 +56,17 @@ server.ready((err) => {
   if (err) throw err;
 });
 
-// Add a health check route
-server.get('/health', async (request, reply) => {
-  return { status: 'ok' };
-});
-
 const start = async () => {
   try {
-    // Wait for all plugins to be ready before starting
-    await server.ready();
-    
-    const port = parseInt(process.env.PORT || '8080', 10);
     await server.listen({
-      port: port,
+      port: 8080,
       host: '0.0.0.0',
-      backlog: 511
     });
-    
-    const address = server.server.address();
-    server.log.info(`Server listening at ${typeof address === 'string' ? address : JSON.stringify(address)}`);
+    console.log(`Server is now listening on port 8080`);
   } catch (err) {
     server.log.error(err);
     process.exit(1);
   }
 };
-
-// Handle graceful shutdown
-const closeGracefully = async (signal) => {
-  server.log.info(`Received signal to terminate: ${signal}`);
-  
-  try {
-    await server.close();
-    process.exit(0);
-  } catch (err) {
-    server.log.error(err);
-    process.exit(1);
-  }
-};
-
-process.on('SIGINT', () => closeGracefully('SIGINT'));
-process.on('SIGTERM', () => closeGracefully('SIGTERM'));
 
 start();

@@ -34,7 +34,7 @@ COPY package*.json ./
 # of your application, use:
 # RUN npm install --dev
 
-RUN npm install --omit=dev && npm run build
+RUN npm install && npm run build
 
 # Copy local code to the container image.
 COPY . ./

@@ -19,7 +19,7 @@ server.register(import('@fastify/swagger'), {
   openapi: {
     info: { title: 'Fastify Boilerplate', description: 'Fastify Boilerplate API documentation', version: '2.0.0' },
     servers: [
-      { url: 'http://localhost:8080', description: 'localhost' },
+      { url: 'http://127.0.0.1:8080', description: 'localhost' },
       { url: 'https://thin-crm-be-z4u7fgqu3a-as.a.run.app', description: 'live' },
     ],
     components: {

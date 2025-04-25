@@ -7,5 +7,8 @@ declare module '@fastify/jwt' {
       role?: string;
       jti?: string;
     };
+    user: {
+      role: string;
+    };
   }
 }

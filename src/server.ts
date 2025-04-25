@@ -1,6 +1,7 @@
 import { join } from 'path';
 import Fastify from 'fastify';
 import autoload from '@fastify/autoload';
+import { env } from '~/utils';
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod';
 
 export const server = Fastify({
@@ -30,6 +31,23 @@ server.register(import('@fastify/swagger'), {
 });
 server.register(import('@fastify/swagger-ui'));
 
+server.register(import('@fastify/sensible')).after(() => {
+  server.setErrorHandler(function (error, request, reply) {
+    if (reply.statusCode < 500) {
+      reply.log.info({ res: reply, err: error }, error?.message);
+    } else {
+      reply.log.error({ req: request, res: reply, err: error }, error?.message);
+      // sendToTelegram('-1001568190576', `${request.method}:${request.routerPath} - ${error}`);
+    }
+    reply.send(error);
+  });
+});
+
+server.register(import('@fastify/jwt'), {
+  secret: env.ACCESS_TOKEN_SECRET,
+  cookie: { cookieName: 'token', signed: false },
+});
+
 server.register(autoload, { dir: join(__dirname, 'modules'), ignorePattern: /(helper).(ts|js)/ });
 server.register(autoload, { dir: join(__dirname, 'plugins'), ignorePattern: /(helper).(ts|js)/ });
 
@@ -37,7 +55,7 @@ server.ready((err) => {
   if (err) throw err;
 });
 
-server.listen({ port: 8080, host: process.env.HOST }, function (err, address) {
+server.listen({ port: env.PORT, host: env.HOST }, function (err, address) {
   if (err) {
     server.log.error(err);
     process.exit(1);

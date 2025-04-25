@@ -1,45 +1,19 @@
-# Copyright 2020 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# Stage 1: Build
+FROM node:18-alpine AS build
 
-# [START cloudrun_helloworld_dockerfile]
+WORKDIR /app
 
-# Use the official lightweight Node.js image.
-# https://hub.docker.com/_/node
-FROM node:20-slim
+COPY . .
 
-# Create and change to the app directory.
-WORKDIR /usr/src/app
+RUN npm i && npm run build
 
-# Copy application dependency manifests to the container image.
-# A wildcard is used to ensure copying both package.json AND package-lock.json (when available).
-# Copying this first prevents re-running npm install on every code change.
-COPY package*.json ./
+# Stage 2: Final image
+FROM node:18-alpine
 
-# Install dependencies.
-# if you need a deterministic and repeatable build create a
-# package-lock.json file and use npm ci:
-# RUN npm ci --omit=dev
-# if you need to include development dependencies during development
-# of your application, use:
-# RUN npm install --dev
+WORKDIR /app
 
-RUN npm install && npm run build
+COPY --from=build /app .
 
-# Copy local code to the container image.
-COPY . ./
+ENV NODE_ENV=production
 
-# Run the web service on container startup.
-CMD [ "node", "./dist/index.js" ]
-
-# [END cloudrun_helloworld_dockerfile]
+CMD ["npm", "run", "start"]

@@ -64,6 +64,7 @@ const start = async () => {
     });
     console.log(`Server is now listening on port 8080`);
   } catch (err) {
+    console.log(err);
     server.log.error(err);
     process.exit(1);
   }

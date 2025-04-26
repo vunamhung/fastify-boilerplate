@@ -21,7 +21,7 @@ server.register(import('@fastify/swagger'), {
   openapi: {
     info: { title: 'Fastify Boilerplate', description: 'Fastify Boilerplate API documentation', version: '2.0.0' },
     servers: [
-      { url: `http://127.0.0.1:${env.PORT}`, description: 'localhost' },
+      { url: 'http://0.0.0.0:8080', description: 'localhost' },
       { url: 'https://thin-crm-be-z4u7fgqu3a-as.a.run.app', description: 'live' },
     ],
     components: {
@@ -30,7 +30,26 @@ server.register(import('@fastify/swagger'), {
   },
   transform: jsonSchemaTransform,
 });
+
 server.register(import('@fastify/swagger-ui'));
+
+server.register(import('@scalar/fastify-api-reference'), { routePrefix: '/reference' });
+server.register(import('@fastify/under-pressure'), {
+  maxEventLoopDelay: 1000,
+  message: 'Under pressure!',
+  retryAfter: 50,
+});
+server.register(import('@fastify/cookie'));
+// server.register(import('@fastify/helmet'));
+server.register(import('fastify-ip'), {
+  order: ['x-my-ip-header'],
+  strict: false,
+  isAWS: false,
+});
+server.register(import('@fastify/cors'), {
+  origin: env.CORS_ORIGIN.split(','),
+  credentials: true,
+});
 
 server.register(import('@fastify/sensible')).after(() => {
   server.setErrorHandler(function (error, request, reply) {
@@ -49,10 +68,11 @@ server.register(import('@fastify/jwt'), {
   cookie: { cookieName: 'token', signed: false },
 });
 
-server.register(autoload, { dir: join(__dirname, 'modules'), ignorePattern: /(helper).(ts|js)/ });
 server.register(autoload, { dir: join(__dirname, 'plugins'), ignorePattern: /(helper).(ts|js)/ });
+server.register(autoload, { dir: join(__dirname, 'routes'), ignorePattern: /(helper).(ts|js)/ });
 
 server.ready((err) => {
+  console.log(err);
   if (err) throw err;
 });
 
